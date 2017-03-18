@@ -3,7 +3,10 @@ import { connect } from 'react-redux'
 import { FormControl, FormGroup, ControlLabel } from 'react-bootstrap'
 
 import FormHeader from './Common/FormHeader'
-import './Login.css'
+import './Common/Common.css'
+
+import TextField from './Common/TextField'
+
 
 class Login extends PureComponent {
 	static propsTypes = {}
@@ -16,34 +19,24 @@ class Login extends PureComponent {
 
 	render() {
 		return (
-			<div className="Login">
+			<div className="form-wrapper">
 				<form className="panel panel-primary">
 					<FormHeader>Login</FormHeader>
 					<div className="panel-body">
-						<FormGroup
-							controlId="formBasicText"
+						<TextField
+							label="Email"
+							placeholder="Enter Email"
+							onChange={this.handleChange}
 							validationState={this.getValidationState()}
-						>
-							<ControlLabel>Email</ControlLabel>
-							<FormControl
-								type="email"
-								placeholder="Enter Email"
-								onChange={this.handleChange}
-							/>
-							<FormControl.Feedback />
-						</FormGroup>
-						<FormGroup
-							controlId="formBasicText"
+							type="email"
+						/>
+						<TextField
+							label="Password"
+							placeholder="Enter Password"
+							onChange={this.handleChange}
 							validationState={this.getValidationState()}
-						>
-							<ControlLabel>Password</ControlLabel>
-							<FormControl
-								type="password"
-								placeholder="Enter Password"
-								onChange={this.handleChange}
-							/>
-							<FormControl.Feedback />
-						</FormGroup>
+							type="password"
+						/>
 						<button href="#" className="btn btn-primary">Login</button>
 					</div>
 				</form>
