@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 
 import Login from './Components/Login'
+import './App.css'
 
 const BasicExample = () => (
 	<Router>

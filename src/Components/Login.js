@@ -1,9 +1,17 @@
 import React, { PureComponent, PropTypes } from 'react'
+import { connect } from 'react-redux'
 
+
+connect(state => {
+	return {
+		firstNamedReducer: state.firstNamedReducer
+	}
+})
 class Login extends PureComponent {
 	static propsTypes = {}
 
 	render() {
+		console.log('first name', this.props.firstNamedReducer)
 		return (
 			<div>
 				<h2>Home</h2>
@@ -13,4 +21,8 @@ class Login extends PureComponent {
 	}
 }
 
-export default Login
+export default connect(state => {
+	return {
+		firstNamedReducer: state.firstNamedReducer
+	}
+})(Login)
