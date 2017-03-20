@@ -1,7 +1,9 @@
 import React, { PureComponent, PropTypes } from 'react'
 
+import 'react-big-calendar/lib/css/react-big-calendar.css'
+
 class Dashboard extends PureComponent {
-	static propsTypes = {}
+
 
 	render() {
 		return (
