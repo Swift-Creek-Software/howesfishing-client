@@ -1,0 +1,9 @@
+import axios from 'axios'
+
+const howesFishingClient = axios.create({ //all axios can be used, shown in axios documentation
+	baseURL:'https://howesfishing-server-crobinson42.c9users.io/',
+	responseType: 'json',
+	headers: {'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4Y2RhMmU2NGExZDY0NjY0ZDM5ZDA1MyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTQ4OTg3MTU5MCwiZXhwIjoxNDk3MDcxNTkwfQ.WsO1amERJklG_fjakG0f4zMVQYRjr_Mpufw4a3PJBTE"}
+});
+
+export default howesFishingClient

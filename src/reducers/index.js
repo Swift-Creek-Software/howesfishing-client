@@ -1,15 +1,11 @@
 import { combineReducers } from 'redux'
+import { reducer as formReducer } from 'redux-form'
 
-const theDefaultReducer = (state = 0, action) => state;
-
-const firstNamedReducer = (state = 1, action) => state;
-
-const secondNamedReducer = (state = 2, action) => state;
+import userReducer from './user_reducer'
 
 const rootReducer = combineReducers({
-	theDefaultReducer,
-	firstNamedReducer,
-	secondNamedReducer
+	form: formReducer,
+	user: userReducer
 })
 
 export default rootReducer
