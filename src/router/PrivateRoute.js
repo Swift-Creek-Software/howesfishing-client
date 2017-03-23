@@ -1,10 +1,10 @@
-import React, { PureComponent, PropTypes } from 'react'
-import { Redirect } from 'react-router-dom'
+import React, { PureComponent } from 'react'
+import { Redirect, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 class PrivateRoute extends PureComponent {
 	render() {
-		const { component, ...rest } = props
+		const { component, ...rest } = this.props
 
 		return (
 			<Route {...rest} render={props => {
@@ -26,7 +26,7 @@ class PrivateRoute extends PureComponent {
 
 export default connect(state => {
 	return {
+		state: state,
 		user: state.user
 	}
-})
-	(PrivateRoute)
+})(PrivateRoute)

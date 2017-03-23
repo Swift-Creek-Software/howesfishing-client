@@ -19,6 +19,8 @@ class TextField extends PureComponent {
 				<ControlLabel>{this.props.label}</ControlLabel>
 				<FormControl
 					{...this.props.input}
+					type={this.props.type}
+					placeholder={this.props.placeholder}
 				/>
 				<FormControl.Feedback />
 			</FormGroup>

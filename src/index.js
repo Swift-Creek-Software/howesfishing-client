@@ -5,10 +5,10 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 
 import axiosMiddleware from 'redux-axios-middleware'
-import reducers from '../reducers'
+import reducers from './reducers'
 
-import App from './App';
-import howesFishing from '../axiosClients/howesFishing'
+import App from './component/App';
+import howesFishing from './axiosClients/howesFishing'
 import './index.css';
 
 
