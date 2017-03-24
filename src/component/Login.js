@@ -1,6 +1,6 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router'
+import { Redirect, withRouter } from 'react-router-dom'
 
 import { login } from '../actions/UserActions'
 
@@ -14,8 +14,9 @@ class Login extends PureComponent {
 	}
 
 	render() {
+		const { from } = this.props.location.state || { from: { pathname: '/' } }
 		if (this.props.user) {
-			return <Redirect to={'/dashboard'}/>
+			return <Redirect to={from}/>
 		}
 
 		return (
@@ -33,4 +34,4 @@ export default connect(state => {
 	}, {
 		login
 	}
-)(Login)
+)(withRouter(Login))
