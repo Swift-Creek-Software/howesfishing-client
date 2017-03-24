@@ -4,13 +4,13 @@ import { connect } from 'react-redux'
 
 class PrivateRoute extends PureComponent {
 	render() {
-		const { component, ...rest } = this.props
-
+		const { component, user, ...rest } = this.props
+		console.log('user', user)
 		return (
 			<Route {...rest} render={props => {
 				return (
-					props.user ? (
-							React.createElement(component, props)
+					user ? (
+							<h1>TEST</h1>
 						) : (
 							<Redirect to={{
 								pathname: '/login',

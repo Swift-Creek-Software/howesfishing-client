@@ -10,6 +10,8 @@ import PrivateRoute from '../router/PrivateRoute'
 import Login from './Login'
 import AddTrip from './AddTrip'
 import Dashboard from './Dashboard'
+import Calendar from './Calendar'
+import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 const App = () => (
 	<Router>
@@ -17,14 +19,17 @@ const App = () => (
 			<ul>
 				<li><Link to="/login">Login</Link></li>
 				<li><Link to="/dashboard">Dashboard</Link></li>
+				<li><Link to="/calendar">Calendar</Link></li>
 				<li><Link to="/trip">Add Trip</Link></li>
 			</ul>
 
 			<hr/>
 
 			<Route exact path="/login" component={Login}/>
-			<PrivateRoute path="/dashboard" component={Dashboard}/>
 			<Route path="/trip" component={AddTrip}/>
+			<PrivateRoute path="/dashboard" component={Dashboard}/>
+			<Route path="/calendar" component={Calendar}/>
+
 		</div>
 	</Router>
 )
