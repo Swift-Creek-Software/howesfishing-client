@@ -1,12 +1,10 @@
 import React, { PureComponent, PropTypes } from 'react'
-import { FormControl, FormGroup, ControlLabel } from 'react-bootstrap'
 
 import FormHeader from './Common/FormHeader'
 import TextField from './Common/TextField'
 import './Common/Common.css'
 
 class AddTrip extends PureComponent {
-	static propsTypes = {}
 	handleChange = () => {
 		console.log('you changed trip your info')
 	}

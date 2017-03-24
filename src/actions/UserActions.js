@@ -1,6 +1,7 @@
 export const actionTypes = {
 	login: 'LOGIN',
-	loginSuccess: 'LOGIN_SUCCESS'
+	loginSuccess: 'LOGIN_SUCCESS',
+	logout: 'LOG_OUT'
 }
 
 export const login = (email, password) => {
@@ -16,5 +17,11 @@ export const login = (email, password) => {
 				}
 			}
 		}
+	}
+}
+
+export const logout = () => {
+	return {
+		type: actionTypes.logout
 	}
 }

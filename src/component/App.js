@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {
 	BrowserRouter as Router,
 	Route,
-	Link
+
 } from 'react-router-dom'
 
 import PrivateRoute from '../router/PrivateRoute'
@@ -11,25 +11,16 @@ import Login from './Login'
 import AddTrip from './AddTrip'
 import Dashboard from './Dashboard'
 import Calendar from './Calendar'
-import 'react-big-calendar/lib/css/react-big-calendar.css'
+import Navbar from './NavBar'
 
 const App = () => (
 	<Router>
 		<div>
-			<ul>
-				<li><Link to="/login">Login</Link></li>
-				<li><Link to="/dashboard">Dashboard</Link></li>
-				<li><Link to="/calendar">Calendar</Link></li>
-				<li><Link to="/trip">Add Trip</Link></li>
-			</ul>
-
-			<hr/>
-
+			<Navbar />
 			<Route exact path="/login" component={Login}/>
 			<Route path="/trip" component={AddTrip}/>
 			<PrivateRoute path="/dashboard" component={Dashboard}/>
 			<Route path="/calendar" component={Calendar}/>
-
 		</div>
 	</Router>
 )

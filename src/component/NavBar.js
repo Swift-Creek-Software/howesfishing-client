@@ -1,14 +1,57 @@
 import React, { PureComponent, PropTypes } from 'react'
-import { } from 'react-bootstrap'
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
+import { connect } from 'react-redux'
+
+import { logout } from '../actions/UserActions'
+
+import ListItemLink from './ListItemLink'
+
 
 class NavBar extends PureComponent {
-	static propsTypes = {}
+	static propsTypes = {
+		clearUser: PropTypes.func.isRequired
+	}
+
+	onLogoutClick = (event) => {
+		event.preventDefault()
+		this.props.logout()
+	}
 
 	render() {
 		return (
+			<Navbar collapseOnSelect >
+				<Navbar.Header>
+					<Navbar.Brand>
+						<a href="#">Howe's Fishing Admin</a>
+					</Navbar.Brand>
+					<Navbar.Toggle />
+				</Navbar.Header>
+				<Navbar.Collapse>
+					{this.props.user &&
+					<Nav>
+						<ListItemLink to="/dashboard">Dashboard</ListItemLink>
+						<ListItemLink to="/trip">Add Trip</ListItemLink>
+						<ListItemLink to="/calendar">Calendar</ListItemLink>
+					</Nav>
+					}
+					<Nav pullRight>
+						{this.props.user ?
+							<NavItem eventKey={1} onClick={this.onLogoutClick}>Logout</NavItem>
+							: <ListItemLink to="/login">Login</ListItemLink>
 
+						}
+
+					</Nav>
+				</Navbar.Collapse>
+			</Navbar>
 		)
 	}
 }
 
-export default NavBar
+export default connect(state => {
+		return {
+			user: state.user
+		}
+	},
+	{ logout }
+)(NavBar)
