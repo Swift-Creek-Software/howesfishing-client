@@ -1,4 +1,4 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
 
 import FormHeader from './Common/FormHeader'
 import TextField from './Common/TextField'

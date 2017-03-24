@@ -23,7 +23,7 @@ class App extends Component {
 					<Route exact path="/login" component={Login}/>
 					<PrivateRoute path="/trip" component={AddTrip} user={user}/>
 					<PrivateRoute path="/dashboard" component={Dashboard} user={user}/>
-					<PrivateRoute path="/calendar" component={Calendar} user={user}/>
+					<Route path="/calendar" component={Calendar} user={user}/>
 				</div>
 			</Router>
 		)

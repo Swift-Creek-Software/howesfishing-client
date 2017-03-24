@@ -1,4 +1,4 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css'
@@ -8,7 +8,6 @@ BigCalendar.setLocalizer(
 );
 
 class Calendar extends PureComponent {
-	static propsTypes = {}
 
 	render() {
 		const myEventsList = [
@@ -38,8 +37,8 @@ class Calendar extends PureComponent {
 
 			{
 				'title': 'Some Event',
-				'start': new Date(2015, 3, 9, 0, 0, 0),
-				'end': new Date(2015, 3, 9, 0, 0, 0)
+				'start': new Date(2017, 3, 9, 0, 0, 0),
+				'end': new Date(2017, 3, 9, 0, 0, 0)
 			},
 			{
 				'title': 'Conference',
@@ -79,13 +78,19 @@ class Calendar extends PureComponent {
 				'title': 'Birthday Party',
 				'start':new Date(2015, 3, 13, 7, 0, 0),
 				'end': new Date(2015, 3, 13, 10, 30, 0)
+			},
+			{
+				'title': 'Trip',
+				'start':new Date(),
+				'end': new Date().setHours(13)
 			}
 		]
 		return (
 			<div style={{height: '100%'}}>
 				<BigCalendar
 					events={myEventsList}
-
+					startAccessor='start'
+					endAccessor='end'
 					defaultDate={new Date()}
 				/>
 			</div>

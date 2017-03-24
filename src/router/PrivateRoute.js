@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
+import React, { PropTypes } from 'react'
 import { Redirect, Route } from 'react-router-dom'
 
 const PrivateRoute = ({ component, user, ...rest }) => {
-	console.log('user', user)
 	return (
 		<Route {...rest} render={props => {
 			return (
@@ -17,8 +16,9 @@ const PrivateRoute = ({ component, user, ...rest }) => {
 			)
 		}}/>
 	)
-
-
+}
+PrivateRoute.propTypes = {
+	user: PropTypes.object.isRequired
 }
 
 export default PrivateRoute

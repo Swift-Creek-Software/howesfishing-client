@@ -8,6 +8,9 @@ import LoginForm from './LoginForm'
 import './Common/Common.css'
 
 class Login extends PureComponent {
+	static propTypes = {
+		user: PropTypes.object.isRequired
+	}
 
 	onFormSubmit = (values) => {
 		this.props.login(values.email, values.password)
