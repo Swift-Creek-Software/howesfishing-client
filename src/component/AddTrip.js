@@ -1,93 +1,135 @@
 import React, { PureComponent } from 'react'
-
+import forOwn from 'lodash/forOwn'
+import { Field, reduxForm } from 'redux-form'
+import validatejs from 'validate.js'
 import FormHeader from './Common/FormHeader'
 import TextField from './Common/TextField'
 import './Common/Common.css'
+import './AddTrip.css'
 
-class AddTrip extends PureComponent {
-	handleChange = () => {
-		console.log('you changed trip your info')
+const validate = (values, props) => {
+	const errors = {}
+
+
+	const constraints = {
+		firstName: {
+			presence: {
+				message: 'required'
+			}
+		},
+		lastName: {
+			presence: {
+				message: 'required'
+			}
+		},
+		email: {
+			presence: {
+				message: 'required'
+			},
+			email: {
+				message: 'you must enter a valid email'
+			},
+		},
+		phone: {
+			presence: {
+				message: 'required'
+			}
+		},
+		guests: {
+			presence: {
+				message: 'required'
+			}
+		},
+		cost: {
+			presence: {
+				message: 'required'
+			}
+		},
+		waterbody: {
+			presence: {
+				message: 'required'
+			}
+		},
 	}
 
-	getValidationState = () => 'success'
+	const validationErrors = validatejs(values, constraints, { fullMessages: false })
 
+	if (validationErrors) {
+		forOwn(validationErrors, (value, key) => {
+			errors[ key ] = value[ 0 ]
+		})
+	}
+
+	return errors
+}
+
+class AddTrip extends PureComponent {
 	render() {
 		return (
-			<div className="form-wrapper">
+			<div className="form-wrapper AddTrip">
 				<form className="panel panel-primary">
 					<FormHeader>Create Trip</FormHeader>
 					<div className="panel-body">
-						<TextField
-							label="Client Name"
-							placeholder="client name"
-							onChange={this.handleChange}
-							validationState={this.getValidationState()}
-							type="text"
+						<Field name="firstName"
+							   component={TextField}
+							   label="First name"
+							   placeholder="enter first name"
+							   type="text"
 						/>
-						<TextField
-							label="Client Email"
-							placeholder="client email"
-							onChange={this.handleChange}
-							validationState={this.getValidationState()}
-							type="email"
+						<Field name="lastName"
+							   component={TextField}
+							   label="Last name"
+							   placeholder="enter last name"
+							   type="text"
 						/>
-						<TextField
-							label="Client Phone"
-							placeholder="client phone"
-							onChange={this.handleChange}
-							validationState={this.getValidationState()}
-							type="phone"
+						<Field name="email"
+							   component={TextField}
+							   label="Email"
+							   placeholder="example@fishing.com"
+							   type="email"
 						/>
-						<TextField
-							label="Trip Date"
-							placeholder="trip date"
-							onChange={this.handleChange}
-							validationState={this.getValidationState()}
-							type="date"
+						<Field name="phone"
+							   component={TextField}
+							   label="Phone number"
+							   placeholder="(406) 555-5555"
+							   type="phone"
 						/>
-						<TextField
-							label="Start Time"
-							placeholder="start time"
-							onChange={this.handleChange}
-							validationState={this.getValidationState()}
-							type="text"
+						<Field name="date"
+							   component={TextField}
+							   label="Trip Date"
+							   placeholder="03/26/2017"
+							   type="date"
 						/>
-						<TextField
-							label="End Time"
-							placeholder="end time"
-							onChange={this.handleChange}
-							validationState={this.getValidationState()}
-							type="text"
+						<Field name="startTime"
+							   component={TextField}
+							   label="Start Time"
+							   placeholder="03/26/2017"
+							   type="date"
 						/>
-						<TextField
-							label="# Guests"
-							placeholder="guests"
-							onChange={this.handleChange}
-							validationState={this.getValidationState()}
-							type="text"
+						<Field name="endTime"
+							   component={TextField}
+							   label="End Time"
+							   placeholder="03/26/2017"
+							   type="date"
 						/>
-						<TextField
-							label="Cost"
-							placeholder="cost"
-							onChange={this.handleChange}
-							validationState={this.getValidationState()}
-							type="text"
+						<Field name="guests"
+							   component={TextField}
+							   label="Number of guests"
+							   placeholder="4"
+							   type="text"
 						/>
-						<TextField
-							label="Cost"
-							placeholder="cost"
-							onChange={this.handleChange}
-							validationState={this.getValidationState()}
-							type="text"
+						<Field name="cost"
+							   component={TextField}
+							   label="Cost"
+							   placeholder="400"
+							   type="text"
 						/>
-						<TextField
-							label="Waterbody"
-							placeholder="Flathead"
-							onChange={this.handleChange}
-							validationState={this.getValidationState()}
-							type="text"
+						<Field name="waterbody"
+							   component={TextField}
+							   label="Waterbody"
+							   placeholder="Flathead"
+							   type="text"
 						/>
-
 						<button href="#" className="btn btn-primary">Create Trip</button>
 					</div>
 				</form>
@@ -96,4 +138,8 @@ class AddTrip extends PureComponent {
 	}
 }
 
-export default AddTrip
+export default reduxForm({
+	form: 'addtrip',
+	validate
+})(AddTrip)
+

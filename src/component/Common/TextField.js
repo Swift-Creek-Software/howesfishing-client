@@ -10,11 +10,29 @@ class TextField extends PureComponent {
 		validationState: PropTypes.string.isRequired,
 	}
 
+	getValidationState = () => {
+		const { touched, valid } = this.props.meta
+		if (touched) {
+			return valid ? 'success' : 'error'
+		}
+		return null
+	}
+
+	renderError = () => {
+		const { touched, valid, error } = this.props.meta
+		if (touched) {
+			return valid ? null : error
+		}
+		return null
+	}
+
+
 	render() {
+		console.log('props', this.props)
 		return (
 			<FormGroup
 				controlId="formBasicText"
-				validationState={this.props.validationState}
+				validationState={this.getValidationState()}
 			>
 				<ControlLabel>{this.props.label}</ControlLabel>
 				<FormControl
@@ -23,6 +41,7 @@ class TextField extends PureComponent {
 					placeholder={this.props.placeholder}
 				/>
 				<FormControl.Feedback />
+				<span>{this.renderError()}</span>
 			</FormGroup>
 		)
 	}

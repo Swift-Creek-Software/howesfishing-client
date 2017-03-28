@@ -9,7 +9,7 @@ import './Common/Common.css'
 
 class Login extends PureComponent {
 	static propTypes = {
-		user: PropTypes.object.isRequired
+		user: PropTypes.object
 	}
 
 	onFormSubmit = (values) => {
