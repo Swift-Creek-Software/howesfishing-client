@@ -18,7 +18,7 @@ class App extends Component {
 		const { user } = this.props
 		return (
 			<Router>
-				<div>
+				<div style={{height: '100%'}}>
 					<Navbar />
 					<Route exact path="/login" component={Login}/>
 					<PrivateRoute path="/trip" component={AddTrip} user={user}/>
