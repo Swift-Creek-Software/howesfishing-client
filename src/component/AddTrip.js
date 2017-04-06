@@ -63,11 +63,20 @@ const validate = (values, props) => {
 	return errors
 }
 
+
+
 class AddTrip extends PureComponent {
+
+	handleSubmit = (values) => {
+
+	}
+
 	render() {
+		const { handleSubmit } = this.props
+
 		return (
 			<div className="form-wrapper AddTrip">
-				<form className="panel panel-primary">
+				<form className="panel panel-primary" onSubmit={handleSubmit(this.handleSubmit)}>
 					<FormHeader>Create Trip</FormHeader>
 					<div className="panel-body">
 						<Field name="firstName"
@@ -128,6 +137,12 @@ class AddTrip extends PureComponent {
 							   component={TextField}
 							   label="Waterbody"
 							   placeholder="Flathead"
+							   type="text"
+						/>
+						<Field name="costTemplate"
+							   component={TextField}
+							   label="Waterbody"
+							   placeholder=""
 							   type="text"
 						/>
 						<button href="#" className="btn btn-primary">Create Trip</button>
