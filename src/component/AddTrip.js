@@ -103,12 +103,6 @@ class AddTrip extends PureComponent {
 							   placeholder="(406) 555-5555"
 							   type="phone"
 						/>
-						<Field name="date"
-							   component={TextField}
-							   label="Trip Date"
-							   placeholder="03/26/2017"
-							   type="date"
-						/>
 						<Field name="startTime"
 							   component={TextField}
 							   label="Start Time"
@@ -141,7 +135,7 @@ class AddTrip extends PureComponent {
 						/>
 						<Field name="costTemplate"
 							   component={TextField}
-							   label="Waterbody"
+							   label="Email cost template"
 							   placeholder=""
 							   type="text"
 						/>

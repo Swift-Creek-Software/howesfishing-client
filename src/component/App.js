@@ -12,6 +12,7 @@ import AddTrip from './AddTrip'
 import Dashboard from './Dashboard'
 import Calendar from './Calendar'
 import Navbar from './NavBar'
+import Trip from './Trip'
 
 class App extends Component {
 	render() {
@@ -21,9 +22,10 @@ class App extends Component {
 				<div style={{height: '100%'}}>
 					<Navbar />
 					<Route exact path="/login" component={Login}/>
-					<PrivateRoute path="/trip" component={AddTrip} user={user}/>
+					<PrivateRoute path="/add-trip" component={AddTrip} user={user}/>
+					<PrivateRoute path="/trip" component={Trip} user={user}/>
 					<PrivateRoute path="/dashboard" component={Dashboard} user={user}/>
-					<Route path="/calendar" component={Calendar} user={user}/>
+					<PrivateRoute path="/calendar" component={Calendar} user={user}/>
 				</div>
 			</Router>
 		)
