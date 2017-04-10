@@ -14,6 +14,10 @@ const defaultTrips = [
 		guests: 5,
 		cost: 400,
 		waterBody: 'flathead',
+		guides: [
+			'Mike',
+			'Cindy'
+		]
 	},
 	{
 		id: 2,
@@ -26,6 +30,10 @@ const defaultTrips = [
 		guests: 5,
 		cost: 400,
 		waterBody: 'flathead',
+		guides: [
+			'Mike',
+			'Cindy'
+		]
 	},
 	{
 		id: 3,
@@ -38,6 +46,10 @@ const defaultTrips = [
 		guests: 5,
 		cost: 400,
 		waterBody: 'flathead',
+		guides: [
+			'Mike',
+			'Cindy'
+		]
 	}
 ]
 const defaultIdTrips = {
@@ -52,6 +64,10 @@ const defaultIdTrips = {
 		guests: 5,
 		cost: 400,
 		waterBody: 'flathead',
+		guides: [
+			'Mike',
+			'Cindy'
+		]
 	},
 	2: {
 		id: 2,
@@ -64,6 +80,10 @@ const defaultIdTrips = {
 		guests: 5,
 		cost: 400,
 		waterBody: 'flathead',
+		guides: [
+			'Mike',
+			'Cindy'
+		]
 	},
 	3: {
 		id: 3,
@@ -76,6 +96,10 @@ const defaultIdTrips = {
 		guests: 5,
 		cost: 400,
 		waterBody: 'flathead',
+		guides: [
+			'Mike',
+			'Cindy'
+		],
 	}
 }
 const trips = (state = defaultTrips, action) => {
@@ -97,7 +121,7 @@ const tripsById = (state = defaultIdTrips, action) => {
 }
 
 
-const currentTrip = (state = 1, action) => {
+const currentTrip = (state = 2, action) => {
 	switch(action.type) {
 		case actionTypes.setCurrentTrip:
 			return action.payload

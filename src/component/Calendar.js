@@ -13,8 +13,12 @@ class Calendar extends Component {
 	renderEventsList = () => {
 
 		return this.props.trips.map(trip => {
-			return {title: `${trip.firstName} ${trip.lastName}`, start: trip.startTime, end: trip.endTime}
+			return {title: `${trip.lastName} - ${trip.waterBody} ${this.renderGuidesForTrip(trip.guides)}`, start: trip.startTime, end: trip.endTime}
 		})
+	}
+
+	renderGuidesForTrip = (guides) => {
+		return guides.join(', ')
 	}
 
 	render() {
