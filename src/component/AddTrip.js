@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import moment from 'moment'
 
 import { sendSMS } from '../actions/NexmoActions'
+import { sendEmail } from '../actions/EmailActions'
 
 import FormHeader from './Common/FormHeader'
 import TextField from './Common/TextField'
@@ -76,7 +77,8 @@ class AddTrip extends PureComponent {
 
 	handleSubmit = (values) => {
 		console.log('values', values)
-		this.props.sendSMS('14062708435', values.costTemplate)
+		this.props.sendSMS('14062708435', values.clientEmailTemplate)
+		this.props.sendEmail(values)
 	}
 
 	renderGuides = ({ fields, meta: { touched, error, submitFailed } }) => {
@@ -216,9 +218,9 @@ class AddTrip extends PureComponent {
 							/>
 						</div>
 						<FieldArray name="guides" component={this.renderGuides}/>
-						<Field name="costTemplate"
+						<Field name="clientEmailTemplate"
 							   component={TextField}
-							   label="Email cost template"
+							   label="Client email template"
 							   placeholder=""
 							   type="text"
 							   normalize={this.templateNormalizer}
@@ -245,7 +247,8 @@ AddTrip = connect(state => {
 	},
 	{
 		change,
-		sendSMS
+		sendSMS,
+		sendEmail
 	}
 )
 (AddTrip)
