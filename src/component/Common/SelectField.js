@@ -26,9 +26,13 @@ class SelectField extends PureComponent {
 		return null
 	}
 
+	renderOptions = (options) => {
+		return options.map(option =>  <option value={option.value}>{option.name}</option>)
+	}
+
 
 	render() {
-		console.log('props', this.props)
+		const {options} = this.props
 		return (
 			<FormGroup
 				controlId="formBasicText"
@@ -40,8 +44,7 @@ class SelectField extends PureComponent {
 					placeholder={this.props.placeholder}
 					componentClass="select"
 				>
-					<option value='BIGFORK'>Bigfork</option>
-					<option value='LAKESIDE'>Lakeside</option>
+				{this.renderOptions(options)}
 				</FormControl>
 				<FormControl.Feedback />
 				<span>{this.renderError()}</span>

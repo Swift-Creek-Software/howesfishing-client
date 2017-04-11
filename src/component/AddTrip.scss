@@ -1,5 +1,5 @@
 .AddTrip {
-  form{
+  form {
     width: 96%;
     max-width: 650px;
     border-radius: 5px;
@@ -8,11 +8,11 @@
     box-sizing: border-box;
   }
 
-  .panel-body {
+  .form-fields {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    justify-content: space-around;
+    justify-content: space-between;
 
     > div {
       width: 96%;
@@ -22,6 +22,33 @@
         margin: 7px 2%;
         display: inline-block;
       }
+    }
+  }
+
+  .guides-section {
+    margin: 5px auto;
+  }
+
+  .guides-header {
+    border-bottom: 1px solid gainsboro;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+  }
+
+  .guide-row {
+    border-bottom: 1px solid gainsboro;
+    padding: 5px;
+    box-sizing: border-box;
+
+    > div {
+      width: 46%;
+      margin: 7px 2%;
+      display: inline-block;
+    }
+
+    h4 {
+      margin: 0;
     }
   }
 }
