@@ -1,7 +1,8 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { FormControl, FormGroup, ControlLabel } from 'react-bootstrap'
+import DateTime from 'react-datetime'
 
-class TextField extends PureComponent {
+class DateTimeField extends PureComponent {
 	static propsTypes = {
 		onChange: PropTypes.func.isRequired,
 		type: PropTypes.string.isRequired,
@@ -34,16 +35,11 @@ class TextField extends PureComponent {
 				validationState={this.getValidationState()}
 			>
 				<ControlLabel>{this.props.label}</ControlLabel>
-				<FormControl
-					{...this.props.input}
-					type={this.props.type}
-					placeholder={this.props.placeholder}
-				/>
+				<DateTime {...this.props.input} />
 				<FormControl.Feedback />
 				<span>{this.renderError()}</span>
 			</FormGroup>
 		)
 	}
 }
-
-export default TextField
+export default DateTimeField

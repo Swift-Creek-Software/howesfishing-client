@@ -4,11 +4,10 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 
-import axiosMiddleware from 'redux-axios-middleware'
+import multiClientMiddleware from './axiosClients'
 import reducers from './reducers'
 
 import App from './component/App';
-import howesFishing from './axiosClients/howesFishing'
 import './index.css';
 
 
@@ -17,7 +16,7 @@ import './index.css';
 const store = createStore(
 	reducers,
 	compose(
-		applyMiddleware(axiosMiddleware(howesFishing)),
+		applyMiddleware(multiClientMiddleware()),
 		window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 	)
 )

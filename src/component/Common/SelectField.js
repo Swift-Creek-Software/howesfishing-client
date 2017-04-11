@@ -27,7 +27,7 @@ class SelectField extends PureComponent {
 	}
 
 	renderOptions = (options) => {
-		return options.map(option =>  <option value={option.value}>{option.name}</option>)
+		return options.map(option =>  <option key={option.value} value={option.value}>{option.name}</option>)
 	}
 
 

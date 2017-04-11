@@ -1,12 +1,17 @@
 import React, { PureComponent } from 'react'
 import forOwn from 'lodash/forOwn'
-import { Field, reduxForm, FieldArray } from 'redux-form'
+import { Field, reduxForm, FieldArray, formValueSelector, change } from 'redux-form'
 import validatejs from 'validate.js'
 import { connect } from 'react-redux'
+import moment from 'moment'
+
+import { sendSMS } from '../actions/NexmoActions'
 
 import FormHeader from './Common/FormHeader'
 import TextField from './Common/TextField'
 import SelectField from './Common/SelectField'
+import DateTimeField from './Common/DateTimeField'
+import 'react-datetime/css/react-datetime.css'
 import './Common/Common.css'
 import './AddTrip.css'
 
@@ -70,7 +75,8 @@ const validate = (values, props) => {
 class AddTrip extends PureComponent {
 
 	handleSubmit = (values) => {
-
+		console.log('values', values)
+		this.props.sendSMS('14062708435', values.costTemplate)
 	}
 
 	renderGuides = ({ fields, meta: { touched, error, submitFailed } }) => {
@@ -93,16 +99,17 @@ class AddTrip extends PureComponent {
 	renderGuideRows = (fields) => {
 		return fields.map((field, index) => {
 			return (
-				<div className="guide-row">
+				<div className="guide-row" key={`Guide-${index + 1}`}>
 					<h4>Guide {index + 1}</h4>
 					<Field name={`${field}.guideId`}
 						   component={SelectField}
 						   label="Guide"
 						   options={this.props.guides.map(guide => {
-						   	return {
-						   		name: guide.name,
-								value: guide.id,
-							}})}
+							   return {
+								   name: guide.name,
+								   value: guide.id,
+							   }
+						   })}
 					/>
 					<Field name={`${field}.clients`}
 						   component={TextField}
@@ -115,9 +122,23 @@ class AddTrip extends PureComponent {
 		})
 	}
 
+	templateNormalizer = (value, previousValue, allValues) => {
+		const { startTime, endTime, guests, guides, cost } = allValues
+		if (value) {
+			return value
+		} else {
+			return `${startTime ? startTime.format('MMM Do') : ''}, ${startTime ? startTime.format('ha') : ''} - ${endTime ? endTime.format('ha') : ''} for ${guests || ''} people on ${guides ? guides.length : ''} boats. Cost $${cost || ''}`
+		}
+	}
+
+	onStartChange = (event, newValue) => {
+		const startHours = newValue.hours()
+		this.props.change('endTime', moment(newValue).hour(startHours + 8))
+	}
+
 	render() {
 		const { handleSubmit } = this.props
-
+		console.log('add props', this.props)
 		return (
 			<div className="form-wrapper AddTrip">
 				<form className="panel panel-primary" onSubmit={handleSubmit(this.handleSubmit)}>
@@ -149,22 +170,22 @@ class AddTrip extends PureComponent {
 								   type="phone"
 							/>
 							<Field name="startTime"
-								   component={TextField}
+								   component={DateTimeField}
+								   defaultValue={new Date().setHours(8)}
+								   placeholder="04/11/2017 8:00 AM"
 								   label="Start Time"
-								   placeholder="03/26/2017"
-								   type="date"
+								   onChange={this.onStartChange}
 							/>
 							<Field name="endTime"
-								   component={TextField}
+								   component={DateTimeField}
 								   label="End Time"
-								   placeholder="03/26/2017"
-								   type="date"
+								   placeholder="04/11/2017 8:00 AM"
 							/>
 							<Field name="guests"
 								   component={TextField}
 								   label="Number of guests"
 								   placeholder="4"
-								   type="text"
+								   type="number"
 							/>
 							<Field name="cost"
 								   component={TextField}
@@ -193,14 +214,15 @@ class AddTrip extends PureComponent {
 									   }
 								   ]}
 							/>
-							<Field name="costTemplate"
-								   component={TextField}
-								   label="Email cost template"
-								   placeholder=""
-								   type="text"
-							/>
 						</div>
-						<FieldArray name="members" component={this.renderGuides}/>
+						<FieldArray name="guides" component={this.renderGuides}/>
+						<Field name="costTemplate"
+							   component={TextField}
+							   label="Email cost template"
+							   placeholder=""
+							   type="text"
+							   normalize={this.templateNormalizer}
+						/>
 						<button href="#" className="btn btn-primary">Create Trip</button>
 					</div>
 				</form>
@@ -208,15 +230,24 @@ class AddTrip extends PureComponent {
 		)
 	}
 }
+
 AddTrip = reduxForm({
 	form: 'addtrip',
 	validate
 })(AddTrip)
 
 AddTrip = connect(state => {
-	return {
-		guides: state.guide.guides
+		const selector = formValueSelector('addtrip')
+		return {
+			guides: state.guide.guides,
+			startDate: selector(state, 'startTime')
+		}
+	},
+	{
+		change,
+		sendSMS
 	}
-})(AddTrip)
+)
+(AddTrip)
 
 export default (AddTrip)
