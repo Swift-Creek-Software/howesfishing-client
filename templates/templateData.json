@@ -1,0 +1,26 @@
+{
+	"confirmation": {
+		"substitution_data": {
+			"firstName": "Andrew",
+			"confirm": "confirm",
+			"directions": "right down the road",
+			"from": "Andy",
+			"subject": "6/16/17 Fishing confirmation",
+			"timeCost": "Friday, June 16th, 7AM-12PM, for five people. Cost: $700"
+		},
+		"metadata": {},
+		"options": {}
+	},
+	"reminder": {
+		"substitution_data": {
+			"firstName": "Andrew",
+			"confirm": "remind you of",
+			"directions": "right down the road",
+			"from": "Andy",
+			"subject": "6/16/17 Fishing reminder",
+			"timeCost": "Friday, June 16th, 7AM-12PM, for five people. Cost: $700"
+		},
+		"metadata": {},
+		"options": {}
+	}
+}

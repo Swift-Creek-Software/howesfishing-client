@@ -2,8 +2,10 @@ import React, { PureComponent } from 'react'
 import forOwn from 'lodash/forOwn'
 import { Field, reduxForm } from 'redux-form'
 import validatejs from 'validate.js'
+
 import FormHeader from './Common/FormHeader'
 import TextField from './Common/TextField'
+import SelectField from './Common/SelectField'
 import './Common/Common.css'
 import './AddTrip.css'
 
@@ -132,6 +134,11 @@ class AddTrip extends PureComponent {
 							   label="Waterbody"
 							   placeholder="Flathead"
 							   type="text"
+						/>
+						<Field name="location"
+							   component={SelectField}
+							   label="Location"
+							   placeholder="select"
 						/>
 						<Field name="costTemplate"
 							   component={TextField}

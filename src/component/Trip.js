@@ -28,6 +28,10 @@ class Trip extends PureComponent {
 				<TripData label="Name" value={`${currentTrip.firstName} ${currentTrip.lastName}`}/>
 				<TripData label="Date" value={moment(currentTrip.startTime).format('MMM Do YYYY')}/>
 				<TripData label="Time" value={`${this.getMomentTime(currentTrip.startTime)} - ${this.getMomentTime(currentTrip.endTime)}`}/>
+				<TripData label="Guides" value={currentTrip.guides.join(', ')}/>
+				<TripData label="Guests" value={`${currentTrip.guests}`}/>
+				<TripData label="Cost" value={`$${currentTrip.cost}`}/>
+				<TripData label="Water Body" value={`${currentTrip.waterBody}`}/>
 			</div>
 		)
 	}
