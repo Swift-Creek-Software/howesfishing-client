@@ -33,6 +33,7 @@ const validate = (values, props) => {
 		},
 		email: {
 			presence: {
+
 				message: 'required'
 			},
 			email: {

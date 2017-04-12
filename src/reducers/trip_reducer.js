@@ -50,6 +50,22 @@ const defaultTrips = [
 			'Mike',
 			'Cindy'
 		]
+	},
+	{
+		id: 3,
+		firstName: 'another',
+		lastName: 'person',
+		email: 'new@email.com',
+		phone: '(406) 555-5555',
+		startTime: new Date(2017, 3, 10, 7, 0, 0),
+		endTime: new Date(2017, 3, 12, 14, 0, 0),
+		guests: 5,
+		cost: 400,
+		waterBody: 'flathead',
+		guides: [
+			'Mike',
+			'Cindy'
+		]
 	}
 ]
 const defaultIdTrips = {
