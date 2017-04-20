@@ -11,7 +11,10 @@ import { sendEmail } from '../actions/EmailActions'
 import FormHeader from './Common/FormHeader'
 import TextField from './Common/TextField'
 import SelectField from './Common/SelectField'
+import TextAreaField from './Common/TextAreaField'
 import DateTimeField from './Common/DateTimeField'
+import TripGuideRow from './Common/TripGuideRow'
+
 import 'react-datetime/css/react-datetime.css'
 import './Common/Common.css'
 import './AddTrip.css'
@@ -100,29 +103,10 @@ class AddTrip extends PureComponent {
 	}
 
 	renderGuideRows = (fields) => {
-		return fields.map((field, index) => {
-			return (
-				<div className="guide-row" key={`Guide-${index + 1}`}>
-					<h4>Guide {index + 1}</h4>
-					<Field name={`${field}.guideId`}
-						   component={SelectField}
-						   label="Guide"
-						   options={this.props.guides.map(guide => {
-							   return {
-								   name: guide.name,
-								   value: guide.id,
-							   }
-						   })}
-					/>
-					<Field name={`${field}.clients`}
-						   component={TextField}
-						   label="Clients"
-						   placeholder="1"
-						   type="text"
-					/>
-				</div>
-			)
-		})
+		const onRemoveClick = (index) => {
+			fields.remove(index)
+		}
+		return fields.map((field, index) => <TripGuideRow key={index} index={index} field={field} onRemoveClick={onRemoveClick} />)
 	}
 
 	templateNormalizer = (value, previousValue, allValues) => {
@@ -225,6 +209,11 @@ class AddTrip extends PureComponent {
 							   placeholder=""
 							   type="text"
 							   normalize={this.templateNormalizer}
+						/>
+						<Field name="notes"
+							   component={TextAreaField}
+							   label="Notes"
+							   placeholder="add notes here..."
 						/>
 						<button href="#" className="btn btn-primary">Create Trip</button>
 					</div>

@@ -1,11 +1,10 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { FormControl, FormGroup, ControlLabel } from 'react-bootstrap'
 
-class SelectField extends PureComponent {
+class TextAreaField extends PureComponent {
 	static propsTypes = {
 		onChange: PropTypes.func.isRequired,
-		type: PropTypes.string.isRequired,
-		placeholder: PropTypes.string.isRequired,
+		placeholder: PropTypes.string,
 		label: PropTypes.string.isRequired,
 		validationState: PropTypes.string.isRequired,
 	}
@@ -26,13 +25,8 @@ class SelectField extends PureComponent {
 		return null
 	}
 
-	renderOptions = (options) => {
-		return options.map(option =>  <option key={option.value} value={option.value}>{option.name}</option>)
-	}
-
 
 	render() {
-		const {options} = this.props
 		return (
 			<FormGroup
 				controlId="formBasicText"
@@ -43,14 +37,13 @@ class SelectField extends PureComponent {
 				<FormControl
 					{...this.props.input}
 					placeholder={this.props.placeholder}
-					componentClass="select"
-				>
-				{this.renderOptions(options)}
-				</FormControl>
+					componentClass="textarea"
+				/>
 				<FormControl.Feedback />
 				<span>{this.renderError()}</span>
 			</FormGroup>
 		)
 	}
 }
-export default SelectField
+
+export default TextAreaField

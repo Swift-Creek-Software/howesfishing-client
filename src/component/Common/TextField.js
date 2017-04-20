@@ -32,6 +32,7 @@ class TextField extends PureComponent {
 			<FormGroup
 				controlId="formBasicText"
 				validationState={this.getValidationState()}
+				className={this.props.className}
 			>
 				<ControlLabel>{this.props.label}</ControlLabel>
 				<FormControl
