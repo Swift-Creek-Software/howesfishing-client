@@ -7,6 +7,7 @@ import moment from 'moment'
 
 import { sendSMS } from '../actions/NexmoActions'
 import { sendEmail } from '../actions/EmailActions'
+import tripsByGuide from '../selectors/tripsByGuide'
 
 import FormHeader from './Common/FormHeader'
 import TextField from './Common/TextField'
@@ -120,12 +121,12 @@ class AddTrip extends PureComponent {
 
 	onStartChange = (event, newValue) => {
 		const startHours = newValue.hours()
-		this.props.change('endTime', moment(newValue).hour(startHours + 8))
+		this.props.change('endTime', moment(newValue).hour(startHours + 5))
 	}
 
 	render() {
 		const { handleSubmit } = this.props
-		console.log('add props', this.props)
+		console.log('trips by guide', this.props.tripsByGuide)
 		return (
 			<div className="form-wrapper AddTrip">
 				<form className="panel panel-primary" onSubmit={handleSubmit(this.handleSubmit)}>
@@ -158,7 +159,6 @@ class AddTrip extends PureComponent {
 							/>
 							<Field name="startTime"
 								   component={DateTimeField}
-								   defaultValue={new Date().setHours(8)}
 								   placeholder="04/11/2017 8:00 AM"
 								   label="Start Time"
 								   onChange={this.onStartChange}
@@ -180,24 +180,30 @@ class AddTrip extends PureComponent {
 								   placeholder="400"
 								   type="text"
 							/>
-							<Field name="waterbody"
-								   component={TextField}
-								   label="Waterbody"
-								   placeholder="Flathead"
-								   type="text"
-							/>
 							<Field name="location"
 								   component={SelectField}
 								   label="Location"
 								   placeholder="select"
 								   options={[
 									   {
+										   name: 'N/A',
+										   value: 'N/A'
+									   },
+									   {
 										   name: 'Bigfork',
 										   value: 'BIGFORK'
 									   },
 									   {
-										   name: 'Lakeside',
-										   value: 'LAKESIDE'
+										   name: 'West Shore',
+										   value: 'WEST_SHORE'
+									   },
+									   {
+										   name: 'Lakeside - Marina',
+										   value: 'LAKESIDE_MARINA'
+									   },
+									   {
+										   name: 'Lakeside - Pat',
+										   value: 'LAKESIDE_PAT'
 									   }
 								   ]}
 							/>
@@ -232,7 +238,8 @@ AddTrip = connect(state => {
 		const selector = formValueSelector('addtrip')
 		return {
 			guides: state.guide.guides,
-			startDate: selector(state, 'startTime')
+			startDate: selector(state, 'startTime'),
+			tripsByGuide: tripsByGuide(state)
 		}
 	},
 	{

@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
-import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { connect } from 'react-redux'
+import BigCalendar from 'react-big-calendar';
+
+import guideTripsSelector from '../selectors/guideTripsSelector'
+import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 BigCalendar.setLocalizer(
 	BigCalendar.momentLocalizer(moment)
@@ -43,6 +45,6 @@ class Calendar extends Component {
 
 export default connect(state => {
 	return {
-		trips: state.trip.trips
+		trips: guideTripsSelector(state)
 	}
 })(Calendar)

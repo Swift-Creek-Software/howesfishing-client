@@ -15,8 +15,7 @@ const defaultTrips = [
 		cost: 400,
 		waterBody: 'flathead',
 		guides: [
-			'Mike',
-			'Cindy'
+			3
 		]
 	},
 	{
@@ -31,8 +30,7 @@ const defaultTrips = [
 		cost: 400,
 		waterBody: 'flathead',
 		guides: [
-			'Mike',
-			'Cindy'
+			1, 2, 4
 		]
 	},
 	{
@@ -47,8 +45,7 @@ const defaultTrips = [
 		cost: 400,
 		waterBody: 'flathead',
 		guides: [
-			'Mike',
-			'Cindy'
+			1, 2
 		]
 	},
 	{
@@ -63,8 +60,7 @@ const defaultTrips = [
 		cost: 400,
 		waterBody: 'flathead',
 		guides: [
-			'Mike',
-			'Cindy'
+			4
 		]
 	}
 ]
