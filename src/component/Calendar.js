@@ -4,7 +4,10 @@ import { connect } from 'react-redux'
 import BigCalendar from 'react-big-calendar';
 
 import guideTripsSelector from '../selectors/guideTripsSelector'
+
+import CalendarGuideSelector from './CalendarGuideSelector'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
+
 
 BigCalendar.setLocalizer(
 	BigCalendar.momentLocalizer(moment)
@@ -26,6 +29,7 @@ class Calendar extends Component {
 	render() {
 		return (
 			<div style={{ height: 'calc(100% - 100px)', padding: '0 50px', boxSizing: 'border-box' }}>
+				<CalendarGuideSelector/>
 				<BigCalendar
 					events={this.renderEventsList()}
 					startAccessor='start'
