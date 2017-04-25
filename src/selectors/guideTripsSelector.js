@@ -1,13 +1,18 @@
 import { createSelector } from 'reselect'
 
-import tripsByGuideSelector from './tripsByGuide'
+import allTripsSelector from './allTripsSelector'
 
 const currentGuide = state => state.guide.currentGuide
-const trips = state => state.trip.trips
-const tripsByGuide = state => tripsByGuideSelector(state)
+const trips = state => allTripsSelector(state)
 
-const getTrips = (currentGuide, trips, tripsByGuide) => currentGuide ? tripsByGuide[currentGuide] : trips
+const getTrips = (currentGuide, trips) => {
 
-export default createSelector(currentGuide, trips, tripsByGuide, getTrips)/**
+	return currentGuide ? trips.filter(trip => {
+		console.log('filter', trip.guide, currentGuide)
+		return trip.guide.id == currentGuide
+		}) : trips
+}
+
+export default createSelector(currentGuide, trips, getTrips)/**
  * Created by andrewgross on 4/20/17.
  */

@@ -12,7 +12,8 @@ const defaultGuides = [
 		phones: [
 			14062490556,
 			14062496345
-		]
+		],
+		color: '#ef7004'
 	},
 	{
 		id: 2,
@@ -24,7 +25,8 @@ const defaultGuides = [
 		phones: [
 			14063145529,
 			14063143535
-		]
+		],
+		color: 'green'
 	},
 	{
 		id: 3,
@@ -36,7 +38,8 @@ const defaultGuides = [
 		phones: [
 			14068718244,
 			14068719834
-		]
+		],
+		color: 'blue'
 	},
 	{
 		id: 4,
@@ -48,7 +51,8 @@ const defaultGuides = [
 		phones: [
 			14062121462,
 			14064717272
-		]
+		],
+		color: '#c5c536'
 	},
 	{
 		id: 5,
@@ -59,7 +63,8 @@ const defaultGuides = [
 		phones: [
 			14062616980,
 			14062129784
-		]
+		],
+		color: 'pink'
 	},
 	{
 		id: 6,
@@ -69,7 +74,8 @@ const defaultGuides = [
 		],
 		phones: [
 			14062530547,
-		]
+		],
+		color: 'slate'
 	},
 	{
 		id: 7,
@@ -81,7 +87,8 @@ const defaultGuides = [
 		phones: [
 			14062701649,
 			14062492494
-		]
+		],
+		color: 'black'
 	},
 	{
 		id: 8,
@@ -92,7 +99,8 @@ const defaultGuides = [
 		phones: [
 			14062127153,
 			14062533028
-		]
+		],
+		color: 'orange'
 	}
 ]
 

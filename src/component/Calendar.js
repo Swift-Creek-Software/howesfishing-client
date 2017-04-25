@@ -18,13 +18,19 @@ class Calendar extends Component {
 	renderEventsList = () => {
 
 		return this.props.trips.map(trip => {
-			return {title: `${trip.lastName} - ${trip.waterBody} ${this.renderGuidesForTrip(trip.guides)}`, start: trip.startTime, end: trip.endTime}
+			return {
+				title: `${trip.lastName} - ${trip.waterBody} ${trip.guide.name}`,
+				start: trip.startTime,
+				end: trip.endTime,
+				color: trip.guide.color
+			}
 		})
 	}
 
 	renderGuidesForTrip = (guides) => {
 		return guides.join(', ')
 	}
+
 
 	render() {
 		return (
@@ -35,16 +41,18 @@ class Calendar extends Component {
 					startAccessor='start'
 					endAccessor='end'
 					defaultDate={new Date()}
-					onSelecting={(event, e) => {
-						console.log('event', event)
-					}}
-					onSelectSlot={(event) => {
-						console.log('slot selected', event)
-					}}
+					components={{eventWrapper: Event}}
 				/>
 			</div>
 		)
 	}
+}
+const Event = ({event}) => {
+	return (
+		<div style={{backgroundColor: event.color, borderRadius: '3px', padding: 2, boxSizing: 'border-box', color: '#fff'}}>
+			{event.title}
+		</div>
+	)
 }
 
 export default connect(state => {

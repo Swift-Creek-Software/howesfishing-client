@@ -7,7 +7,6 @@ import moment from 'moment'
 
 import { sendSMS } from '../actions/NexmoActions'
 import { sendEmail } from '../actions/EmailActions'
-import tripsByGuide from '../selectors/tripsByGuide'
 
 import FormHeader from './Common/FormHeader'
 import TextField from './Common/TextField'
@@ -126,7 +125,6 @@ class AddTrip extends PureComponent {
 
 	render() {
 		const { handleSubmit } = this.props
-		console.log('trips by guide', this.props.tripsByGuide)
 		return (
 			<div className="form-wrapper AddTrip">
 				<form className="panel panel-primary" onSubmit={handleSubmit(this.handleSubmit)}>
@@ -239,7 +237,6 @@ AddTrip = connect(state => {
 		return {
 			guides: state.guide.guides,
 			startDate: selector(state, 'startTime'),
-			tripsByGuide: tripsByGuide(state)
 		}
 	},
 	{
