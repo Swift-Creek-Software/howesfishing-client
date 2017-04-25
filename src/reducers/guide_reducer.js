@@ -110,6 +110,7 @@ const guides = (state = defaultGuides, action) => {
 			return state
 	}
 }
+
 const currentGuide = (state = null, action) => {
 	switch (action.type) {
 		case actionTypes.setCurrentGuide :
@@ -119,9 +120,19 @@ const currentGuide = (state = null, action) => {
 	}
 }
 
+const editingGuide = (state = null, action) => {
+	switch (action.type) {
+		case actionTypes.setEditingGuide :
+			return action.payload
+		default:
+			return state
+	}
+}
+
 const guideReducer = combineReducers({
 	guides,
-	currentGuide
+	currentGuide,
+	editingGuide
 })
 
 export default guideReducer

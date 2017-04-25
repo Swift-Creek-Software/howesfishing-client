@@ -3,6 +3,10 @@ import { Field, reduxForm, FieldArray } from 'redux-form'
 import forOwn from 'lodash/forOwn'
 import validatejs from 'validate.js'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+
+import editingGuideSelector from '../../selectors/editingGuideSelector'
+import { setEditingGuide } from '../../actions/GuideActions'
 
 import FormHeader from '../Common/FormHeader'
 import TextField from '../Common/TextField'
@@ -54,11 +58,15 @@ const validate = (values, props) => {
 
 class Guide extends PureComponent {
 	static propsTypes = {}
+
+	componentWillUnmount() {
+		this.props.setEditingGuide()
+	}
 	handleSubmit = (values) => {
 
 	}
 
-	renderEmails = ({ fields, meta: { touched, error, submitFailed } }) => {
+	renderEmails = ({ fields, meta: { error } }) => {
 		return (
 			<div className="guides-data-table">
 				<h3 className="group-header">
@@ -79,10 +87,10 @@ class Guide extends PureComponent {
 			fields.remove(index)
 		}
 
-		return fields.map((field, index) => {
+		return fields.map((email, index) => {
 			return (
 				<div className="guide-data-row" key={`email-${index}`}>
-					<Field name={field}
+					<Field name={email}
 						   component={TextField}
 						   label={`Email ${index + 1}`}
 						   placeholder="example@email.com"
@@ -98,7 +106,7 @@ class Guide extends PureComponent {
 		})
 	}
 
-	renderPhones = ({ fields, meta: { touched, error, submitFailed } }) => {
+	renderPhones = ({ fields, meta: { error } }) => {
 		return (
 			<div className="guides-data-table">
 				<h3 className="group-header">
@@ -119,10 +127,10 @@ class Guide extends PureComponent {
 			fields.remove(index)
 		}
 
-		return fields.map((field, index) => {
+		return fields.map((phone, index) => {
 			return (
 				<div className="guide-data-row" key={`phone-${index}`}>
-					<Field name={field}
+					<Field name={phone}
 						   component={TextField}
 						   label={`Phone ${index + 1}`}
 						   placeholder="14065555555"
@@ -154,7 +162,15 @@ class Guide extends PureComponent {
 						/>
 						<FieldArray name="phones" component={this.renderPhones}/>
 						<FieldArray name="emails" component={this.renderEmails}/>
-						<button className="btn btn-primary">Add Guide</button>
+						<Field name="name"
+							   component={TextField}
+							   label="Guide name"
+							   placeholder="enter name"
+							   type="text"
+						/>
+						<Link to='/guides' className="btn btn-warning">Cancel</Link>
+						<button
+							className="btn btn-primary">{this.props.initialValues ? 'Save' : 'Add Guide'}</button>
 					</div>
 				</form>
 			</div>
@@ -163,8 +179,16 @@ class Guide extends PureComponent {
 }
 
 Guide = reduxForm({
-	form: 'addtrip',
+	form: 'guide',
 	validate
 })(Guide)
 
+Guide = connect(
+	state => {
+		return {
+			initialValues: editingGuideSelector(state)
+		}
+	},
+	{ setEditingGuide }
+)(Guide)
 export default (Guide)

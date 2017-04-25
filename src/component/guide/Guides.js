@@ -4,6 +4,8 @@ import { Table, Button } from 'react-bootstrap'
 
 import GuideRow from './GuideRow'
 import './Guides.css'
+
+
 class Guides extends PureComponent {
 	static propsTypes = {
 		guides: PropTypes.array.isRequired
@@ -12,7 +14,7 @@ class Guides extends PureComponent {
 	renderGuideRows = () => {
 		return this.props.guides.map(guide => {
 			return (
-				<GuideRow guide={guide}/>
+				<GuideRow guide={guide} key={`guide-${guide.id}`}/>
 			)
 		})
 	}
@@ -24,7 +26,7 @@ class Guides extends PureComponent {
 					<h1>Guides</h1>
 					<a href="/guide" className="btn btn-primary">+Add Guide</a>
 				</div>
-				<Table response hover condensed>
+				<Table responsive hover condensed>
 					<thead>
 					<tr>
 						<th>Name</th>

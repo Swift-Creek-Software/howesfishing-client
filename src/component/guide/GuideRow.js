@@ -1,20 +1,33 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+
+import { setEditingGuide } from '../../actions/GuideActions'
 
 import './GuideRow.css'
 
-const GuideRow = (props) => {
+class GuideRow extends Component {
+	static propsTypes = {
+		guide: PropTypes.object.isRequired
+	}
 
-	return (
-		<tr className="GuideRow" onClick={() => {
-			props.history.push(`/guide/${props.guide.id}`)
-		}}>
-			<td>{props.guide.name}</td>
-			<td className="condensed">{props.guide.phones.join(', ')}</td>
-			<td className="condensed">{props.guide.emails.join(', ')}</td>
-		</tr>
-	)
+	render() {
+		return (
+			<tr className="GuideRow" onClick={() => {
+				this.props.setEditingGuide(this.props.guide.id)
+				this.props.history.push(`/guide`)
+			}}>
+				<td>{this.props.guide.name}</td>
+				<td className="condensed">{this.props.guide.phones.join(', ')}</td>
+				<td className="condensed">{this.props.guide.emails.join(', ')}</td>
+			</tr>
+		)
+	}
+
 }
-GuideRow.propsTypes = {}
 
+GuideRow = connect(
+	null,
+	{ setEditingGuide }
+)(GuideRow)
 export default withRouter(GuideRow)
