@@ -26,7 +26,7 @@ const defaultGuides = [
 			14063145529,
 			14063143535
 		],
-		color: 'green'
+		color: '#0c6d34'
 	},
 	{
 		id: 3,
@@ -39,7 +39,7 @@ const defaultGuides = [
 			14068718244,
 			14068719834
 		],
-		color: 'blue'
+		color: '#280d6d'
 	},
 	{
 		id: 4,
@@ -52,7 +52,7 @@ const defaultGuides = [
 			14062121462,
 			14064717272
 		],
-		color: '#c5c536'
+		color: '#627f1e'
 	},
 	{
 		id: 5,
@@ -75,7 +75,7 @@ const defaultGuides = [
 		phones: [
 			14062530547,
 		],
-		color: 'slate'
+		color: '#586272'
 	},
 	{
 		id: 7,
@@ -100,7 +100,7 @@ const defaultGuides = [
 			14062127153,
 			14062533028
 		],
-		color: 'orange'
+		color: '#af6000'
 	}
 ]
 

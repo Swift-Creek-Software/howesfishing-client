@@ -19,7 +19,7 @@ class Calendar extends Component {
 
 		return this.props.trips.map(trip => {
 			return {
-				title: `${trip.lastName} - ${trip.waterBody} ${trip.guide.name}`,
+				title: `${trip.location} - ${trip.guide.name}`,
 				start: trip.startTime,
 				end: trip.endTime,
 				color: trip.guide.color
@@ -37,6 +37,7 @@ class Calendar extends Component {
 			<div style={{ height: 'calc(100% - 100px)', padding: '0 50px', boxSizing: 'border-box' }}>
 				<CalendarGuideSelector/>
 				<BigCalendar
+					popup
 					events={this.renderEventsList()}
 					startAccessor='start'
 					endAccessor='end'

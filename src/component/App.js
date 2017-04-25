@@ -10,7 +10,7 @@ import PrivateRoute from '../router/PrivateRoute'
 import Login from './Login'
 import AddTrip from './AddTrip'
 import Dashboard from './Dashboard'
-import Calendar from './Calendar'
+import Guides from './Guides'
 import Navbar from './NavBar'
 import Trip from './Trip'
 
@@ -23,9 +23,9 @@ class App extends Component {
 					<Navbar />
 					<Route exact path="/login" component={Login}/>
 					<PrivateRoute path="/add-trip" component={AddTrip} user={user}/>
+					<PrivateRoute path="/guides" component={Guides} user={user}/>
 					<PrivateRoute path="/trip" component={Trip} user={user}/>
 					<PrivateRoute path="/dashboard" component={Dashboard} user={user}/>
-					<PrivateRoute path="/calendar" component={Calendar} user={user}/>
 				</div>
 			</Router>
 		)

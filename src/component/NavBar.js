@@ -30,8 +30,8 @@ class NavBar extends PureComponent {
 					{this.props.user &&
 					<Nav>
 						<ListItemLink to="/dashboard">Dashboard</ListItemLink>
+						<ListItemLink to="/guides">Guides</ListItemLink>
 						<ListItemLink to="/trip">Add Trip</ListItemLink>
-						<ListItemLink to="/calendar">Calendar</ListItemLink>
 					</Nav>
 					}
 					<Nav pullRight>
