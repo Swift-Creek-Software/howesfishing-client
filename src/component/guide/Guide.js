@@ -62,6 +62,7 @@ class Guide extends PureComponent {
 	componentWillUnmount() {
 		this.props.setEditingGuide()
 	}
+
 	handleSubmit = (values) => {
 
 	}
@@ -162,15 +163,18 @@ class Guide extends PureComponent {
 						/>
 						<FieldArray name="phones" component={this.renderPhones}/>
 						<FieldArray name="emails" component={this.renderEmails}/>
-						<Field name="name"
+						<Field name="color"
 							   component={TextField}
-							   label="Guide name"
-							   placeholder="enter name"
+							   label="Color"
+							   placeholder="#fe12a1"
 							   type="text"
 						/>
-						<Link to='/guides' className="btn btn-warning">Cancel</Link>
-						<button
-							className="btn btn-primary">{this.props.initialValues ? 'Save' : 'Add Guide'}</button>
+						<div className="button-row">
+							<Link to='/guides' className="btn btn-warning">Cancel</Link>
+							<button className="btn btn-primary">
+								{this.props.initialValues ? 'Save' : 'Add Guide'}
+							</button>
+						</div>
 					</div>
 				</form>
 			</div>
