@@ -80,7 +80,6 @@ const validate = (values, props) => {
 class AddTrip extends PureComponent {
 
 	handleSubmit = (values) => {
-		console.log('values', values)
 		this.props.sendSMS('14062708435', values.clientEmailTemplate)
 		this.props.sendEmail(values)
 	}
@@ -89,10 +88,10 @@ class AddTrip extends PureComponent {
 
 		return (
 			<div className="guides-section">
-				<h3 className="guides-header">
+				<h3 className="group-header">
 					Guides
-					<button type="button" className="btn btn-primary add-guide" onClick={() => fields.push({})}>+ Add
-						Guide
+					<button type="button" className="btn btn-primary add-guide" onClick={() => fields.push({})}>
+						+ Add Guide
 					</button>
 				</h3>
 				<div>
