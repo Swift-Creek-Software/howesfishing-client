@@ -13,6 +13,14 @@ BigCalendar.setLocalizer(
 	BigCalendar.momentLocalizer(moment)
 );
 
+const Event = ({event}) => {
+	return (
+		<div style={{backgroundColor: event.color, borderRadius: '3px', padding: 2, boxSizing: 'border-box', color: '#fff'}}>
+			{event.title}
+		</div>
+	)
+}
+
 class Calendar extends Component {
 
 	renderEventsList = () => {
@@ -47,13 +55,6 @@ class Calendar extends Component {
 			</div>
 		)
 	}
-}
-const Event = ({event}) => {
-	return (
-		<div style={{backgroundColor: event.color, borderRadius: '3px', padding: 2, boxSizing: 'border-box', color: '#fff'}}>
-			{event.title}
-		</div>
-	)
 }
 
 export default connect(state => {

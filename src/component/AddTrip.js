@@ -9,6 +9,7 @@ import { Modal } from 'react-bootstrap'
 
 import { sendSMS } from '../actions/NexmoActions'
 import { sendEmail } from '../actions/EmailActions'
+import guidesById from '../selectors/guidesById'
 
 import FormHeader from './Common/FormHeader'
 import TextField from './Common/TextField'
@@ -89,9 +90,29 @@ class AddTrip extends PureComponent {
 	}
 
 	handleSubmit = (values) => {
-		this.props.sendSMS('14062708435', values.clientEmailTemplate)
-		this.props.sendEmail(values)
+		console.log('values', values)
+		this.sendGuidesInfo(values.guides, values.notes)
+		// send client/admin email
+
+		// this.props.sendEmail(values)
 	}
+
+	sendGuidesInfo = (guides, notes) => {
+		guides.forEach(guide => {
+			const guideDetail = this.props.guides[guide.guideId]
+
+			// send guide texts
+			guideDetail.phones.forEach(phone => {
+				this.props.sendSMS(phone, `${guide.textTemplate} ${notes ? `Notes: ${notes}` : ''}`)
+			})
+
+			// send guide emails
+			guideDetail.emails.forEach(phone => {
+				// this.props.sendEmail(values)
+			})
+		})
+	}
+
 
 	renderGuides = ({ fields, meta: { touched, error, submitFailed } }) => {
 
@@ -233,7 +254,7 @@ class AddTrip extends PureComponent {
 						<Field name="clientEmailTemplate"
 							   component={TextField}
 							   label="Client email template"
-							   placeholder=""
+							   placeholder="click here for client template"
 							   type="text"
 							   normalize={this.templateNormalizer}
 						/>
@@ -280,7 +301,7 @@ AddTrip = reduxForm({
 AddTrip = connect(state => {
 		const selector = formValueSelector('addtrip')
 		return {
-			guides: state.guide.guides,
+			guides: guidesById(state),
 			startDate: selector(state, 'startTime'),
 		}
 	},
@@ -289,7 +310,6 @@ AddTrip = connect(state => {
 		sendSMS,
 		sendEmail
 	}
-)
-(AddTrip)
+)(AddTrip)
 
 export default (AddTrip)

@@ -64,7 +64,7 @@ const defaultGuides = [
 			14062616980,
 			14062129784
 		],
-		color: 'pink'
+		color: '#ff0055'
 	},
 	{
 		id: 6,
@@ -88,7 +88,7 @@ const defaultGuides = [
 			14062701649,
 			14062492494
 		],
-		color: 'black'
+		color: '#000'
 	},
 	{
 		id: 8,
@@ -100,7 +100,19 @@ const defaultGuides = [
 			14062127153,
 			14062533028
 		],
-		color: '#af6000'
+		color: '#a5f'
+	},
+	{
+		id: 9,
+		name: 'Andrew Gross',
+		emails: [
+			'grossmail1@gmail.com'
+		],
+		phones: [
+			14062708435,
+			14067508310
+		],
+		color: '#994'
 	}
 ]
 

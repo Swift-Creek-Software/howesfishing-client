@@ -8,10 +8,29 @@ import TextField from './TextField'
 import './TripGuideRow.css'
 
 class AddGuideRow extends PureComponent {
-	static propsTypes = {}
+	static propsTypes = {
+		//redux
+		guides: PropTypes.array.isRequired,
+		// props
+		key: PropTypes.number.isRequired,
+		index: PropTypes.number.isRequired,
+		field: PropTypes.object.isRequired,
+		onRemoveClick: PropTypes.func.isRequired
+	}
 
 	onRemoveClick = () => {
 		this.props.onRemoveClick(this.props.index)
+	}
+
+	templateNormalizer = (value, previousValue, allValues) => {
+		const { startTime, endTime, guides, cost } = allValues
+		console.log('all values', allValues, this.props.field)
+		const guideGuests = guides[ this.props.index ].guests
+		if (value) {
+			return value
+		} else {
+			return `${startTime ? startTime.format('MMM Do') : ''}, ${startTime ? startTime.format('ha') : ''} - ${endTime ? endTime.format('ha') : ''} for ${guideGuests || ''} people on ${guides ? guides.length : ''} boats. Cost $${cost || ''}`
+		}
 	}
 
 	render() {
@@ -35,12 +54,20 @@ class AddGuideRow extends PureComponent {
 						   }
 					   })}
 				/>
-				<Field name={`${this.props.field}.clients`}
+				<Field name={`${this.props.field}.guests`}
 					   className="guide-field"
 					   component={TextField}
-					   label="Clients"
+					   label="Guests"
 					   placeholder="1"
 					   type="text"
+				/>
+				<Field name={`${this.props.field}.textTemplate`}
+					   className="guide-field"
+					   component={TextField}
+					   label="Guide Text Template"
+					   placeholder="click here for template"
+					   type="text"
+					   normalize={this.templateNormalizer}
 				/>
 			</div>
 		)
@@ -52,8 +79,7 @@ AddGuideRow = connect(state => {
 			guides: state.guide.guides
 		}
 	}
-)
-(AddGuideRow)
+)(AddGuideRow)
 
 
 export default AddGuideRow

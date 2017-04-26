@@ -2,7 +2,10 @@ import React, { PureComponent, PropTypes } from 'react'
 import { ChromePicker } from 'react-color'
 
 class ColorWrapper extends PureComponent {
-	static propsTypes = {}
+	static propsTypes = {
+		// from field
+		input: PropTypes.object.isRequired
+	}
 
 	onChange = (value) => {
 		this.props.input.onChange(value.hex)

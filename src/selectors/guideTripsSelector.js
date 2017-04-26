@@ -13,6 +13,4 @@ const getTrips = (currentGuide, trips) => {
 		}) : trips
 }
 
-export default createSelector(currentGuide, trips, getTrips)/**
- * Created by andrewgross on 4/20/17.
- */
+export default createSelector(currentGuide, trips, getTrips)

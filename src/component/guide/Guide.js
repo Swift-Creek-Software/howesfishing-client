@@ -58,7 +58,10 @@ const validate = (values, props) => {
 }
 
 class Guide extends PureComponent {
-	static propsTypes = {}
+	static propsTypes = {
+		// redux
+		initialValues: PropTypes.object.isRequired
+	}
 
 	componentWillUnmount() {
 		this.props.setEditingGuide()
