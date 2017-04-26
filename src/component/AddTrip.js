@@ -4,6 +4,8 @@ import { Field, reduxForm, FieldArray, formValueSelector, change } from 'redux-f
 import validatejs from 'validate.js'
 import { connect } from 'react-redux'
 import moment from 'moment'
+import { Link } from 'react-router-dom'
+import { Modal } from 'react-bootstrap'
 
 import { sendSMS } from '../actions/NexmoActions'
 import { sendEmail } from '../actions/EmailActions'
@@ -78,6 +80,13 @@ const validate = (values, props) => {
 
 
 class AddTrip extends PureComponent {
+	constructor(props) {
+		super(props)
+
+		this.state = {
+			showDeleteModal: false
+		}
+	}
 
 	handleSubmit = (values) => {
 		this.props.sendSMS('14062708435', values.clientEmailTemplate)
@@ -105,7 +114,8 @@ class AddTrip extends PureComponent {
 		const onRemoveClick = (index) => {
 			fields.remove(index)
 		}
-		return fields.map((field, index) => <TripGuideRow key={index} index={index} field={field} onRemoveClick={onRemoveClick} />)
+		return fields.map((field, index) => <TripGuideRow key={index} index={index} field={field}
+														  onRemoveClick={onRemoveClick}/>)
 	}
 
 	templateNormalizer = (value, previousValue, allValues) => {
@@ -120,6 +130,20 @@ class AddTrip extends PureComponent {
 	onStartChange = (event, newValue) => {
 		const startHours = newValue.hours()
 		this.props.change('endTime', moment(newValue).hour(startHours + 5))
+	}
+
+	onDeleteButtonClick = (event) => {
+		event.preventDefault()
+		this.setState({ showDeleteModal: true })
+	}
+
+	closeDeleteModal = (event) => {
+		event.preventDefault()
+		this.setState({ showDeleteModal: false })
+	}
+
+	onDeleteConfirm = (event) => {
+		//TODO add delete logic here
 	}
 
 	render() {
@@ -218,9 +242,31 @@ class AddTrip extends PureComponent {
 							   label="Notes"
 							   placeholder="add notes here..."
 						/>
-						<button href="#" className="btn btn-primary">Create Trip</button>
+
+						<buton onClick={this.onDeleteButtonClick} className="btn btn-danger">Delete Trip</buton>
+						<button type="submit" className="btn btn-primary" style={{ float: 'right' }}>Create Trip
+						</button>
+						<Link to="/dashboard" className="btn btn-warning" style={{ float: 'right', marginRight: 10 }}>Cancel</Link>
 					</div>
 				</form>
+				{this.state.showDeleteModal &&
+					<Modal.Dialog>
+						<Modal.Header>
+							Confirm Delete
+						</Modal.Header>
+						<Modal.Body>
+							Are you sure you want to delete this trip?
+						</Modal.Body>
+						<Modal.Footer>
+							<button onClick={this.closeDeleteModal} className="btn btn-primary">
+								cancel
+							</button>
+							<button onClick={this.onDeleteConfirm} className="btn btn-danger">
+								Yes, delete trip
+							</button>
+						</Modal.Footer>
+					</Modal.Dialog>
+				}
 			</div>
 		)
 	}
