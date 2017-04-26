@@ -1,5 +1,5 @@
 import { multiClientMiddleware } from 'redux-axios-middleware'
-import { howesFishingClient } from './howesFishing'
+import { howesFishingClient, howesFishingOptions } from './howesFishing'
 import { nexmoClient, nexmoOptions } from './nexmoClient'
 
 export default () => {
@@ -7,6 +7,7 @@ export default () => {
 		{
 			default: {
 				client: howesFishingClient,
+				options: howesFishingOptions
 			},
 			nexmo: {
 				client: nexmoClient,

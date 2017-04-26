@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import editingGuideSelector from '../../selectors/editingGuideSelector'
 import { setEditingGuide } from '../../actions/GuideActions'
 
+import ColorWrapper from './ColorWrapper'
 import FormHeader from '../Common/FormHeader'
 import TextField from '../Common/TextField'
 import '../Common/Common.css'
@@ -164,10 +165,8 @@ class Guide extends PureComponent {
 						<FieldArray name="phones" component={this.renderPhones}/>
 						<FieldArray name="emails" component={this.renderEmails}/>
 						<Field name="color"
-							   component={TextField}
-							   label="Color"
-							   placeholder="#fe12a1"
-							   type="text"
+							   component={ColorWrapper}
+
 						/>
 						<div className="button-row">
 							<Link to='/guides' className="btn btn-warning">Cancel</Link>

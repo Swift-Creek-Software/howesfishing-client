@@ -10,12 +10,6 @@ class LoginForm extends PureComponent {
 		onSubmit: PropTypes.func.isRequired
 	}
 
-	handleChange = () => {
-		console.log('you changed your info')
-	}
-
-	getValidationState = () => 'success'
-
 	render() {
 		const { handleSubmit } = this.props;
 
@@ -27,16 +21,12 @@ class LoginForm extends PureComponent {
 						   component={TextField}
 						   label="Email"
 						   placeholder="Enter Email"
-						   onChange={this.handleChange}
-						   validationState={this.getValidationState()}
 						   type="email"
 					/>
 					<Field name="password"
 						   component={TextField}
 						   label="Password"
 						   placeholder="Enter Password"
-						   onChange={this.handleChange}
-						   validationState={this.getValidationState()}
 						   type="password"
 					/>
 					<button type="submit" className="btn btn-primary">Login</button>

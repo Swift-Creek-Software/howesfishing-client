@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import {
 	BrowserRouter as Router,
 	Route,
+	Redirect
 
 } from 'react-router-dom'
 
@@ -20,13 +21,16 @@ class App extends Component {
 		const { user } = this.props
 		return (
 			<Router>
-				<div style={{height: '100%'}}>
+				<div style={{ height: '100%' }}>
 					<Navbar />
+					<Route exact path="/" render={() => (
+						<Redirect to="/dashboard"/>
+					)}/>
 					<Route exact path="/login" component={Login}/>
-					<PrivateRoute path="/add-trip" component={AddTrip} user={user}/>
+					<PrivateRoute path="/trip" component={AddTrip} user={user}/>
 					<PrivateRoute path="/guide" component={Guide} user={user}/>
 					<PrivateRoute path="/guides" component={Guides} user={user}/>
-					<PrivateRoute path="/trip" component={Trip} user={user}/>
+					<PrivateRoute path="/trip-details" component={Trip} user={user}/>
 					<PrivateRoute path="/dashboard" component={Dashboard} user={user}/>
 				</div>
 			</Router>
