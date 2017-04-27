@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 import { Modal } from 'react-bootstrap'
 
 import { sendSMS } from '../actions/NexmoActions'
-import { sendEmail } from '../actions/EmailActions'
+import { sendClientConfirmationEmail, sendGuideConfirmationEmail } from '../actions/EmailActions'
 import guidesById from '../selectors/guidesById'
 
 import FormHeader from './Common/FormHeader'
@@ -91,24 +91,31 @@ class AddTrip extends PureComponent {
 
 	handleSubmit = (values) => {
 		console.log('values', values)
-		this.sendGuidesInfo(values.guides, values.notes)
+		this.sendGuidesInfo(values.guides, values.notes, values.startTime)
 		// send client/admin email
 
 		// this.props.sendEmail(values)
 	}
 
-	sendGuidesInfo = (guides, notes) => {
+	sendGuidesInfo = (guides, notes, date) => {
 		guides.forEach(guide => {
 			const guideDetail = this.props.guides[guide.guideId]
+			const guideMessage = `${guide.textTemplate} ${notes ? `Notes: ${notes}` : ''}`
 
 			// send guide texts
 			guideDetail.phones.forEach(phone => {
-				this.props.sendSMS(phone, `${guide.textTemplate} ${notes ? `Notes: ${notes}` : ''}`)
+				this.props.sendSMS(phone, guideMessage)
 			})
+			const guideEmailValues = {
+				emails: guideDetail.emails,
+				body: guideMessage,
+				name: guideDetail.name,
+				date,
 
+			}
 			// send guide emails
-			guideDetail.emails.forEach(phone => {
-				// this.props.sendEmail(values)
+			guideDetail.emails.forEach(email => {
+				this.props.sendGuideConfirmationEmail(guideEmailValues)
 			})
 		})
 	}
@@ -308,7 +315,8 @@ AddTrip = connect(state => {
 	{
 		change,
 		sendSMS,
-		sendEmail
+		sendClientConfirmationEmail,
+		sendGuideConfirmationEmail
 	}
 )(AddTrip)
 

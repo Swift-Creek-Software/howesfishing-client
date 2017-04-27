@@ -110,7 +110,6 @@ const defaultGuides = [
 		],
 		phones: [
 			14062708435,
-			14067508310
 		],
 		color: '#994'
 	}

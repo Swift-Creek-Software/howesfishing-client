@@ -42,7 +42,7 @@ class AddGuideRow extends PureComponent {
 						Remove
 					</button>
 				</div>
-				<TripGuideSelect/>
+				<TripGuideSelect field={this.props.field}/>
 				<Field name={`${this.props.field}.guests`}
 					   className="guide-field"
 					   component={TextField}
