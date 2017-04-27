@@ -1,10 +1,9 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { Field } from 'redux-form'
-import { connect } from 'react-redux'
 
-import SelectField from './SelectField'
 import TextField from './TextField'
 
+import TripGuideSelect from '../TripGuideSelect'
 import './TripGuideRow.css'
 
 class AddGuideRow extends PureComponent {
@@ -43,17 +42,7 @@ class AddGuideRow extends PureComponent {
 						Remove
 					</button>
 				</div>
-				<Field name={`${this.props.field}.guideId`}
-					   className="guide-field"
-					   component={SelectField}
-					   label="Guide"
-					   options={this.props.guides.map(guide => {
-						   return {
-							   name: guide.name,
-							   value: guide.id,
-						   }
-					   })}
-				/>
+				<TripGuideSelect/>
 				<Field name={`${this.props.field}.guests`}
 					   className="guide-field"
 					   component={TextField}
@@ -73,13 +62,6 @@ class AddGuideRow extends PureComponent {
 		)
 	}
 }
-
-AddGuideRow = connect(state => {
-		return {
-			guides: state.guide.guides
-		}
-	}
-)(AddGuideRow)
 
 
 export default AddGuideRow
