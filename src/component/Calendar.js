@@ -6,6 +6,8 @@ import BigCalendar from 'react-big-calendar';
 import guideTripsSelector from '../selectors/guideTripsSelector'
 
 import CalendarGuideSelector from './CalendarGuideSelector'
+import CalendarMonthEvent from './CalendarMonthEvent'
+
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 
@@ -14,11 +16,7 @@ BigCalendar.setLocalizer(
 );
 
 const Event = ({event}) => {
-	return (
-		<div style={{backgroundColor: event.color, borderRadius: '3px', padding: 2, boxSizing: 'border-box', color: '#fff'}}>
-			{event.title}
-		</div>
-	)
+
 }
 
 class Calendar extends Component {
@@ -30,7 +28,8 @@ class Calendar extends Component {
 				title: `${trip.location} - ${trip.guide.name}`,
 				start: trip.startTime,
 				end: trip.endTime,
-				color: trip.guide.color
+				color: trip.guide.color,
+				id: trip.id
 			}
 		})
 	}
@@ -50,7 +49,7 @@ class Calendar extends Component {
 					startAccessor='start'
 					endAccessor='end'
 					defaultDate={new Date()}
-					components={{eventWrapper: Event}}
+					components={{eventWrapper: CalendarMonthEvent}}
 				/>
 			</div>
 		)
