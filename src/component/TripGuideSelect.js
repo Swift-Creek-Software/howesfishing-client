@@ -19,14 +19,14 @@ class TripGuideSelector extends Component {
 
 			const tripTimes = this.props.tripTimesByGuide[ guide.id ]
 			const disabled = tripTimes ? tripTimes.some((time) => {
-				return areDatesInRange(time.start, time.end, this.props.start, this.props.end)
-			}) : false
+					return areDatesInRange(time.start, time.end, this.props.start, this.props.end)
+				}) : false
 			const options = {
 				name: guide.name,
 				value: guide.id,
 				disabled
 			}
-			console.log('options', options)
+
 			return options
 		})
 	}

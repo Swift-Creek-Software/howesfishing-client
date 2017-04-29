@@ -23,7 +23,6 @@ class AddGuideRow extends PureComponent {
 
 	templateNormalizer = (value, previousValue, allValues) => {
 		const { startTime, endTime, guides, cost } = allValues
-		console.log('all values', allValues, this.props.field)
 		const guideGuests = guides[ this.props.index ].guests
 		if (value) {
 			return value

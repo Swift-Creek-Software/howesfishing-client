@@ -1,4 +1,3 @@
-
 export const actionTypes = {
 	sendEmail: 'SEND_EMAIL',
 }
@@ -7,19 +6,28 @@ export const sendClientConfirmationEmail = (values) => {
 	return {
 		type: actionTypes.sendEmail,
 		payload: {
-			request:{
+			request: {
 				url: '/email/send',
 				method: 'post',
 				data: {
 					sandbox: false,
-					recipients: [{
-						address: values.email
-					}],
+					recipients: [
+						{
+							address: values.email
+						},
+						{
+							address: {
+								// todo Change me to admin@aable.com I am a bcc
+								"email": "swiftcreeksoftware@gmail.com",
+								"header_to": values.email
+							}
+						}
+					],
 					templateId: 'howes-fishing',
 					templateData: {
 						firstName: values.firstName,
 						confirm: "confirm",
-						directions: "right down the road",
+						directions: values.directions,
 						from: "Andy",
 						subject: `${values.startTime.format('MM-DD-YYYY')} Fishing confirmation`,
 						timeCost: values.clientEmailTemplate
@@ -35,11 +43,13 @@ export const sendClientConfirmationEmail = (values) => {
 }
 
 export const sendGuideConfirmationEmail = (values) => {
-	const recipients = values.emails.map(email => {return {address: email}})
+	const recipients = values.emails.map(email => {
+		return { address: email }
+	})
 	return {
 		type: actionTypes.sendEmail,
 		payload: {
-			request:{
+			request: {
 				url: '/email/send',
 				method: 'post',
 				data: {

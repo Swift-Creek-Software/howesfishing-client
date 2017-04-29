@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import forOwn from 'lodash/forOwn'
+import find from 'lodash/find'
 import { Field, reduxForm, FieldArray, formValueSelector, change } from 'redux-form'
 import validatejs from 'validate.js'
 import { connect } from 'react-redux'
@@ -90,11 +91,12 @@ class AddTrip extends PureComponent {
 	}
 
 	handleSubmit = (values) => {
+		values.directions = find(this.props.locations, location => location.id === values.location).directions
 		console.log('values', values)
-		this.sendGuidesInfo(values.guides, values.notes, values.startTime)
+		// this.sendGuidesInfo(values.guides, values.notes, values.startTime)
 		// send client/admin email
 
-		// this.props.sendEmail(values)
+		this.props.sendClientConfirmationEmail(values)
 	}
 
 	sendGuidesInfo = (guides, notes, date) => {
@@ -174,6 +176,12 @@ class AddTrip extends PureComponent {
 		//TODO add delete logic here
 	}
 
+	locationOptions = () => {
+		return this.props.locations.map(location => {
+			return {name:location.name, value: location.id}
+		})
+	}
+
 	render() {
 		const { handleSubmit } = this.props
 		return (
@@ -233,28 +241,7 @@ class AddTrip extends PureComponent {
 								   component={SelectField}
 								   label="Location"
 								   placeholder="select"
-								   options={[
-									   {
-										   name: 'N/A',
-										   value: 'N/A'
-									   },
-									   {
-										   name: 'Bigfork',
-										   value: 'BIGFORK'
-									   },
-									   {
-										   name: 'West Shore',
-										   value: 'WEST_SHORE'
-									   },
-									   {
-										   name: 'Lakeside - Marina',
-										   value: 'LAKESIDE_MARINA'
-									   },
-									   {
-										   name: 'Lakeside - Pat',
-										   value: 'LAKESIDE_PAT'
-									   }
-								   ]}
+								   options={this.locationOptions()}
 							/>
 						</div>
 						<FieldArray name="guides" component={this.renderGuides}/>
@@ -310,6 +297,7 @@ AddTrip = connect(state => {
 		return {
 			guides: guidesById(state),
 			startDate: selector(state, 'startTime'),
+			locations: state.location.locations
 		}
 	},
 	{
