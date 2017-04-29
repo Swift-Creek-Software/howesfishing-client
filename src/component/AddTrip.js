@@ -8,7 +8,7 @@ import moment from 'moment'
 import { Link, withRouter } from 'react-router-dom'
 
 import { sendSMS } from '../actions/NexmoActions'
-import { sendClientConfirmationEmail, sendGuideConfirmationEmail } from '../actions/EmailActions'
+import { sendClientConfirmationEmail, sendGuideConfirmationEmail, sendGuideCancellationEmail } from '../actions/EmailActions'
 import guidesById from '../selectors/guidesById'
 import currentTripSelector from '../selectors/currentTripSelector'
 
@@ -118,9 +118,7 @@ class AddTrip extends PureComponent {
 
 			}
 			// send guide emails
-			guideDetail.emails.forEach(email => {
-				this.props.sendGuideConfirmationEmail(guideEmailValues)
-			})
+			this.props.sendGuideConfirmationEmail(guideEmailValues)
 		})
 	}
 
@@ -175,7 +173,34 @@ class AddTrip extends PureComponent {
 	}
 
 	onDeleteConfirm = (event) => {
+		event.preventDefault()
+
+
 		//TODO add delete logic here
+		this.sendGuidesCancelationEmail()
+	}
+
+	sendGuidesCancelationEmail = () => {
+		const initialValues = this.props.initialValues
+		initialValues.guides.forEach(guide => {
+			const guideDetail = this.props.guides[guide.id]
+
+			const dateTime = `${moment(initialValues.startTime).format('MM-DD-YYYY')} from ${moment(initialValues.startTime).format('ha')} - ${moment(initialValues.endTime).format('ha')}`
+			const guideMessage = `${guideDetail.name} your trip on ${dateTime} has been CANCELLED`
+
+			 // send guide texts
+			guideDetail.phones.forEach(phone => {
+				this.props.sendSMS(phone, guideMessage)
+			})
+
+			const guideEmailValues = {
+				emails: guideDetail.emails,
+				dateTime,
+				name: guideDetail.name,
+
+			}
+			this.props.sendGuideCancellationEmail(guideEmailValues)
+		})
 	}
 
 	locationOptions = () => {
@@ -294,7 +319,8 @@ AddTrip = connect(state => {
 		change,
 		sendSMS,
 		sendClientConfirmationEmail,
-		sendGuideConfirmationEmail
+		sendGuideConfirmationEmail,
+		sendGuideCancellationEmail
 	}
 )(AddTrip)
 

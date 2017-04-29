@@ -70,3 +70,32 @@ export const sendGuideConfirmationEmail = (values) => {
 		}
 	}
 }
+
+export const sendGuideCancellationEmail = (values) => {
+	const recipients = values.emails.map(email => {
+		return { address: email }
+	})
+	return {
+		type: actionTypes.sendEmail,
+		payload: {
+			request: {
+				url: '/email/send',
+				method: 'post',
+				data: {
+					sandbox: false,
+					recipients,
+					templateId: 'guide-cancelation-template',
+					templateData: {
+						name: values.name,
+						subject: `${values.dateTime} trip cancellation`,
+						dateTime: values.dateTime
+					},
+					campaignId: 'guide confirmation',
+					// meta: {
+					// 	metaDataDemo: 'this key/val will be in the email headers'
+					// },
+				}
+			}
+		}
+	}
+}

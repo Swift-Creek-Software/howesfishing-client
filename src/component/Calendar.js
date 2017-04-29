@@ -9,6 +9,7 @@ import CalendarGuideSelector from './CalendarGuideSelector'
 import CalendarMonthEvent from './CalendarMonthEvent'
 
 import 'react-big-calendar/lib/css/react-big-calendar.css'
+import './Calendar.css'
 
 
 BigCalendar.setLocalizer(

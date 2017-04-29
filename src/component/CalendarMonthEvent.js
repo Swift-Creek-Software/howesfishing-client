@@ -1,8 +1,9 @@
 import React, { PureComponent, PropTypes } from 'react'
-import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
-import {setCurrentTrip} from '../actions/TripActions'
+import { setCurrentTrip } from '../actions/TripActions'
+
 
 class CalendarMonthEvent extends PureComponent {
 	onEventClick = () => {
@@ -10,16 +11,11 @@ class CalendarMonthEvent extends PureComponent {
 	}
 
 	render() {
-		const {event} = this.props
+		const { event } = this.props
+
 		return (
-			<div style={{
-				backgroundColor: event.color,
-				borderRadius: '3px',
-				padding: 2,
-				boxSizing: 'border-box',
-				color: '#fff'
-			}} onClick={this.onEventClick}>
-				{event.title}
+			<div style={{ backgroundColor: event.color, borderRadius: 5 }} onClick={this.onEventClick}>
+				{this.props.children}
 			</div>
 		)
 	}
@@ -30,5 +26,5 @@ class CalendarMonthEvent extends PureComponent {
 CalendarMonthEvent.propTypes = {
 	event: PropTypes.object.isRequired
 }
-CalendarMonthEvent = connect(null, {setCurrentTrip})(CalendarMonthEvent)
+CalendarMonthEvent = connect(null, { setCurrentTrip })(CalendarMonthEvent)
 export default withRouter(CalendarMonthEvent)
