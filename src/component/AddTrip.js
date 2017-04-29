@@ -5,7 +5,7 @@ import { Field, reduxForm, FieldArray, formValueSelector, change } from 'redux-f
 import validatejs from 'validate.js'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { Modal } from 'react-bootstrap'
 
 import { sendSMS } from '../actions/NexmoActions'
@@ -97,6 +97,7 @@ class AddTrip extends PureComponent {
 		// send client/admin email
 
 		this.props.sendClientConfirmationEmail(values)
+		this.props.history.push('/dashboard')
 	}
 
 	sendGuidesInfo = (guides, notes, date) => {
@@ -259,7 +260,8 @@ class AddTrip extends PureComponent {
 						/>
 
 						<buton onClick={this.onDeleteButtonClick} className="btn btn-danger">Delete Trip</buton>
-						<button type="submit" className="btn btn-primary" style={{ float: 'right' }}>Create Trip
+						<button type="submit" className="btn btn-primary" style={{ float: 'right' }}>
+							Create Trip
 						</button>
 						<Link to="/dashboard" className="btn btn-warning" style={{ float: 'right', marginRight: 10 }}>Cancel</Link>
 					</div>
@@ -308,4 +310,4 @@ AddTrip = connect(state => {
 	}
 )(AddTrip)
 
-export default (AddTrip)
+export default withRouter(AddTrip)

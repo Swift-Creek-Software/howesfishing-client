@@ -3,7 +3,7 @@ import { Field, reduxForm, FieldArray } from 'redux-form'
 import forOwn from 'lodash/forOwn'
 import validatejs from 'validate.js'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 import editingGuideSelector from '../../selectors/editingGuideSelector'
 import { setEditingGuide } from '../../actions/GuideActions'
@@ -68,7 +68,9 @@ class Guide extends PureComponent {
 	}
 
 	handleSubmit = (values) => {
+			// todo add logic to save in the db
 
+		this.props.history.push('/guides')
 	}
 
 	renderEmails = ({ fields, meta: { error } }) => {
@@ -197,4 +199,4 @@ Guide = connect(
 	},
 	{ setEditingGuide }
 )(Guide)
-export default (Guide)
+export default withRouter(Guide)
