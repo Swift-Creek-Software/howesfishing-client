@@ -1,7 +1,9 @@
 import { createSelector } from 'reselect'
 
+import tripsByid from './tripsById'
+
 const currentTrip = state => state.trip.currentTrip
-const tripsById = state => state.trip.tripsById
+const tripsById = state => tripsByid(state)
 
 const getTripById = (currentTrip, tripsById) => tripsById[currentTrip] || null
 

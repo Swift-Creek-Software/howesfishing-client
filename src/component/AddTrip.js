@@ -11,6 +11,7 @@ import { Modal } from 'react-bootstrap'
 import { sendSMS } from '../actions/NexmoActions'
 import { sendClientConfirmationEmail, sendGuideConfirmationEmail } from '../actions/EmailActions'
 import guidesById from '../selectors/guidesById'
+import currentTripSelector from '../selectors/currentTripSelector'
 
 import FormHeader from './Common/FormHeader'
 import TextField from './Common/TextField'
@@ -102,7 +103,7 @@ class AddTrip extends PureComponent {
 
 	sendGuidesInfo = (guides, notes, date) => {
 		guides.forEach(guide => {
-			const guideDetail = this.props.guides[guide.guideId]
+			const guideDetail = this.props.guides[guide.id]
 			const guideMessage = `${guide.textTemplate} ${notes ? `Notes: ${notes}` : ''}`
 
 			// send guide texts
@@ -299,7 +300,9 @@ AddTrip = connect(state => {
 		return {
 			guides: guidesById(state),
 			startDate: selector(state, 'startTime'),
-			locations: state.location.locations
+			locations: state.location.locations,
+			user: state.user,
+			initialValues: currentTripSelector(state)
 		}
 	},
 	{

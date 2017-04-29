@@ -33,7 +33,7 @@ class TripGuideSelector extends Component {
 
 	render() {
 		return (
-			<Field name={`${this.props.field}.guideId`}
+			<Field name={`${this.props.field}.id`}
 				   className="guide-field"
 				   component={SelectField}
 				   label="Guide"

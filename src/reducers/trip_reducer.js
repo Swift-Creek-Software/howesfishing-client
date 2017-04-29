@@ -13,10 +13,12 @@ const defaultTrips = [
 		endTime: new Date(),
 		guests: 5,
 		cost: 400,
-		waterBody: 'flathead',
+		location: 'BIGFORK',
 		guides: [
-			3
-		]
+			{id: 2, guests: 3, textTemplate: 'new text template'}
+		],
+		clientEmailTemplate: 'new client email template',
+		notes: 'notes here'
 	},
 	{
 		id: 2,
@@ -28,10 +30,13 @@ const defaultTrips = [
 		endTime: new Date(2017, 3, 9, 14, 0, 0),
 		guests: 5,
 		cost: 400,
-		waterBody: 'flathead',
+		location: 'WEST_SHORE',
 		guides: [
-			1, 2, 4
-		]
+			{id: 1, guests: 3},
+			{id: 2, guests: 3},
+			{id: 4, guests: 3}
+		],
+		notes: 'more notes here'
 	},
 	{
 		id: 3,
@@ -43,77 +48,31 @@ const defaultTrips = [
 		endTime: new Date(2017, 3, 10, 14, 0, 0),
 		guests: 5,
 		cost: 400,
-		waterBody: 'flathead',
+		location: 'LAKESIDE_PAT',
 		guides: [
-			1, 2
-		]
+			{id: 1, guests: 3},
+			{id: 2, guests: 3},
+		],
+		notes: null
 	},
 	{
-		id: 3,
+		id: 4,
 		firstName: 'another',
-		lastName: 'person',
+		lastName: 'nother',
 		email: 'new@email.com',
 		phone: '(406) 555-5555',
 		startTime: new Date(2017, 3, 10, 8, 0, 0),
 		endTime: new Date(2017, 3, 12, 14, 0, 0),
 		guests: 5,
 		cost: 400,
-		waterBody: 'flathead',
+		location: 'LAKESIDE_MARINA',
 		guides: [
-			4
-		]
+			{id: 4, guests: 3}
+		],
+		notes: 'another note here'
 	}
 ]
-const defaultIdTrips = {
-	1: {
-		id: 1,
-		firstName: 'First',
-		lastName: 'Last',
-		email: 'email@email.com',
-		phone: '(406) 555-5555',
-		startTime: new Date(),
-		endTime: new Date(),
-		guests: 5,
-		cost: 400,
-		waterBody: 'flathead',
-		guides: [
-			'Mike',
-			'Cindy'
-		]
-	},
-	2: {
-		id: 2,
-		firstName: 'new',
-		lastName: 'person',
-		email: 'second@email.com',
-		phone: '(406) 555-5555',
-		startTime: new Date(2017, 3, 9, 8, 0, 0),
-		endTime: new Date(2017, 3, 9, 14, 0, 0),
-		guests: 5,
-		cost: 400,
-		waterBody: 'flathead',
-		guides: [
-			'Mike',
-			'Cindy'
-		]
-	},
-	3: {
-		id: 3,
-		firstName: 'another',
-		lastName: 'person',
-		email: 'new@email.com',
-		phone: '(406) 555-5555',
-		startTime: new Date(2017, 3, 10, 8, 0, 0),
-		endTime: new Date(2017, 3, 10, 14, 0, 0),
-		guests: 5,
-		cost: 400,
-		waterBody: 'flathead',
-		guides: [
-			'Mike',
-			'Cindy'
-		],
-	}
-}
+
 const trips = (state = defaultTrips, action) => {
 	switch(action.type) {
 		case actionTypes.logout:
@@ -123,17 +82,7 @@ const trips = (state = defaultTrips, action) => {
 	}
 }
 
-const tripsById = (state = defaultIdTrips, action) => {
-	switch(action.type) {
-		case actionTypes.logout:
-			return null
-		default:
-			return state
-	}
-}
-
-
-const currentTrip = (state = 2, action) => {
+const currentTrip = (state = null, action) => {
 	switch(action.type) {
 		case actionTypes.setCurrentTrip:
 			return action.payload
@@ -147,7 +96,6 @@ const currentTrip = (state = 2, action) => {
 const tripReducer = combineReducers({
 	currentTrip,
 	trips,
-	tripsById,
 })
 
 export default tripReducer
