@@ -7,7 +7,6 @@ import {setCurrentTrip} from '../actions/TripActions'
 class CalendarMonthEvent extends PureComponent {
 	onEventClick = () => {
 		this.props.setCurrentTrip(this.props.event.id)
-		this.props.history.push('/trip')
 	}
 
 	render() {

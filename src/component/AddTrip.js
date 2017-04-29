@@ -6,7 +6,6 @@ import validatejs from 'validate.js'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { Link, withRouter } from 'react-router-dom'
-import { Modal } from 'react-bootstrap'
 
 import { sendSMS } from '../actions/NexmoActions'
 import { sendClientConfirmationEmail, sendGuideConfirmationEmail } from '../actions/EmailActions'
@@ -19,6 +18,7 @@ import SelectField from './Common/SelectField'
 import TextAreaField from './Common/TextAreaField'
 import DateTimeField from './Common/DateTimeField'
 import TripGuideRow from './Common/TripGuideRow'
+import DeleteConfirmModal from './DeleteConfirmModal'
 
 import 'react-datetime/css/react-datetime.css'
 import './Common/Common.css'
@@ -268,22 +268,7 @@ class AddTrip extends PureComponent {
 					</div>
 				</form>
 				{this.state.showDeleteModal &&
-					<Modal.Dialog>
-						<Modal.Header>
-							Confirm Delete
-						</Modal.Header>
-						<Modal.Body>
-							Are you sure you want to delete this trip?
-						</Modal.Body>
-						<Modal.Footer>
-							<button onClick={this.closeDeleteModal} className="btn btn-primary">
-								cancel
-							</button>
-							<button onClick={this.onDeleteConfirm} className="btn btn-danger">
-								Yes, delete trip
-							</button>
-						</Modal.Footer>
-					</Modal.Dialog>
+					<DeleteConfirmModal onCancelClick={this.closeDeleteModal} onDeleteClick={this.onDeleteConfirm}/>
 				}
 			</div>
 		)

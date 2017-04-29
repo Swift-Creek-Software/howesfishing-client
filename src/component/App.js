@@ -14,7 +14,6 @@ import Dashboard from './Dashboard'
 import Guides from './guide/Guides'
 import Guide from './guide/Guide'
 import Navbar from './NavBar'
-import Trip from './Trip'
 
 class App extends Component {
 	render() {
@@ -30,7 +29,6 @@ class App extends Component {
 					<PrivateRoute path="/trip" component={AddTrip} user={user}/>
 					<PrivateRoute path="/guide" component={Guide} user={user}/>
 					<PrivateRoute path="/guides" component={Guides} user={user}/>
-					<PrivateRoute path="/trip-details" component={Trip} user={user}/>
 					<PrivateRoute path="/dashboard" component={Dashboard} user={user}/>
 				</div>
 			</Router>
