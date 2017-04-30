@@ -20,7 +20,7 @@ export const fetchGuides = () => {
 		type: actionTypes.fetchGuides,
 		payload: {
 			request: {
-				url: '/guides',
+				url: '/guide',
 			}
 		}
 	}
@@ -31,7 +31,7 @@ export const addGuide = (data) => {
 		type: actionTypes.addGuide,
 		payload: {
 			request: {
-				url: '/guides',
+				url: '/guide',
 				method: 'post',
 				data
 			}
@@ -44,7 +44,7 @@ export const updateGuide = (data) => {
 		type: actionTypes.addGuide,
 		payload: {
 			request: {
-				url: '/guides',
+				url: '/guide',
 				method: 'put',
 				data
 			}

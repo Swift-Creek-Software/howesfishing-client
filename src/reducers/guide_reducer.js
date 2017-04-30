@@ -117,6 +117,8 @@ const defaultGuides = [
 
 const guides = (state = defaultGuides, action) => {
 	switch (action.type) {
+		case actionTypes.fetchGuidesSuccess:
+			return action.payload.data
 		default:
 			return state
 	}

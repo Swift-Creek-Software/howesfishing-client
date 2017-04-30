@@ -82,6 +82,8 @@ const trips = (state = defaultTrips, action) => {
 	switch(action.type) {
 		case actionTypes.logout:
 			return null
+		case actionTypes.fetchTripsSuccess:
+			return action.payload.data
 		default:
 			return state
 	}

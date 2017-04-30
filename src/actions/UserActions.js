@@ -4,7 +4,8 @@ import { fetchGuides } from './GuideActions'
 export const actionTypes = {
 	login: 'LOGIN',
 	loginSuccess: 'LOGIN_SUCCESS',
-	logout: 'LOG_OUT'
+	logout: 'LOG_OUT',
+	setUserLoggedIn: 'SET_USER_LOGGED_IN'
 }
 
 export const login = (email, password) => {
@@ -23,15 +24,27 @@ export const login = (email, password) => {
 	}
 }
 
+export const setUserLoggedIn = () => {
+	return {
+		type: actionTypes.setUserLoggedIn
+	}
+}
+
 export const userLogin = (email, password) => {
 	return dispatch => {
 		return new Promise((resolve, reject) => {
 			dispatch(login(email, password)).then(() => {
 				console.log('user is logged in')
-				Promise.all([
-					dispatch(fetchGuides()),
-					dispatch(fetchTrips()),
-				]).then(() => resolve())
+				setTimeout(() => {
+					Promise.all([
+						dispatch(fetchGuides()),
+						dispatch(fetchTrips()),
+					]).then(() => {
+						dispatch(setUserLoggedIn())
+						resolve()
+					})
+				}, 500)
+
 			}).catch(() => reject())
 		})
 	}
