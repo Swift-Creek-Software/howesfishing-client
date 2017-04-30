@@ -8,7 +8,7 @@ import moment from 'moment'
 import { Link, withRouter } from 'react-router-dom'
 
 import { sendSMS } from '../actions/NexmoActions'
-import { sendClientConfirmationEmail, sendGuideConfirmationEmail, sendGuideCancellationEmail } from '../actions/EmailActions'
+import { sendClientConfirmationEmail, sendGuideConfirmationEmail, sendGuideCancellationEmail, sendClientCancellationEmail } from '../actions/EmailActions'
 import guidesById from '../selectors/guidesById'
 import currentTripSelector from '../selectors/currentTripSelector'
 
@@ -175,17 +175,26 @@ class AddTrip extends PureComponent {
 	onDeleteConfirm = (event) => {
 		event.preventDefault()
 
-
 		//TODO add delete logic here
-		this.sendGuidesCancelationEmail()
+		// this.sendGuidesCancelationEmail()
+
+		this.sendClientCancellationEmail()
+	}
+	sendClientCancellationEmail = () => {
+		const values = {
+			firstName: this.props.firstName,
+			startTime: this.props.startTime,
+			email: this.props.clientEmail
+		}
+		this.props.sendClientCancellationEmail(values)
+
 	}
 
 	sendGuidesCancelationEmail = () => {
-		const initialValues = this.props.initialValues
-		initialValues.guides.forEach(guide => {
+		this.props.tripGuides.forEach(guide => {
 			const guideDetail = this.props.guides[guide.id]
 
-			const dateTime = `${moment(initialValues.startTime).format('MM-DD-YYYY')} from ${moment(initialValues.startTime).format('ha')} - ${moment(initialValues.endTime).format('ha')}`
+			const dateTime = `${moment(this.props.startTime).format('MM-DD-YYYY')} from ${moment(this.props.startTime).format('ha')} - ${moment(this.props.endTime).format('ha')}`
 			const guideMessage = `${guideDetail.name} your trip on ${dateTime} has been CANCELLED`
 
 			 // send guide texts
@@ -309,10 +318,14 @@ AddTrip = connect(state => {
 		const selector = formValueSelector('addtrip')
 		return {
 			guides: guidesById(state),
-			startDate: selector(state, 'startTime'),
+			endTime: selector(state, 'endTime'),
+			clientEmail: selector(state, 'email'),
+			firstName: selector(state, 'firstName'),
+			tripGuides: selector(state, 'guides'),
+			startTime: selector(state, 'startTime'),
 			locations: state.location.locations,
 			user: state.user,
-			initialValues: currentTripSelector(state)
+			initialValues: currentTripSelector(state),
 		}
 	},
 	{
@@ -320,7 +333,8 @@ AddTrip = connect(state => {
 		sendSMS,
 		sendClientConfirmationEmail,
 		sendGuideConfirmationEmail,
-		sendGuideCancellationEmail
+		sendGuideCancellationEmail,
+		sendClientCancellationEmail,
 	}
 )(AddTrip)
 

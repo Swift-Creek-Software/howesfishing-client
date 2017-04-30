@@ -5,7 +5,7 @@ const PrivateRoute = ({ component, user, ...rest }) => {
 	return (
 		<Route {...rest} render={props => {
 			return (
-				true ? (
+				user ? (
 						React.createElement(component, props)
 					) : (
 						<Redirect to={{

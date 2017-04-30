@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 export const actionTypes = {
 	sendEmail: 'SEND_EMAIL',
 }
@@ -33,15 +35,48 @@ export const sendClientConfirmationEmail = (values) => {
 						timeCost: values.clientEmailTemplate
 					},
 					campaignId: 'Client confirmation',
-					// meta: {
-					// 	metaDataDemo: 'this key/val will be in the email headers'
-					// },
 				}
 			}
 		}
 	}
 }
 
+export const sendClientCancellationEmail = (values) => {
+	return {
+		type: actionTypes.sendEmail,
+		payload: {
+			request: {
+				url: '/email/send',
+				method: 'post',
+				data: {
+					sandbox: false,
+					recipients: [
+						{
+							address: values.email
+						},
+						{
+							address: {
+								// todo Change me to admin@aable.com I am a bcc
+								"email": "swiftcreeksoftware@gmail.com",
+								"header_to": values.email
+							}
+						}
+					],
+					templateId: 'client-cancellation',
+					templateData: {
+						firstName: values.firstName,
+						date: moment(values.startTime).format('MM-DD-YYYY'),
+						subject: `${moment(values.startTime).format('MM-DD-YYYY')} fishing trip cancellation`
+					},
+					campaignId: 'Client cancellation',
+				}
+			}
+		}
+	}
+}
+
+
+//Guide emails
 export const sendGuideConfirmationEmail = (values) => {
 	const recipients = values.emails.map(email => {
 		return { address: email }
@@ -90,7 +125,7 @@ export const sendGuideCancellationEmail = (values) => {
 						subject: `${values.dateTime} trip cancellation`,
 						dateTime: values.dateTime
 					},
-					campaignId: 'guide confirmation',
+					campaignId: 'guide cancellation',
 					// meta: {
 					// 	metaDataDemo: 'this key/val will be in the email headers'
 					// },

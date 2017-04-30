@@ -8,10 +8,6 @@ import TextField from './Common/TextField'
 import FormHeader from './Common/FormHeader'
 
 class LoginForm extends PureComponent {
-
-	static propTypes = {
-		onSubmit: PropTypes.func.isRequired
-	}
 	onFormSubmit = (values) => {
 		return this.props.login(values.email, values.password).catch(error => {
 			throw new SubmissionError({_error: 'username/password are incorrect'})
