@@ -26,9 +26,9 @@ class App extends Component {
 						<Redirect to="/dashboard"/>
 					)}/>
 					<Route exact path="/login" component={Login}/>
-					<PrivateRoute path="/trip" component={AddTrip} user={user}/>
-					<PrivateRoute path="/guide" component={Guide} user={user}/>
-					<PrivateRoute path="/guides" component={Guides} user={user}/>
+					<PrivateRoute path="/trip" component={AddTrip} user={user} isAdmin/>
+					<PrivateRoute path="/guide" component={Guide} user={user} isAdmin/>
+					<PrivateRoute path="/guides" component={Guides} user={user} isAdmin/>
 					<PrivateRoute path="/dashboard" component={Dashboard} user={user}/>
 				</div>
 			</Router>
