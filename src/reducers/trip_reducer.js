@@ -61,7 +61,7 @@ const defaultTrips = [
 		lastName: 'last',
 		email: 'new@email.com',
 		phone: '(406) 555-5555',
-		startTime: new Date(2017, 3, 10, 8, 0, 0),
+		startTime: new Date(2017, 3, 9, 8, 0, 0),
 		endTime: new Date(2017, 3, 12, 14, 0, 0),
 		guests: 5,
 		cost: 400,

@@ -8,7 +8,12 @@ import moment from 'moment'
 import { Link, withRouter } from 'react-router-dom'
 
 import { sendSMS } from '../../actions/NexmoActions'
-import { sendClientConfirmationEmail, sendGuideConfirmationEmail, sendGuideCancellationEmail, sendClientCancellationEmail } from '../../actions/EmailActions'
+import {
+	sendClientConfirmationEmail,
+	sendGuideConfirmationEmail,
+	sendGuideCancellationEmail,
+	sendClientCancellationEmail
+} from '../../actions/EmailActions'
 import guidesById from '../../selectors/guidesById'
 import currentTripSelector from '../../selectors/currentTripSelector'
 
@@ -62,12 +67,7 @@ const validate = (values, props) => {
 			presence: {
 				message: 'required'
 			}
-		},
-		waterbody: {
-			presence: {
-				message: 'required'
-			}
-		},
+		}
 	}
 
 	const validationErrors = validatejs(values, constraints, { fullMessages: false })
@@ -103,7 +103,7 @@ class AddTrip extends PureComponent {
 
 	sendGuidesInfo = (guides, notes, date) => {
 		guides.forEach(guide => {
-			const guideDetail = this.props.guides[guide.id]
+			const guideDetail = this.props.guides[ guide.id ]
 			const guideMessage = `${guide.textTemplate} ${notes ? `Notes: ${notes}` : ''}`
 
 			// send guide texts
@@ -192,12 +192,12 @@ class AddTrip extends PureComponent {
 
 	sendGuidesCancelationEmail = () => {
 		this.props.tripGuides.forEach(guide => {
-			const guideDetail = this.props.guides[guide.id]
+			const guideDetail = this.props.guides[ guide.id ]
 
 			const dateTime = `${moment(this.props.startTime).format('MM-DD-YYYY')} from ${moment(this.props.startTime).format('ha')} - ${moment(this.props.endTime).format('ha')}`
 			const guideMessage = `${guideDetail.name} your trip on ${dateTime} has been CANCELLED`
 
-			 // send guide texts
+			// send guide texts
 			guideDetail.phones.forEach(phone => {
 				this.props.sendSMS(phone, guideMessage)
 			})
@@ -214,12 +214,13 @@ class AddTrip extends PureComponent {
 
 	locationOptions = () => {
 		return this.props.locations.map(location => {
-			return {name:location.name, value: location.id}
+			return { name: location.name, value: location.id }
 		})
 	}
 
 	render() {
 		const { handleSubmit } = this.props
+		console.log('add props', this.props)
 		return (
 			<div className="form-wrapper AddTrip">
 				<form className="panel panel-primary" onSubmit={handleSubmit(this.handleSubmit)}>
@@ -293,8 +294,10 @@ class AddTrip extends PureComponent {
 							   label="Notes"
 							   placeholder="add notes here..."
 						/>
-
+						{this.props.location.search.indexOf('editing') > 0 &&
 						<buton onClick={this.onDeleteButtonClick} className="btn btn-danger">Delete Trip</buton>
+						}
+
 						<button type="submit" className="btn btn-primary" style={{ float: 'right' }}>
 							Create Trip
 						</button>
@@ -302,7 +305,7 @@ class AddTrip extends PureComponent {
 					</div>
 				</form>
 				{this.state.showDeleteModal &&
-					<DeleteConfirmModal onCancelClick={this.closeDeleteModal} onDeleteClick={this.onDeleteConfirm}/>
+				<DeleteConfirmModal onCancelClick={this.closeDeleteModal} onDeleteClick={this.onDeleteConfirm}/>
 				}
 			</div>
 		)

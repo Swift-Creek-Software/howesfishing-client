@@ -42,8 +42,10 @@ class Calendar extends Component {
 
 	render() {
 		return (
-			<div style={{ height: 'calc(100% - 100px)', padding: '0 50px', boxSizing: 'border-box' }}>
-				<CalendarGuideSelector/>
+			<div style={{ height: 'calc(100% - 50px)', padding: '0 50px', boxSizing: 'border-box' }}>
+				{this.props.user.isAdmin &&
+					<CalendarGuideSelector/>
+				}
 				<BigCalendar
 					popup
 					events={this.renderEventsList()}
@@ -59,6 +61,7 @@ class Calendar extends Component {
 
 export default connect(state => {
 	return {
-		trips: guideTripsSelector(state)
+		trips: guideTripsSelector(state),
+		user: state.user
 	}
 })(Calendar)

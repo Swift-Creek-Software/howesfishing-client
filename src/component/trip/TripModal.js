@@ -55,7 +55,7 @@ class TripModal extends PureComponent {
 				</Modal.Body>
 				<Modal.Footer>
 					{this.props.user && this.props.user.isAdmin &&
-					<Link to="/trip?editing=true" className="btn btn-primary">Edit Trip</Link>
+					<Link to={{ pathname: 'trip', search: 'editing' }} className="btn btn-primary">Edit Trip</Link>
 					}
 				</Modal.Footer>
 			</Modal.Dialog>

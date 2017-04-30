@@ -4,6 +4,7 @@ export const actionTypes = {
 	fetchTrips: 'FETCH_TRIPS',
 	fetchTripsSuccess: 'FETCH_TRIPS_SUCCESS',
 	setCurrentTrip: 'SET_CURRENT_TRIP',
+	updateTrip: 'UPDATE_TRIP'
 }
 
 export const login = (email, password) => {
@@ -17,6 +18,43 @@ export const login = (email, password) => {
 					email,
 					password
 				}
+			}
+		}
+	}
+}
+
+export const fetchTrips = () => {
+	return {
+		type: actionTypes.fetchTrips,
+		payload: {
+			request: {
+				url: '/trip',
+			}
+		}
+	}
+}
+
+export const addTrip = (data) => {
+	return {
+		type: actionTypes.addTrip,
+		payload: {
+			request: {
+				url: '/trip',
+				method: 'post',
+				data
+			}
+		}
+	}
+}
+
+export const updateTrip = (data) => {
+	return {
+		type: actionTypes.updateTrip,
+		payload: {
+			request: {
+				url: `/trip`,
+				method: 'put',
+				data
 			}
 		}
 	}

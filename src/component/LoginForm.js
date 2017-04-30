@@ -2,14 +2,14 @@ import React, { PropTypes, PureComponent } from 'react'
 import { Field, reduxForm, SubmissionError } from 'redux-form';
 import {connect} from 'react-redux'
 
-import { login } from '../actions/UserActions'
+import { userLogin } from '../actions/UserActions'
 
 import TextField from './Common/TextField'
 import FormHeader from './Common/FormHeader'
 
 class LoginForm extends PureComponent {
 	onFormSubmit = (values) => {
-		return this.props.login(values.email, values.password).catch(error => {
+		return this.props.userLogin(values.email, values.password).catch(error => {
 			throw new SubmissionError({_error: 'username/password are incorrect'})
 		})
 	}
@@ -49,7 +49,7 @@ LoginForm = reduxForm({
 })(LoginForm)
 
 LoginForm = connect(null, {
-	login
+	userLogin
 })(LoginForm)
 
 export default LoginForm
