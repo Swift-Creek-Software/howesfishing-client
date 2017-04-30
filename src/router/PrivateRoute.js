@@ -4,7 +4,7 @@ import { Redirect, Route } from 'react-router-dom'
 const PrivateRoute = ({ component, user, isAdmin, ...rest }) => {
 	return (
 		<Route {...rest} render={props => {
-			if(user.isLoggedIn) {
+			if(user) {
 				// just being a user isn't enough for our admin routes
 				if (isAdmin) {
 					if(user.isAdmin) {
