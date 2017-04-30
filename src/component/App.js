@@ -9,7 +9,7 @@ import {
 
 import PrivateRoute from '../router/PrivateRoute'
 import Login from './Login'
-import AddTrip from './AddTrip'
+import AddTrip from './trip/AddTrip'
 import Dashboard from './Dashboard'
 import Guides from './guide/Guides'
 import Guide from './guide/Guide'

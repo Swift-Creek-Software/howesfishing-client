@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 
 import currentTripSelector from '../selectors/currentTripSelector'
 
-import Calendar from './Calendar'
-import TripModal from './TripModal'
+import Calendar from './calendar/Calendar'
+import TripModal from './trip/TripModal'
 
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 

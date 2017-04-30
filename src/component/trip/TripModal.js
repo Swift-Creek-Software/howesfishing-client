@@ -4,11 +4,11 @@ import { Modal } from 'react-bootstrap'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 
-import currentTripSelector from '../selectors/currentTripSelector'
-import guidesById from '../selectors/guidesById'
-import { setCurrentTrip } from '../actions/TripActions'
+import currentTripSelector from '../../selectors/currentTripSelector'
+import guidesById from '../../selectors/guidesById'
+import { setCurrentTrip } from '../../actions/TripActions'
 
-import TripData from './Common/TripData'
+import TripData from './TripData'
 
 
 class TripModal extends PureComponent {
@@ -55,7 +55,7 @@ class TripModal extends PureComponent {
 				</Modal.Body>
 				<Modal.Footer>
 					{this.props.user && this.props.user.isAdmin &&
-					<Link to="/trip" className="btn btn-primary">Edit Trip</Link>
+					<Link to="/trip?editing=true" className="btn btn-primary">Edit Trip</Link>
 					}
 				</Modal.Footer>
 			</Modal.Dialog>

@@ -1,9 +1,9 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { Field } from 'redux-form'
 
-import TextField from './TextField'
+import TextField from '../Common/TextField'
 
-import TripGuideSelect from '../TripGuideSelect'
+import TripGuideSelect from './TripGuideSelect'
 import './TripGuideRow.css'
 
 class AddGuideRow extends PureComponent {

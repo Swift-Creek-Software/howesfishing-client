@@ -2,7 +2,7 @@ import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
-import { setCurrentTrip } from '../actions/TripActions'
+import { setCurrentTrip } from '../../actions/TripActions'
 
 
 class CalendarMonthEvent extends PureComponent {

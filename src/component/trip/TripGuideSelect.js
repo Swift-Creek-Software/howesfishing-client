@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import { Field } from 'redux-form'
 import { formValueSelector } from 'redux-form';
 
-import tripTimesByGuide from '../selectors/tripTimesByGuide'
+import tripTimesByGuide from '../../selectors/tripTimesByGuide'
 
-import SelectField from './Common/SelectField'
-import { areDatesInRange } from '../utils/DateUtil'
+import SelectField from '../Common/SelectField'
+import { areDatesInRange } from '../../utils/DateUtil'
 
 class TripGuideSelector extends Component {
 	static propsTypes = {

@@ -3,7 +3,7 @@ import moment from 'moment';
 import { connect } from 'react-redux'
 import BigCalendar from 'react-big-calendar';
 
-import guideTripsSelector from '../selectors/guideTripsSelector'
+import guideTripsSelector from '../../selectors/guideTripsSelector'
 
 import CalendarGuideSelector from './CalendarGuideSelector'
 import CalendarMonthEvent from './CalendarMonthEvent'

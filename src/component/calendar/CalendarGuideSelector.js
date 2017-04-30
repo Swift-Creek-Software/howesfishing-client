@@ -1,9 +1,9 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import { setCurrentGuide } from '../actions/GuideActions'
+import { setCurrentGuide } from '../../actions/GuideActions'
 
-import SimpleSelectField from './Common/SimpleSelectField'
+import SimpleSelectField from '../Common/SimpleSelectField'
 
 class CalendarGuideSelector extends PureComponent {
 
