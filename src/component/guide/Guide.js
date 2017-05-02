@@ -1,16 +1,17 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { Field, reduxForm, FieldArray } from 'redux-form'
-import forOwn from 'lodash/forOwn'
+import {forOwn, isEmpty} from 'lodash'
 import validatejs from 'validate.js'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 
 import editingGuideSelector from '../../selectors/editingGuideSelector'
-import { setEditingGuide } from '../../actions/GuideActions'
+import { setEditingGuide, addGuide } from '../../actions/GuideActions'
 
 import ColorWrapper from './ColorWrapper'
 import FormHeader from '../Common/FormHeader'
 import TextField from '../Common/TextField'
+import DeleteConfirmModal from '../DeleteConfirmModal'
 import '../Common/Common.css'
 import './Guide.css'
 
@@ -24,21 +25,6 @@ const validate = (values, props) => {
 				message: 'required'
 			}
 		},
-		//
-		// email: {
-		// 	presence: {
-		//
-		// 		message: 'required'
-		// 	},
-		// 	email: {
-		// 		message: 'you must enter a valid email'
-		// 	},
-		// },
-		// phone: {
-		// 	presence: {
-		// 		message: 'required'
-		// 	}
-		// },
 		color: {
 			presence: {
 				message: 'required'
@@ -62,6 +48,13 @@ class Guide extends PureComponent {
 		// redux
 		initialValues: PropTypes.object.isRequired
 	}
+	constructor(props) {
+		super(props)
+
+		this.state = {
+			showDeleteModal: false
+		}
+	}
 
 	componentWillUnmount() {
 		this.props.setEditingGuide()
@@ -69,7 +62,7 @@ class Guide extends PureComponent {
 
 	handleSubmit = (values) => {
 			// todo add logic to save in the db
-
+		this.props.addGuide(values)
 		this.props.history.push('/guides')
 	}
 
@@ -78,7 +71,7 @@ class Guide extends PureComponent {
 			<div className="guides-data-table">
 				<h3 className="group-header">
 					Emails
-					<button type="button" className="btn btn-primary add-guide" onClick={() => fields.push({})}>
+					<button type="button" className="btn btn-primary add-guide" onClick={() => fields.push('')}>
 						+ Add Email
 					</button>
 				</h3>
@@ -118,7 +111,7 @@ class Guide extends PureComponent {
 			<div className="guides-data-table">
 				<h3 className="group-header">
 					Phones
-					<button type="button" className="btn btn-primary add-guide" onClick={() => fields.push({})}>
+					<button type="button" className="btn btn-primary add-guide" onClick={() => fields.push('')}>
 						+ Add Phone
 					</button>
 				</h3>
@@ -153,6 +146,23 @@ class Guide extends PureComponent {
 		})
 	}
 
+	onDeleteButtonClick = (event) => {
+		event.preventDefault()
+		this.setState({ showDeleteModal: true })
+	}
+
+	closeDeleteModal = (event) => {
+		event.preventDefault()
+		this.setState({ showDeleteModal: false })
+	}
+
+	onDeleteConfirm = (event) => {
+		event.preventDefault()
+
+		//TODO add delete logic here
+	}
+
+
 	render() {
 		const { handleSubmit } = this.props
 
@@ -174,6 +184,9 @@ class Guide extends PureComponent {
 
 						/>
 						<div className="button-row">
+							<button className="btn btn-danger" style={{float: 'left'}} onClick={this.onDeleteButtonClick}>
+								Delete Guide
+							</button>
 							<Link to='/guides' className="btn btn-warning">Cancel</Link>
 							<button className="btn btn-primary">
 								{this.props.initialValues ? 'Save' : 'Add Guide'}
@@ -181,6 +194,9 @@ class Guide extends PureComponent {
 						</div>
 					</div>
 				</form>
+				{this.state.showDeleteModal &&
+				<DeleteConfirmModal onCancelClick={this.closeDeleteModal} onDeleteClick={this.onDeleteConfirm} delete="guide"/>
+				}
 			</div>
 		)
 	}
@@ -197,6 +213,9 @@ Guide = connect(
 			initialValues: editingGuideSelector(state)
 		}
 	},
-	{ setEditingGuide }
+	{
+		setEditingGuide,
+		addGuide
+	}
 )(Guide)
 export default withRouter(Guide)

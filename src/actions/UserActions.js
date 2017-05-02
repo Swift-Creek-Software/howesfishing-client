@@ -33,8 +33,9 @@ export const setUserLoggedIn = () => {
 export const userLogin = (email, password) => {
 	return dispatch => {
 		return new Promise((resolve, reject) => {
-			dispatch(login(email, password)).then(() => {
-				console.log('user is logged in')
+			dispatch(login(email, password)).then((response) => {
+				const token = response.payload.data.token
+				localStorage.setItem('token', token)
 				setTimeout(() => {
 					Promise.all([
 						dispatch(fetchGuides()),

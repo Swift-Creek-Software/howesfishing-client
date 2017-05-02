@@ -14,6 +14,8 @@ import {
 	sendGuideCancellationEmail,
 	sendClientCancellationEmail
 } from '../../actions/EmailActions'
+
+import {addTrip} from '../../actions/TripActions'
 import guidesById from '../../selectors/guidesById'
 import currentTripSelector from '../../selectors/currentTripSelector'
 
@@ -92,13 +94,19 @@ class AddTrip extends PureComponent {
 	}
 
 	handleSubmit = (values) => {
-		values.directions = find(this.props.locations, location => location.id === values.location).directions
-		console.log('values', values)
+		// values.directions = find(this.props.locations, location => location.id === values.location).directions
 		// this.sendGuidesInfo(values.guides, values.notes, values.startTime)
 		// send client/admin email
 
-		this.props.sendClientConfirmationEmail(values)
+		// this.props.sendClientConfirmationEmail(values)
+		this.saveTrip(values)
 		this.props.history.push('/dashboard')
+	}
+
+	saveTrip = (values) => {
+		const newValues = {...values, startTime: moment(values.startTime).toISOString(), endTime: moment(values.endTime).toISOString()}
+
+		this.props.addTrip(newValues)
 	}
 
 	sendGuidesInfo = (guides, notes, date) => {
@@ -220,7 +228,7 @@ class AddTrip extends PureComponent {
 
 	render() {
 		const { handleSubmit } = this.props
-		console.log('add props', this.props)
+
 		return (
 			<div className="form-wrapper AddTrip">
 				<form className="panel panel-primary" onSubmit={handleSubmit(this.handleSubmit)}>
@@ -305,7 +313,7 @@ class AddTrip extends PureComponent {
 					</div>
 				</form>
 				{this.state.showDeleteModal &&
-				<DeleteConfirmModal onCancelClick={this.closeDeleteModal} onDeleteClick={this.onDeleteConfirm}/>
+				<DeleteConfirmModal onCancelClick={this.closeDeleteModal} onDeleteClick={this.onDeleteConfirm} delete="guide"/>
 				}
 			</div>
 		)
@@ -334,6 +342,7 @@ AddTrip = connect(state => {
 	{
 		change,
 		sendSMS,
+		addTrip,
 		sendClientConfirmationEmail,
 		sendGuideConfirmationEmail,
 		sendGuideCancellationEmail,

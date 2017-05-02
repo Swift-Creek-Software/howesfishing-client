@@ -15,7 +15,7 @@ const defaultTrips = [
 		cost: 400,
 		location: 'BIGFORK',
 		guides: [
-			{id: 2, guests: 3, textTemplate: 'new text template'}
+			{id: '5908a899760b4fba5aec4e24', guests: 3, textTemplate: 'new text template'}
 		],
 		clientEmailTemplate: 'new client email template',
 		notes: 'notes here'

@@ -30,7 +30,7 @@ export const sendClientConfirmationEmail = (values) => {
 						firstName: values.firstName,
 						confirm: "confirm",
 						directions: values.directions,
-						from: "Andy",
+						from: values.username,
 						subject: `${values.startTime.format('MM-DD-YYYY')} Fishing confirmation`,
 						timeCost: values.clientEmailTemplate
 					},

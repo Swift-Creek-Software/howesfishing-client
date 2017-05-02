@@ -1,5 +1,6 @@
 export const actionTypes = {
 	addGuide: 'ADD_GUIDE',
+	addGuideSuccess: 'ADD_GUIDE_SUCCESS',
 	deleteGuide: 'DELETE_GUIDE',
 	fetchGuides: 'FETCH_GUIDES',
 	fetchGuidesSuccess: 'FETCH_GUIDES_SUCCESS',

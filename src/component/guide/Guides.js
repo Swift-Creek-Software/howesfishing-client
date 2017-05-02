@@ -1,7 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Table } from 'react-bootstrap'
-
+import { Link } from 'react-router-dom'
 import GuideRow from './GuideRow'
 import './Guides.css'
 
@@ -24,7 +24,7 @@ class Guides extends PureComponent {
 			<div className="Guides">
 				<div className="header-wrapper">
 					<h1>Guides</h1>
-					<a href="/guide" className="btn btn-primary">+Add Guide</a>
+					<Link to="/guide" className="btn btn-primary">+Add Guide</Link>
 				</div>
 				<Table responsive hover condensed>
 					<thead>
