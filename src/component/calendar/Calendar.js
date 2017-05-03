@@ -32,11 +32,6 @@ class Calendar extends Component {
 		})
 	}
 
-	renderGuidesForTrip = (guides) => {
-		return guides.join(', ')
-	}
-
-
 	render() {
 		return (
 			<div style={{ height: 'calc(100% - 50px)', padding: '0 50px', boxSizing: 'border-box' }}>

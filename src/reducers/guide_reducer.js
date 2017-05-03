@@ -7,6 +7,16 @@ const guides = (state = [], action) => {
 			return action.payload.data
 		case actionTypes.addGuideSuccess:
 			return [...state, action.payload.data]
+		case actionTypes.updateGuide:
+			console.log('update guide', state, action)
+			const guide = action.payload.request.data
+			return state.map(stateGuide => {
+				if (stateGuide.id === guide.id) {
+					return guide
+				} else {
+					return stateGuide
+				}
+			})
 		default:
 			return state
 	}

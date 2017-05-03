@@ -42,7 +42,7 @@ export const addGuide = (data) => {
 
 export const updateGuide = (data) => {
 	return {
-		type: actionTypes.addGuide,
+		type: actionTypes.updateGuide,
 		payload: {
 			request: {
 				url: `/guide/${data.id}`,
