@@ -7,7 +7,7 @@ const user = (state = {}, action) => {
 		case actionTypes.setUserLoggedIn:
 			return {...state, isLoggedIn: true}
 		case actionTypes.logout:
-			return null
+			return {}
 		default:
 			return state
 	}

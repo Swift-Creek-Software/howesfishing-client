@@ -8,7 +8,6 @@ const guides = (state = [], action) => {
 		case actionTypes.addGuideSuccess:
 			return [...state, action.payload.data]
 		case actionTypes.updateGuide:
-			console.log('update guide', state, action)
 			const guide = action.payload.request.data
 			return state.map(stateGuide => {
 				if (stateGuide.id === guide.id) {
@@ -17,6 +16,9 @@ const guides = (state = [], action) => {
 					return stateGuide
 				}
 			})
+		case actionTypes.deleteGuide:
+			const guideId = action.payload.id
+			return state.filter(stateGuide => stateGuide.id !== guideId)
 		default:
 			return state
 	}

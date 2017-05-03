@@ -15,7 +15,7 @@ import {
 	sendClientCancellationEmail
 } from '../../actions/EmailActions'
 
-import {addTrip} from '../../actions/TripActions'
+import {addTrip, updateTrip, deleteTrip} from '../../actions/TripActions'
 import guidesById from '../../selectors/guidesById'
 import currentTripSelector from '../../selectors/currentTripSelector'
 
@@ -94,19 +94,25 @@ class AddTrip extends PureComponent {
 	}
 
 	handleSubmit = (values) => {
-		// values.directions = find(this.props.locations, location => location.id === values.location).directions
-		// this.sendGuidesInfo(values.guides, values.notes, values.startTime)
-		// send client/admin email
+		values.directions = find(this.props.locations, location => location.id === values.location).directions
 
-		// this.props.sendClientConfirmationEmail(values)
-		this.saveTrip(values)
+		if(values.id) {
+			this.props.updateTrip(this.getTripValues(values))
+		} else {
+
+			// send info to guides
+			this.sendGuidesInfo(values.guides, values.notes, values.startTime)
+			// send client/admin email
+			this.props.sendClientConfirmationEmail(values)
+
+			this.props.addTrip(this.getTripValues(values))
+		}
+
 		this.props.history.push('/dashboard')
 	}
 
-	saveTrip = (values) => {
-		const newValues = {...values, startTime: moment(values.startTime).toISOString(), endTime: moment(values.endTime).toISOString()}
-
-		this.props.addTrip(newValues)
+	getTripValues = (values) => {
+		return {...values, startTime: moment(values.startTime).toISOString(), endTime: moment(values.endTime).toISOString()}
 	}
 
 	sendGuidesInfo = (guides, notes, date) => {
@@ -184,9 +190,10 @@ class AddTrip extends PureComponent {
 		event.preventDefault()
 
 		//TODO add delete logic here
-		// this.sendGuidesCancelationEmail()
+		this.sendGuidesCancelationEmail()
 
 		this.sendClientCancellationEmail()
+		this.props.deleteTrip(this.props.initialValues.id)
 	}
 	sendClientCancellationEmail = () => {
 		const values = {
@@ -249,19 +256,22 @@ class AddTrip extends PureComponent {
 								   placeholder="enter last name"
 								   type="text"
 							/>
-							{!(isEditing && this.props.user.email !== 'admin@aable.com')}
+							{!(isEditing && this.props.user.email !== 'admin@aablefishing.com') &&
 							<Field name="email"
 								   component={TextField}
 								   label="Email"
 								   placeholder="example@fishing.com"
 								   type="email"
 							/>
+							}
+							{!(isEditing && this.props.user.email !== 'admin@aablefishing.com') &&
 							<Field name="phone"
 								   component={TextField}
 								   label="Phone number"
 								   placeholder="(406) 555-5555"
 								   type="phone"
 							/>
+							}
 							<Field name="startTime"
 								   component={DateTimeField}
 								   placeholder="04/11/2017 8:00 AM"
@@ -346,6 +356,8 @@ AddTrip = connect(state => {
 		change,
 		sendSMS,
 		addTrip,
+		updateTrip,
+		deleteTrip,
 		sendClientConfirmationEmail,
 		sendGuideConfirmationEmail,
 		sendGuideCancellationEmail,

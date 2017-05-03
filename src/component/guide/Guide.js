@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 
 import editingGuideSelector from '../../selectors/editingGuideSelector'
-import { setEditingGuide, addGuide, updateGuide } from '../../actions/GuideActions'
+import { setEditingGuide, addGuide, updateGuide, deleteGuide } from '../../actions/GuideActions'
 import { addUser } from '../../actions/UserActions'
 import { sendGuidePasswordEmail } from '../../actions/EmailActions'
 
@@ -186,7 +186,8 @@ class Guide extends PureComponent {
 	onDeleteConfirm = (event) => {
 		event.preventDefault()
 
-		//TODO add delete logic here
+		this.props.deleteGuide(this.props.initialValues.id)
+		this.props.history.push('/guides')
 	}
 
 
@@ -245,7 +246,8 @@ Guide = connect(
 		addGuide,
 		updateGuide,
 		addUser,
-		sendGuidePasswordEmail
+		sendGuidePasswordEmail,
+		deleteGuide
 	}
 )(Guide)
 export default withRouter(Guide)

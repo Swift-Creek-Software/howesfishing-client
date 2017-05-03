@@ -1,7 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import { connect } from 'react-redux'
-
+import { withRouter } from 'react-router-dom'
 import { logout } from '../actions/UserActions'
 
 import ListItemLink from './ListItemLink'
@@ -15,13 +15,14 @@ class NavBar extends PureComponent {
 	onLogoutClick = (event) => {
 		event.preventDefault()
 		this.props.logout()
+		this.props.location.push('/login')
 	}
 
 	renderNavItems = () => {
-		if(!this.props.user) {
+		if (!this.props.user) {
 			return null
 		}
-		if(this.props.user.isAdmin) {
+		if (this.props.user.isAdmin) {
 			return (
 				<Nav>
 					<ListItemLink to="/dashboard">Dashboard</ListItemLink>
@@ -41,7 +42,7 @@ class NavBar extends PureComponent {
 
 	render() {
 		return (
-			<Navbar collapseOnSelect >
+			<Navbar collapseOnSelect>
 				<Navbar.Header>
 					<Navbar.Brand>
 						<a href="#">Howe's Fishing Admin</a>
@@ -70,4 +71,4 @@ export default connect(state => {
 		}
 	},
 	{ logout }
-)(NavBar)
+)(withRouter(NavBar))

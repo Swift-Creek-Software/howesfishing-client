@@ -53,10 +53,26 @@ export const updateTrip = (data) => {
 		type: actionTypes.updateTrip,
 		payload: {
 			request: {
-				url: `/trip`,
+				url: `/trip/${data.id}`,
 				method: 'put',
 				data
 			}
+		}
+	}
+}
+
+export const deleteTrip = (id) => {
+	return {
+		type: actionTypes.deleteTrip,
+		payload: {
+			request: {
+				url: `/trip/${id}`,
+				method: 'put',
+				data: {
+					deleted: true
+				}
+			},
+			id
 		}
 	}
 }

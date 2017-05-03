@@ -53,6 +53,23 @@ export const updateGuide = (data) => {
 	}
 }
 
+export const deleteGuide = (id) => {
+	return {
+		type: actionTypes.deleteGuide,
+		payload: {
+			request: {
+				url: `/guide/${id}`,
+				method: 'put',
+				data: {
+					deleted: true
+				}
+			},
+			id
+
+		}
+	}
+}
+
 export const setEditingGuide = (id = null) => {
 	return {
 		type: actionTypes.setEditingGuide,
