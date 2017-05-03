@@ -1,5 +1,6 @@
 export const actionTypes = {
 	addTrip: 'ADD_TRIP',
+	addTripSuccess: 'ADD_TRIP_SUCCESS',
 	deleteTrip: 'DELETE_TRIP',
 	fetchTrips: 'FETCH_TRIPS',
 	fetchTripsSuccess: 'FETCH_TRIPS_SUCCESS',

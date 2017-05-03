@@ -1,5 +1,6 @@
 import {actionTypes} from '../actions/TripActions'
 import { combineReducers } from 'redux'
+import moment from 'moment'
 
 
 const defaultTrips = [
@@ -83,7 +84,13 @@ const trips = (state = defaultTrips, action) => {
 		case actionTypes.logout:
 			return null
 		case actionTypes.fetchTripsSuccess:
-			return action.payload.data
+			const trips = action.payload.data.map(trip => {
+				return { ...trip, startTime: new Date(trip.startTime), endTime: new Date(trip.endTime)}
+			})
+			return trips
+		case actionTypes.addTripSuccess:
+			const trip = action.payload.data
+			return [...state, { ...trip, startTime: new Date(trip.startTime), endTime: new Date(trip.endTime)}]
 		default:
 			return state
 	}
