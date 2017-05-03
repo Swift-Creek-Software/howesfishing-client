@@ -4,6 +4,7 @@ import { fetchLocations } from './LocationActions'
 
 export const actionTypes = {
 	login: 'LOGIN',
+	addUser: 'ADD_USER',
 	loginSuccess: 'LOGIN_SUCCESS',
 	logout: 'LOG_OUT',
 	setUserLoggedIn: 'SET_USER_LOGGED_IN'
@@ -56,5 +57,18 @@ export const userLogin = (email, password) => {
 export const logout = () => {
 	return {
 		type: actionTypes.logout
+	}
+}
+
+export const addUser = (data) => {
+	return {
+		type: actionTypes.addUser,
+		payload: {
+			request: {
+				url: '/user',
+				method: 'post',
+				data
+			}
+		}
 	}
 }

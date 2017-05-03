@@ -229,6 +229,8 @@ class AddTrip extends PureComponent {
 	render() {
 		const { handleSubmit } = this.props
 
+		const isEditing = this.props.location.search.indexOf('editing') > 0
+
 		return (
 			<div className="form-wrapper AddTrip">
 				<form className="panel panel-primary" onSubmit={handleSubmit(this.handleSubmit)}>
@@ -247,6 +249,7 @@ class AddTrip extends PureComponent {
 								   placeholder="enter last name"
 								   type="text"
 							/>
+							{!(isEditing && this.props.user.email !== 'admin@aable.com')}
 							<Field name="email"
 								   component={TextField}
 								   label="Email"
@@ -302,7 +305,7 @@ class AddTrip extends PureComponent {
 							   label="Notes"
 							   placeholder="add notes here..."
 						/>
-						{this.props.location.search.indexOf('editing') > 0 &&
+						{isEditing &&
 						<buton onClick={this.onDeleteButtonClick} className="btn btn-danger">Delete Trip</buton>
 						}
 

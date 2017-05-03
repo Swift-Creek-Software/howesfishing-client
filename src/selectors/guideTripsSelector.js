@@ -8,7 +8,6 @@ const trips = state => allTripsSelector(state)
 const getTrips = (currentGuide, trips) => {
 
 	return currentGuide ? trips.filter(trip => {
-		console.log('filter', trip.guide, currentGuide)
 		return trip.guide.id == currentGuide
 		}) : trips
 }

@@ -7,6 +7,7 @@ import { Link, withRouter } from 'react-router-dom'
 
 import editingGuideSelector from '../../selectors/editingGuideSelector'
 import { setEditingGuide, addGuide, updateGuide } from '../../actions/GuideActions'
+import { addUser } from '../../actions/UserActions'
 
 import ColorWrapper from './ColorWrapper'
 import FormHeader from '../Common/FormHeader'
@@ -66,6 +67,17 @@ class Guide extends PureComponent {
 			this.props.updateGuide(values)
 		} else {
 			this.props.addGuide(values)
+
+			const password = Math.random().toString(36).slice(-10);
+			const userData = {
+				password,
+				confirmPassword: password,
+				email: values.emails[0],
+				access: ['guide'],
+				isAdmin: false,
+			}
+
+			this.props.addUser(userData)
 		}
 		this.props.history.push('/guides')
 	}
@@ -220,7 +232,8 @@ Guide = connect(
 	{
 		setEditingGuide,
 		addGuide,
-		updateGuide
+		updateGuide,
+		addUser
 	}
 )(Guide)
 export default withRouter(Guide)
