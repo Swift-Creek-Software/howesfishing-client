@@ -76,7 +76,7 @@ export const sendClientCancellationEmail = (values) => {
 }
 
 
-//Guide emails
+//*****GUIDE ACTIONS
 export const sendGuideConfirmationEmail = (values) => {
 	const recipients = values.emails.map(email => {
 		return { address: email }
@@ -126,6 +126,37 @@ export const sendGuideCancellationEmail = (values) => {
 						dateTime: values.dateTime
 					},
 					campaignId: 'guide cancellation',
+					// meta: {
+					// 	metaDataDemo: 'this key/val will be in the email headers'
+					// },
+				}
+			}
+		}
+	}
+}
+
+export const sendGuidePasswordEmail = (values) => {
+
+	return {
+		type: actionTypes.sendEmail,
+		payload: {
+			request: {
+				url: '/email/send',
+				method: 'post',
+				data: {
+					sandbox: false,
+					recipients: [
+						{
+							address: values.email
+						}
+					],
+					templateId: 'user-password-template',
+					templateData: {
+						name: values.name,
+						email: values.email,
+						password: values.password
+					},
+					campaignId: 'user confirmation',
 					// meta: {
 					// 	metaDataDemo: 'this key/val will be in the email headers'
 					// },

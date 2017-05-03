@@ -17,6 +17,13 @@
 			color: dodgerblue !important;
 		}
 
+		.box-div {
+			padding: 20px;
+			border: 1px solid gainsboro;
+			border-radius: 5px;
+			display: inline-block;
+		}
+
 		.contact * {
 			font-size: smaller;
 			font-weight: 600;
@@ -26,7 +33,12 @@
 </head>
 <body>
 <p>Hi, {{name}},</p>
-<p>This is to inform you that the trip on {{dateTime}} has been <b>Canceled</b></p>
+<p>This is to inform you that you have been added as a guide on the Howe's fishing admin app.</p>
+<div class="box-div">
+	<p>username: <b>{{email}}</b></p>
+	<p>temporary password: <b>{{password}}</b></p>
+</div>
+<p>You can change your password by clicking on your email at the top of the admin site.</p>
 <div class="contact">
 	<span>Mike & Cindy Howe</span><br>
 	<span>Howe's Fishing - A Able / Mo Fisch Charters</span><br>
