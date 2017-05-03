@@ -189,11 +189,12 @@ class AddTrip extends PureComponent {
 	onDeleteConfirm = (event) => {
 		event.preventDefault()
 
-		//TODO add delete logic here
 		this.sendGuidesCancelationEmail()
 
 		this.sendClientCancellationEmail()
+
 		this.props.deleteTrip(this.props.initialValues.id)
+		this.props.history.push('/dashboard')
 	}
 	sendClientCancellationEmail = () => {
 		const values = {
@@ -320,13 +321,13 @@ class AddTrip extends PureComponent {
 						}
 
 						<button type="submit" className="btn btn-primary" style={{ float: 'right' }}>
-							Create Trip
+							{this.props.initialValues ? 'Save Trip' : 'Create Trip'}
 						</button>
 						<Link to="/dashboard" className="btn btn-warning" style={{ float: 'right', marginRight: 10 }}>Cancel</Link>
 					</div>
 				</form>
 				{this.state.showDeleteModal &&
-				<DeleteConfirmModal onCancelClick={this.closeDeleteModal} onDeleteClick={this.onDeleteConfirm} delete="guide"/>
+				<DeleteConfirmModal onCancelClick={this.closeDeleteModal} onDeleteClick={this.onDeleteConfirm} delete="Trip"/>
 				}
 			</div>
 		)

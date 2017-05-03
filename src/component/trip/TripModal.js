@@ -5,6 +5,7 @@ import moment from 'moment'
 import { Link } from 'react-router-dom'
 
 import currentTripSelector from '../../selectors/currentTripSelector'
+import locationsById from '../../selectors/locationsById'
 import guidesById from '../../selectors/guidesById'
 import { setCurrentTrip } from '../../actions/TripActions'
 
@@ -50,7 +51,7 @@ class TripModal extends PureComponent {
 					<TripData label="Guides" value={this.renderGuideString(trip.guides)}/>
 					<TripData label="Guests" value={trip.guests}/>
 					<TripData label="Cost" value={`$${trip.cost}`}/>
-					<TripData label="Location" value={trip.location}/>
+					<TripData label="Location" value={this.props.locations[trip.location].name}/>
 					<TripData label="Notes" value={trip.notes || 'none'}/>
 				</Modal.Body>
 				<Modal.Footer>
@@ -67,6 +68,7 @@ TripModal = connect(state => {
 		return {
 			trip: currentTripSelector(state),
 			guides: guidesById(state),
+			locations: locationsById(state),
 			user: state.user
 		}
 	},
