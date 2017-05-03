@@ -1,5 +1,6 @@
 import { fetchTrips } from './TripActions'
 import { fetchGuides } from './GuideActions'
+import { fetchLocations } from './LocationActions'
 
 export const actionTypes = {
 	login: 'LOGIN',
@@ -40,6 +41,7 @@ export const userLogin = (email, password) => {
 					Promise.all([
 						dispatch(fetchGuides()),
 						dispatch(fetchTrips()),
+						dispatch(fetchLocations()),
 					]).then(() => {
 						dispatch(setUserLoggedIn())
 						resolve()

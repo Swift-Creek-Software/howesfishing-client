@@ -29,8 +29,10 @@ const defaultLocations = [
 	}
 ]
 
-const locations = (state = defaultLocations, action) => {
+const locations = (state = [], action) => {
 	switch (action.type) {
+		case actionTypes.fetchLocationsSuccess:
+			return action.payload.data
 		default:
 			return state
 	}
