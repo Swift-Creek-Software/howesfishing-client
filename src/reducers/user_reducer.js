@@ -1,6 +1,6 @@
 import {actionTypes} from '../actions/UserActions'
 
-const user = (state = null, action) => {
+const user = (state = {}, action) => {
 	switch(action.type) {
 		case actionTypes.loginSuccess:
 			return {...state, ...action.payload.data.user, token: action.payload.data.token}

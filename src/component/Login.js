@@ -13,13 +13,13 @@ class Login extends PureComponent {
 
 	render() {
 		const { from } = this.props.location.state || { from: { pathname: '/' } }
-		if (this.props.user) {
-			return <Redirect to={from}/>
+		if (this.props.user.isLoggedIn) {
+			return <Redirect to={'/dashboard'}/>
 		}
 
 		return (
 			<div className="form-wrapper">
-				<LoginForm onSubmit={this.onFormSubmit}/>
+				<LoginForm/>
 			</div>
 		)
 	}

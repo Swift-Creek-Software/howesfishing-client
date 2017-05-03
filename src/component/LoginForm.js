@@ -9,7 +9,7 @@ import FormHeader from './Common/FormHeader'
 
 class LoginForm extends PureComponent {
 	onFormSubmit = (values) => {
-		return this.props.userLogin(values.email, values.password).catch(error => {
+		return this.props.userLogin(values.email, values.password).catch(() => {
 			throw new SubmissionError({_error: 'username/password are incorrect'})
 		})
 	}
