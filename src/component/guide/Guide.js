@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 
 import editingGuideSelector from '../../selectors/editingGuideSelector'
-import { setEditingGuide, addGuide } from '../../actions/GuideActions'
+import { setEditingGuide, addGuide, updateGuide } from '../../actions/GuideActions'
 
 import ColorWrapper from './ColorWrapper'
 import FormHeader from '../Common/FormHeader'
@@ -61,8 +61,12 @@ class Guide extends PureComponent {
 	}
 
 	handleSubmit = (values) => {
-			// todo add logic to save in the db
-		this.props.addGuide(values)
+
+		if (values.id) {
+			this.props.updateGuide(values)
+		} else {
+			this.props.addGuide(values)
+		}
 		this.props.history.push('/guides')
 	}
 
@@ -215,7 +219,8 @@ Guide = connect(
 	},
 	{
 		setEditingGuide,
-		addGuide
+		addGuide,
+		updateGuide
 	}
 )(Guide)
 export default withRouter(Guide)

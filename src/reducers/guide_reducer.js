@@ -3,45 +3,6 @@ import { actionTypes } from '../actions/GuideActions'
 
 const defaultGuides = [
 	{
-		id: 1,
-		name: 'Mike Howe',
-		emails: [
-			'Mike@hoesfishing.com',
-			'Cindy@howesfishing.com'
-		],
-		phones: [
-			14062490556,
-			14062496345
-		],
-		color: '#ef7004'
-	},
-	{
-		id: 2,
-		name: 'Clay Anderson',
-		emails: [
-			'anderson.clayw@gmail.com',
-			'anderson.kaylajo@gmail.com'
-		],
-		phones: [
-			14063145529,
-			14063143535
-		],
-		color: '#0c6d34'
-	},
-	{
-		id: 3,
-		name: 'Pat Campanella',
-		emails: [
-			'patcampanella@gmail.com',
-			'tobicampanella@gmail.com'
-		],
-		phones: [
-			14068718244,
-			14068719834
-		],
-		color: '#280d6d'
-	},
-	{
 		id: 4,
 		name: 'Jr. Garrison',
 		emails: [
