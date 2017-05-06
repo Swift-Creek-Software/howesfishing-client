@@ -28,12 +28,15 @@ class NavBar extends PureComponent {
 					<ListItemLink to="/admin/dashboard">Dashboard</ListItemLink>
 					<ListItemLink to="/admin/guides">Guides</ListItemLink>
 					<ListItemLink to="/admin/trip">Add Trip</ListItemLink>
+					<ListItemLink to="/admin/password">Password Change</ListItemLink>
 				</Nav>
 			)
 		} else {
 			return (
 				<Nav>
 					<ListItemLink to="/admin/dashboard">Dashboard</ListItemLink>
+					<ListItemLink to="/admin/password">Password Change</ListItemLink>
+
 				</Nav>
 			)
 		}
@@ -57,7 +60,6 @@ class NavBar extends PureComponent {
 							: <ListItemLink to="/admin/login">Login</ListItemLink>
 
 						}
-
 					</Nav>
 				</Navbar.Collapse>
 			</Navbar>

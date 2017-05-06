@@ -104,8 +104,11 @@ class AddTrip extends PureComponent {
 
 			// send info to guides
 			this.sendGuidesInfo(values.guides, values.notes, values.startTime)
-			// send client/admin email
-			this.props.sendClientConfirmationEmail(values)
+
+			if(values.sendClientEmail) {
+				// send client/admin email
+				this.props.sendClientConfirmationEmail(values)
+			}
 
 			this.props.addTrip(this.getTripValues(values))
 		}
@@ -119,22 +122,25 @@ class AddTrip extends PureComponent {
 
 	sendGuidesInfo = (guides, notes, date) => {
 		guides.forEach(guide => {
-			const guideDetail = this.props.guides[ guide.id ]
-			const guideMessage = `${guide.textTemplate} ${notes ? `Notes: ${notes}` : ''}`
+			if(guide.sendConfirmation) {
+				//if we checked the box to email the guide
+				const guideDetail = this.props.guides[ guide.id ]
+				const guideMessage = `${guide.textTemplate} ${notes ? `Notes: ${notes}` : ''}`
 
-			// send guide texts
-			guideDetail.phones.forEach(phone => {
-				this.props.sendSMS(phone, guideMessage)
-			})
-			const guideEmailValues = {
-				emails: guideDetail.emails,
-				body: guideMessage,
-				name: guideDetail.name,
-				date,
+				// send guide texts
+				guideDetail.phones.forEach(phone => {
+					this.props.sendSMS(phone, guideMessage)
+				})
+				const guideEmailValues = {
+					emails: guideDetail.emails,
+					body: guideMessage,
+					name: guideDetail.name,
+					date,
 
+				}
+				// send guide emails
+				this.props.sendGuideConfirmationEmail(guideEmailValues)
 			}
-			// send guide emails
-			this.props.sendGuideConfirmationEmail(guideEmailValues)
 		})
 	}
 
@@ -169,7 +175,7 @@ class AddTrip extends PureComponent {
 		if (value) {
 			return value
 		} else {
-			return `${startTime ? startTime.format('MMM Do') : ''}, ${startTime ? startTime.format('ha') : ''} - ${endTime ? endTime.format('ha') : ''} for ${guests || ''} people on ${guides ? guides.length : ''} boats. Cost $${cost || ''}`
+			return `${startTime ? startTime.format('MMM Do') : ''}, ${startTime ? startTime.format('ha') : ''} - ${endTime ? endTime.format('ha') : ''} for ${guests || ''} people. Cost $${cost || ''}`
 		}
 	}
 

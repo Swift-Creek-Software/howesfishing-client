@@ -14,6 +14,7 @@ import Dashboard from './Dashboard'
 import Guides from './guide/Guides'
 import Guide from './guide/Guide'
 import Navbar from './NavBar'
+import PasswordChange from './PasswordChange'
 
 class App extends Component {
 	render() {
@@ -30,6 +31,7 @@ class App extends Component {
 					<PrivateRoute path="/admin/guide" component={Guide} user={user} isAdmin/>
 					<PrivateRoute path="/admin/guides" component={Guides} user={user} isAdmin/>
 					<PrivateRoute path="/admin/dashboard" component={Dashboard} user={user}/>
+					<PrivateRoute path="/admin/password" component={PasswordChange} user={user}/>
 				</div>
 			</Router>
 		)

@@ -187,7 +187,7 @@ class Guide extends PureComponent {
 		event.preventDefault()
 
 		this.props.deleteGuide(this.props.initialValues.id)
-		this.props.history.push('admin/guides')
+		this.props.history.push('/admin/guides')
 	}
 
 

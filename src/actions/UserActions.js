@@ -72,3 +72,16 @@ export const addUser = (data) => {
 		}
 	}
 }
+
+export const changePassword = (data) => {
+	return {
+		type: actionTypes.addUser,
+		payload: {
+			request: {
+				url: `/user/${data.id}`,
+				method: 'put',
+				data
+			}
+		}
+	}
+}
