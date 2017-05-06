@@ -2,6 +2,7 @@ import React, { PureComponent, PropTypes } from 'react'
 import { Field } from 'redux-form'
 
 import TextField from '../Common/TextField'
+import Checkbox from '../Common/Checkbox'
 
 import TripGuideSelect from './TripGuideSelect'
 import './TripGuideRow.css'
@@ -56,6 +57,11 @@ class AddGuideRow extends PureComponent {
 					   placeholder="click here for template"
 					   type="text"
 					   normalize={this.templateNormalizer}
+				/>
+				<Field name={`${this.props.field}.sendConfirmation`}
+					   className="guide-field"
+					   component={Checkbox}
+					   label="Send Guide text/email?"
 				/>
 			</div>
 		)

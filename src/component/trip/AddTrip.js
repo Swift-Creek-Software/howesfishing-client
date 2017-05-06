@@ -24,6 +24,7 @@ import TextField from '../Common/TextField'
 import SelectField from '../Common/SelectField'
 import TextAreaField from '../Common/TextAreaField'
 import DateTimeField from '../Common/DateTimeField'
+import Checkbox from '../Common/Checkbox'
 import TripGuideRow from './TripGuideRow'
 import DeleteConfirmModal from '../DeleteConfirmModal'
 
@@ -94,6 +95,7 @@ class AddTrip extends PureComponent {
 	}
 
 	handleSubmit = (values) => {
+		console.log('trip values', values)
 		values.directions = find(this.props.locations, location => location.id === values.location).directions
 
 		if(values.id) {
@@ -108,7 +110,7 @@ class AddTrip extends PureComponent {
 			this.props.addTrip(this.getTripValues(values))
 		}
 
-		this.props.history.push('/dashboard')
+		this.props.history.push('/admin/dashboard')
 	}
 
 	getTripValues = (values) => {
@@ -302,6 +304,10 @@ class AddTrip extends PureComponent {
 								   placeholder="select"
 								   options={this.locationOptions()}
 							/>
+							<Field name="sendClientEmail"
+								   component={Checkbox}
+								   label='Send Client Confirmation?'
+							/>
 						</div>
 						<FieldArray name="guides" component={this.renderGuides}/>
 						<Field name="clientEmailTemplate"
@@ -321,7 +327,7 @@ class AddTrip extends PureComponent {
 						}
 
 						<button type="submit" className="btn btn-primary" style={{ float: 'right' }}>
-							{this.props.initialValues ? 'Save Trip' : 'Create Trip'}
+							{this.props.initialValues.id ? 'Save Trip' : 'Create Trip'}
 						</button>
 						<Link to="/dashboard" className="btn btn-warning" style={{ float: 'right', marginRight: 10 }}>Cancel</Link>
 					</div>
@@ -350,7 +356,10 @@ AddTrip = connect(state => {
 			startTime: selector(state, 'startTime'),
 			locations: state.location.locations,
 			user: state.user,
-			initialValues: currentTripSelector(state),
+			initialValues: {
+				sendClientEmail: true,
+				...currentTripSelector(state),
+			},
 		}
 	},
 	{

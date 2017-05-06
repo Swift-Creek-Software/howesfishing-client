@@ -1,4 +1,4 @@
-import React, { PropTypes, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
 import { Field, reduxForm, SubmissionError } from 'redux-form';
 import {connect} from 'react-redux'
 

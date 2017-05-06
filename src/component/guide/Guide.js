@@ -1,6 +1,6 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { Field, reduxForm, FieldArray } from 'redux-form'
-import {forOwn, isEmpty} from 'lodash'
+import {forOwn} from 'lodash'
 import validatejs from 'validate.js'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
@@ -90,7 +90,7 @@ class Guide extends PureComponent {
 				password
 			})
 		}
-		this.props.history.push('/guides')
+		this.props.history.push('/admin/guides')
 	}
 
 	renderEmails = ({ fields, meta: { error } }) => {
@@ -187,7 +187,7 @@ class Guide extends PureComponent {
 		event.preventDefault()
 
 		this.props.deleteGuide(this.props.initialValues.id)
-		this.props.history.push('/guides')
+		this.props.history.push('admin/guides')
 	}
 
 

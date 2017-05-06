@@ -1,6 +1,5 @@
 import {actionTypes} from '../actions/TripActions'
 import { combineReducers } from 'redux'
-import moment from 'moment'
 
 const trips = (state = [], action) => {
 	switch(action.type) {

@@ -1,4 +1,4 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
 import { setCurrentGuide } from '../../actions/GuideActions'
@@ -48,7 +48,6 @@ CalendarGuideSelector = connect(state => {
 	{
 		setCurrentGuide
 	}
-)
-(CalendarGuideSelector)
+)(CalendarGuideSelector)
 
 export default CalendarGuideSelector

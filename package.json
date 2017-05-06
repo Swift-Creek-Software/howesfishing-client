@@ -23,6 +23,7 @@
     "reselect": "3.0.0",
     "validate.js": "0.11.1"
   },
+  "homepage": "http://aablefishing.com/admin",
   "devDependencies": {
     "node-sass": "4.5.0",
     "npm-run-all": "4.0.2",

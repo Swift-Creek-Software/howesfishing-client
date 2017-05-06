@@ -12,9 +12,8 @@ class Login extends PureComponent {
 	}
 
 	render() {
-		const { from } = this.props.location.state || { from: { pathname: '/' } }
 		if (this.props.user.isLoggedIn) {
-			return <Redirect to={'/dashboard'}/>
+			return <Redirect to={'/admin/dashboard'}/>
 		}
 
 		return (
