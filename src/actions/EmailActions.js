@@ -19,8 +19,7 @@ export const sendClientConfirmationEmail = (values) => {
 						},
 						{
 							address: {
-								// todo Change me to admin@aable.com I am a bcc
-								"email": "swiftcreeksoftware@gmail.com",
+								"email": "reservations@howesfishing.com",
 								"header_to": values.email
 							}
 						}
@@ -56,8 +55,7 @@ export const sendClientCancellationEmail = (values) => {
 						},
 						{
 							address: {
-								// todo Change me to admin@aable.com I am a bcc
-								"email": "swiftcreeksoftware@gmail.com",
+								"email": "reservations@howesfishing.com",
 								"header_to": values.email
 							}
 						}
