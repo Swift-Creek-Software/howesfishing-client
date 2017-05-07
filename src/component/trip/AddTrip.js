@@ -335,7 +335,7 @@ class AddTrip extends PureComponent {
 						<button type="submit" className="btn btn-primary" style={{ float: 'right' }}>
 							{this.props.initialValues.id ? 'Save Trip' : 'Create Trip'}
 						</button>
-						<Link to="/dashboard" className="btn btn-warning" style={{ float: 'right', marginRight: 10 }}>Cancel</Link>
+						<Link to="/admin/dashboard" className="btn btn-warning" style={{ float: 'right', marginRight: 10 }}>Cancel</Link>
 					</div>
 				</form>
 				{this.state.showDeleteModal &&

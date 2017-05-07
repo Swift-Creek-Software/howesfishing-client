@@ -45,7 +45,7 @@ class NavBar extends PureComponent {
 		if(this.props.user.isLoggedIn) {
 			return (
 				<Nav pullRight>
-					{true &&
+					{false &&
 					<ListItemLink to="/admin/password">Password Change</ListItemLink>
 					}
 					<NavItem eventKey={1} onClick={this.onLogoutClick}>Logout</NavItem>

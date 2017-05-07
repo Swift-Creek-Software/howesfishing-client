@@ -217,7 +217,7 @@ class Guide extends PureComponent {
 							<button className="btn btn-danger" style={{float: 'left'}} onClick={this.onDeleteButtonClick}>
 								Delete Guide
 							</button>
-							<Link to='/guides' className="btn btn-warning">Cancel</Link>
+							<Link to='/admin/guides' className="btn btn-warning">Cancel</Link>
 							<button className="btn btn-primary">
 								{this.props.initialValues ? 'Save' : 'Add Guide'}
 							</button>
