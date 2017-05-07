@@ -107,7 +107,7 @@ class AddTrip extends PureComponent {
 
 			if(values.sendClientEmail) {
 				// send client/admin email
-				this.props.sendClientConfirmationEmail(values)
+				this.props.sendClientConfirmationEmail({...values, userName: this.props.user.name})
 			}
 
 			this.props.addTrip(this.getTripValues(values))
@@ -117,7 +117,7 @@ class AddTrip extends PureComponent {
 	}
 
 	getTripValues = (values) => {
-		return {...values, startTime: moment(values.startTime).toISOString(), endTime: moment(values.endTime).toISOString()}
+		return {...values, startTime: moment(values.startTime).toISOString(), endTime: moment(values.endTime).toISOString(), userName: this.props.user.name}
 	}
 
 	sendGuidesInfo = (guides, notes, date) => {
