@@ -5,6 +5,8 @@ import { fetchLocations } from './LocationActions'
 export const actionTypes = {
 	login: 'LOGIN',
 	addUser: 'ADD_USER',
+	changePassword: 'CHANGE_PASSWORD',
+	deleteUser: 'DELETE_USER',
 	loginSuccess: 'LOGIN_SUCCESS',
 	logout: 'LOG_OUT',
 	setUserLoggedIn: 'SET_USER_LOGGED_IN'
@@ -75,12 +77,26 @@ export const addUser = (data) => {
 
 export const changePassword = (data) => {
 	return {
-		type: actionTypes.addUser,
+		type: actionTypes.changePassword,
 		payload: {
 			request: {
 				url: `/user/${data.id}`,
 				method: 'put',
 				data
+			}
+		}
+	}
+}
+export const deleteUser = (id) => {
+	return {
+		type: actionTypes.deleteUser,
+		payload: {
+			request: {
+				url: `/user/${id}`,
+				method: 'put',
+				data: {
+					deleted: true
+				}
 			}
 		}
 	}
