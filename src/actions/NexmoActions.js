@@ -12,7 +12,7 @@ export const sendSMS = (to, text) => {
 				params: {
 					to,
 					text,
-					from: '12013514410',
+					from: 14062728243,
 					'api_key': 'c759a595',
 					'api_secret': '9cab09f4df0061b8'
 				}
