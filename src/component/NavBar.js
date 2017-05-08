@@ -15,7 +15,7 @@ class NavBar extends PureComponent {
 	onLogoutClick = (event) => {
 		event.preventDefault()
 		this.props.logout()
-		this.props.location.push('/admin/login')
+		// this.props.location.push('/admin/login')
 	}
 
 	renderNavItems = () => {

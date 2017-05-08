@@ -1,5 +1,5 @@
 import { fetchTrips } from './TripActions'
-import { fetchGuides } from './GuideActions'
+import { fetchGuides, setCurrentGuide } from './GuideActions'
 import { fetchLocations } from './LocationActions'
 
 export const actionTypes = {
@@ -38,8 +38,12 @@ export const userLogin = (email, password) => {
 	return dispatch => {
 		return new Promise((resolve, reject) => {
 			dispatch(login(email, password)).then((response) => {
-				// const token = response.payload.data.token
-				// localStorage.setItem('token', token)
+				const user = response.payload.data.user
+				console.log('resonse', user)
+				if(!user.isAdmin) {
+					dispatch(setCurrentGuide(user.guideId))
+				}
+				// localStorage.setItem('user', {...user, token: response.payload.data.token})
 				setTimeout(() => {
 					Promise.all([
 						dispatch(fetchGuides()),
