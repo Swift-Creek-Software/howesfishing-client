@@ -2,3 +2,25 @@
   background-color: inherit !important;
   border: none !important;
 }
+
+.rbc-toolbar {
+  @media (max-width: 600px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  > * {
+    @media (max-width: 600px) {
+      margin: 5px 0;
+    }
+  }
+}
+
+.Calendar {
+  height: calc(100% - 50px);
+  padding: 0 50px;
+  box-sizing: border-box;
+  @media (max-width: 600px) {
+    padding: 0 10px;
+  }
+}

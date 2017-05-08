@@ -34,7 +34,7 @@ class Calendar extends Component {
 
 	render() {
 		return (
-			<div style={{ height: 'calc(100% - 50px)', padding: '0 50px', boxSizing: 'border-box' }}>
+			<div className="Calendar">
 				{this.props.user.isAdmin &&
 					<CalendarGuideSelector/>
 				}
