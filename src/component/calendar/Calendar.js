@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import BigCalendar from 'react-big-calendar';
 
 import guideTripsSelector from '../../selectors/guideTripsSelector'
-import locationsById from '../../selectors/locationsById'
 
 import CalendarGuideSelector from './CalendarGuideSelector'
 import CalendarMonthEvent from './CalendarMonthEvent'
@@ -23,7 +22,7 @@ class Calendar extends Component {
 
 		return this.props.trips.map(trip => {
 			return {
-				title: `${this.props.locations[trip.location].name} - ${trip.guide.name}`,
+				title: `${trip.guide.name.split(' ')[0]} - ${moment(trip.startTime).format('ha')}`,
 				start: trip.startTime,
 				end: trip.endTime,
 				color: trip.guide.color,
@@ -54,7 +53,6 @@ class Calendar extends Component {
 export default connect(state => {
 	return {
 		trips: guideTripsSelector(state),
-		locations: locationsById(state),
 		user: state.user
 	}
 })(Calendar)

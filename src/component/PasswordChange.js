@@ -95,7 +95,7 @@ class PasswordChange extends PureComponent {
 							   placeholder="Confirm Password"
 							   type="password"
 						/>
-						<button type="submit" className="btn btn-primary">Login</button>
+						<button type="submit" className="btn btn-primary">Change password</button>
 					</div>
 				</form>
 			</div>
