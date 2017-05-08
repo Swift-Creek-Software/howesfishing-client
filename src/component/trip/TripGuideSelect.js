@@ -15,20 +15,25 @@ class TripGuideSelector extends Component {
 	}
 
 	renderOptions = () => {
-		return this.props.guides.map(guide => {
+		const guides = this.props.guides.map(guide => {
 
 			const tripTimes = this.props.tripTimesByGuide[ guide.id ]
 			const disabled = tripTimes ? tripTimes.some((time) => {
 					return areDatesInRange(time.start, time.end, this.props.start, this.props.end)
 				}) : false
-			const options = {
+
+			return {
 				name: guide.name,
 				value: guide.id,
 				disabled
 			}
-
-			return options
 		})
+		guides.unshift({
+			name: 'Select a guide',
+			value: null,
+		})
+
+		return guides
 	}
 
 	render() {

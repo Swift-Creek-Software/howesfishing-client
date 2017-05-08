@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { actionTypes } from '../actions/GuideActions'
+import { actionTypes as userTypes } from '../actions/UserActions'
 
 const guides = (state = [], action) => {
 	switch (action.type) {
@@ -19,6 +20,8 @@ const guides = (state = [], action) => {
 		case actionTypes.deleteGuide:
 			const guideId = action.payload.id
 			return state.filter(stateGuide => stateGuide.id !== guideId)
+		case userTypes.logout:
+			return []
 		default:
 			return state
 	}
