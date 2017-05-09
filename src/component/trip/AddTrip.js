@@ -15,7 +15,7 @@ import {
 	sendClientCancellationEmail
 } from '../../actions/EmailActions'
 
-import {addTrip, updateTrip, deleteTrip} from '../../actions/TripActions'
+import {addTrip, updateTrip, deleteTrip, setCurrentTrip} from '../../actions/TripActions'
 import guidesById from '../../selectors/guidesById'
 import currentTripSelector from '../../selectors/currentTripSelector'
 
@@ -32,7 +32,7 @@ import 'react-datetime/css/react-datetime.css'
 import '../Common/Common.css'
 import './AddTrip.css'
 
-const validate = (values, props) => {
+const validate = (values) => {
 	const errors = {}
 
 
@@ -95,22 +95,21 @@ class AddTrip extends PureComponent {
 	}
 
 	handleSubmit = (values) => {
-		console.log('trip values', values)
-		values.directions = find(this.props.locations, location => location.id === values.location).directions
+		values.directions = find(this.props.locations, location => location.id === values.location).directions || ``
 
 		if(values.id) {
 			this.props.updateTrip(this.getTripValues(values))
 		} else {
+			this.props.addTrip(this.getTripValues(values)).then(() => {
 
-			// send info to guides
-			this.sendGuidesInfo(values.guides, values.notes, values.startTime)
+				// send info to guides
+				this.sendGuidesInfo(values.guides, values.notes, values.startTime)
 
-			if(values.sendClientEmail) {
-				// send client/admin email
-				this.props.sendClientConfirmationEmail({...values, userName: this.props.user.name})
-			}
-
-			this.props.addTrip(this.getTripValues(values))
+				if(values.sendClientEmail) {
+					// send client/admin email
+					this.props.sendClientConfirmationEmail({...values, userName: this.props.user.name.split(' ')[0]})
+				}
+			})
 		}
 
 		this.props.history.push('/admin/dashboard')
@@ -202,8 +201,10 @@ class AddTrip extends PureComponent {
 		this.sendClientCancellationEmail()
 
 		this.props.deleteTrip(this.props.initialValues.id)
-		this.props.history.push('/dashboard')
+		this.props.setCurrentTrip()
+		this.props.history.push('/admin/dashboard')
 	}
+
 	sendClientCancellationEmail = () => {
 		const values = {
 			firstName: this.props.firstName,
@@ -237,9 +238,12 @@ class AddTrip extends PureComponent {
 	}
 
 	locationOptions = () => {
-		return this.props.locations.map(location => {
+		const locations =  this.props.locations.map(location => {
 			return { name: location.name, value: location.id }
 		})
+		locations.push({name: 'See notes below', value: null})
+
+		return locations
 	}
 
 	render() {
@@ -283,20 +287,21 @@ class AddTrip extends PureComponent {
 							}
 							<Field name="startTime"
 								   component={DateTimeField}
-								   placeholder="04/11/2017 8:00 AM"
-								   label="Start Time"
+								   placeholder="04/11/2017 7:00 AM"
+								   label="Trip Start"
+								   defaultValue={moment().hours(7).minutes(0).toDate()}
 								   onChange={this.onStartChange}
 							/>
 							<Field name="endTime"
 								   component={DateTimeField}
-								   label="End Time"
-								   placeholder="04/11/2017 8:00 AM"
+								   label="Trip End"
+								   placeholder="04/11/2017 12:00 PM"
 							/>
 							<Field name="guests"
 								   component={TextField}
 								   label="Number of guests"
 								   placeholder="4"
-								   type="number"
+								   type="text"
 							/>
 							<Field name="cost"
 								   component={TextField}
@@ -374,6 +379,7 @@ AddTrip = connect(state => {
 		addTrip,
 		updateTrip,
 		deleteTrip,
+		setCurrentTrip,
 		sendClientConfirmationEmail,
 		sendGuideConfirmationEmail,
 		sendGuideCancellationEmail,

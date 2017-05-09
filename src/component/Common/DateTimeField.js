@@ -35,7 +35,7 @@ class DateTimeField extends PureComponent {
 				validationState={this.getValidationState()}
 			>
 				<ControlLabel>{this.props.label}</ControlLabel>
-				<DateTime {...this.props.input} defaultValut={this.props.defaultValue} />
+				<DateTime {...this.props.input} defaultValue={this.props.defaultValue} inputProps={{placeholder:this.props.placeholder}}/>
 				<FormControl.Feedback />
 				<span>{this.renderError()}</span>
 			</FormGroup>
