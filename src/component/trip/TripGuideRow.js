@@ -50,7 +50,7 @@ class AddGuideRow extends PureComponent {
 					   type="text"
 				/>
 				<Field name={`${this.props.field}.textTemplate`}
-					   className="guide-field"
+					   className="guide-field template"
 					   component={TextField}
 					   label="Guide Text Template"
 					   placeholder="click here for template"

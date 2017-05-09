@@ -7,7 +7,12 @@
     width: 46%;
     margin: 7px 2%;
     display: inline-block;
+
+    &.template {
+      width: 98%;
+    }
   }
+
 
   .guide-header {
     display: flex;

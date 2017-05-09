@@ -151,7 +151,7 @@ class AddTrip extends PureComponent {
 			<div className="guides-section">
 				<h3 className="group-header">
 					Guides
-					<button type="button" className="btn btn-primary add-guide" onClick={() => fields.push({})}>
+					<button type="button" className="btn btn-primary add-guide" onClick={() => fields.push({sendConfirmation:true})}>
 						+ Add Guide
 					</button>
 				</h3>
@@ -244,6 +244,7 @@ class AddTrip extends PureComponent {
 		const locations =  this.props.locations.map(location => {
 			return { name: location.name, value: location.id }
 		})
+		locations.unshift({name: 'Select a location', value: null})
 		locations.push({name: 'See notes below', value: null})
 
 		return locations
