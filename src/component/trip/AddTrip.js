@@ -109,10 +109,11 @@ class AddTrip extends PureComponent {
 					// send client/admin email
 					this.props.sendClientConfirmationEmail({...values, userName: this.props.user.name.split(' ')[0]})
 				}
+				this.props.history.push('/admin/dashboard')
+
 			})
 		}
 
-		this.props.history.push('/admin/dashboard')
 	}
 
 	getTripValues = (values) => {
@@ -196,13 +197,15 @@ class AddTrip extends PureComponent {
 	onDeleteConfirm = (event) => {
 		event.preventDefault()
 
-		this.sendGuidesCancelationEmail()
+		this.props.deleteTrip(this.props.initialValues.id).then(() => {
+			this.sendGuidesCancelationEmail()
 
-		this.sendClientCancellationEmail()
+			this.sendClientCancellationEmail()
+			this.props.setCurrentTrip()
+			this.props.history.push('/admin/dashboard')
+		})
 
-		this.props.deleteTrip(this.props.initialValues.id)
-		this.props.setCurrentTrip()
-		this.props.history.push('/admin/dashboard')
+
 	}
 
 	sendClientCancellationEmail = () => {

@@ -5,6 +5,8 @@ import BigCalendar from 'react-big-calendar';
 
 import guideTripsSelector from '../../selectors/guideTripsSelector'
 
+import { fetchTrips } from '../../actions/TripActions'
+
 import CalendarGuideSelector from './CalendarGuideSelector'
 import CalendarMonthEvent from './CalendarMonthEvent'
 
@@ -17,6 +19,10 @@ BigCalendar.setLocalizer(
 );
 
 class Calendar extends Component {
+
+	componentWillMount() {
+		this.props.fetchTrips()
+	}
 
 	renderEventsList = () => {
 
@@ -31,9 +37,17 @@ class Calendar extends Component {
 		})
 	}
 
+	onRefreshClick = (e) => {
+		e.preventDefault()
+		this.props.fetchTrips()
+	}
+
 	render() {
 		return (
 			<div className="Calendar">
+				<div style={{textAlign: 'right'}}>
+					<a href="#" onClick={this.onRefreshClick}>Refresh Trips</a>
+				</div>
 				{this.props.user.isAdmin &&
 					<CalendarGuideSelector/>
 				}
@@ -55,4 +69,6 @@ export default connect(state => {
 		trips: guideTripsSelector(state),
 		user: state.user
 	}
+},{
+	fetchTrips
 })(Calendar)
