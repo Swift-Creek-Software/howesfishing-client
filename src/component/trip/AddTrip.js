@@ -117,7 +117,7 @@ class AddTrip extends PureComponent {
 	}
 
 	getTripValues = (values) => {
-		return {...values, startTime: moment(values.startTime).toISOString(), endTime: moment(values.endTime).toISOString(), userName: this.props.user.name}
+		return {...values, startTime: moment(values.startTime).toISOString(), endTime: moment(values.endTime).toISOString(), userName: this.props.user.name.split(' ')[0]}
 	}
 
 	sendGuidesInfo = (guides, notes, date) => {
@@ -244,8 +244,8 @@ class AddTrip extends PureComponent {
 		const locations =  this.props.locations.map(location => {
 			return { name: location.name, value: location.id }
 		})
-		locations.unshift({name: 'Select a location', value: null})
-		locations.push({name: 'See notes below', value: null})
+		locations.unshift({name: 'Select a location', value: 1})
+		locations.push({name: 'See notes below', value: 2})
 
 		return locations
 	}
