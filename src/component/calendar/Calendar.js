@@ -20,10 +20,6 @@ BigCalendar.setLocalizer(
 
 class Calendar extends Component {
 
-	componentWillMount() {
-		this.props.fetchTrips()
-	}
-
 	renderEventsList = () => {
 
 		return this.props.trips.map(trip => {

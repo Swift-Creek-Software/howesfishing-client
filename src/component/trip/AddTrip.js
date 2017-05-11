@@ -95,10 +95,21 @@ class AddTrip extends PureComponent {
 	}
 
 	handleSubmit = (values) => {
-		values.directions = find(this.props.locations, location => location.id === values.location).directions || ``
+		values.directions = this.getDirections(values.location)
 
 		if(values.id) {
-			this.props.updateTrip(this.getTripValues(values))
+			this.props.updateTrip(this.getTripValues(values)).then(() => {
+
+				// send info to guides
+				this.sendGuidesInfo(values.guides, values.notes, values.startTime)
+
+				if(values.sendClientEmail) {
+					// send client/admin email
+					this.props.sendClientConfirmationEmail({...values, userName: this.props.user.name.split(' ')[0]})
+				}
+				this.props.history.push('/admin/dashboard')
+
+			})
 		} else {
 			this.props.addTrip(this.getTripValues(values)).then(() => {
 
@@ -114,6 +125,11 @@ class AddTrip extends PureComponent {
 			})
 		}
 
+	}
+
+	getDirections = (locationId) => {
+		const location = find(this.props.locations, location => location.id === locationId)
+		return location ? location.directions : ``
 	}
 
 	getTripValues = (values) => {

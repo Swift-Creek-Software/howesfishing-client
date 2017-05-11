@@ -51,7 +51,9 @@ class TripModal extends PureComponent {
 					<TripData label="Guides" value={this.renderGuideString(trip.guides)}/>
 					<TripData label="Guests" value={trip.guests}/>
 					<TripData label="Cost" value={`$${trip.cost}`}/>
-					<TripData label="Location" value={this.props.locations[trip.location].name}/>
+					{this.props.locations[ trip.location ] &&
+						<TripData label="Location" value={this.props.locations[ trip.location ].name}/>
+					}
 					<TripData label="Notes" value={trip.notes || 'none'}/>
 				</Modal.Body>
 				<Modal.Footer>

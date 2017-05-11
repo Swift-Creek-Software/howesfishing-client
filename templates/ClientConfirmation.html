@@ -48,8 +48,12 @@
 <body>
 	<p>Hi, {{firstName}},</p>
 	<p>This is to {{confirm}} your reservation with us <b>{{timeCost}}</b></p>
+
+	{{ if directions }}
 	<h2>Directions</h2>
 	<p>{{directions}}</p>
+	{{ end }}
+
 	<h3>We provide everything except a fishing license.</h3>
 	<p>Licenses can be obtained prior to your trip at numerous license outlets around the valley
 		<b>(see below)</b>, or online <a href="https://app.mt.gov/als/index/index.html" target="_blank">here</a>.
