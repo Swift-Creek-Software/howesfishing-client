@@ -191,7 +191,7 @@ class AddTrip extends PureComponent {
 		if (value) {
 			return value
 		} else {
-			return `${startTime ? startTime.format('MMM Do') : ''}, ${startTime ? startTime.format('ha') : ''} - ${endTime ? endTime.format('ha') : ''} for ${guests || ''} people. Cost $${cost || ''}`
+			return `${startTime ? startTime.format('MMMM Do') : ''}, ${startTime ? startTime.format('ha') : ''} - ${endTime ? endTime.format('ha') : ''} for ${guests || ''} people. Cost $${cost || ''}`
 		}
 	}
 
@@ -238,7 +238,7 @@ class AddTrip extends PureComponent {
 		this.props.tripGuides.forEach(guide => {
 			const guideDetail = this.props.guides[ guide.id ]
 
-			const dateTime = `${moment(this.props.startTime).format('MM-DD-YYYY')} from ${moment(this.props.startTime).format('ha')} - ${moment(this.props.endTime).format('ha')}`
+			const dateTime = `${moment(this.props.startTime).format('MMMM DD YYYY')} from ${moment(this.props.startTime).format('ha')} - ${moment(this.props.endTime).format('ha')}`
 			const guideMessage = `${guideDetail.name} your trip on ${dateTime} has been CANCELLED`
 
 			// send guide texts

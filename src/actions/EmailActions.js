@@ -30,7 +30,7 @@ export const sendClientConfirmationEmail = (values) => {
 						confirm: "confirm",
 						directions: values.directions,
 						from: values.userName,
-						subject: `${moment(values.startTime).format('MM-DD-YYYY')} Fishing confirmation`,
+						subject: `${moment(values.startTime).format('MMMM DD YYYY')} Fishing confirmation`,
 						timeCost: values.clientEmailTemplate
 					},
 					campaignId: 'Client confirmation',
@@ -63,8 +63,8 @@ export const sendClientCancellationEmail = (values) => {
 					templateId: 'client-cancellation',
 					templateData: {
 						firstName: values.firstName,
-						date: moment(values.startTime).format('MM-DD-YYYY'),
-						subject: `${moment(values.startTime).format('MM-DD-YYYY')} fishing trip cancellation`
+						date: moment(values.startTime).format('MMMM DD YYYY'),
+						subject: `${moment(values.startTime).format('MMMM DD YYYY')} fishing trip cancellation`
 					},
 					campaignId: 'Client cancellation',
 				}
@@ -91,7 +91,7 @@ export const sendGuideConfirmationEmail = (values) => {
 					templateId: 'guide-conf-template',
 					templateData: {
 						name: values.name,
-						subject: `${moment(values.date).format('MM-DD-YYYY')} trip confirmation`,
+						subject: `${moment(values.date).format('MMMM DD YYYY')} trip confirmation`,
 						body: values.body
 					},
 					campaignId: 'guide confirmation',
