@@ -5,6 +5,7 @@ export const actionTypes = {
 	fetchTrips: 'FETCH_TRIPS',
 	fetchTripsSuccess: 'FETCH_TRIPS_SUCCESS',
 	setCurrentTrip: 'SET_CURRENT_TRIP',
+	setCurrentDate: 'SET_CURRENT_DATE',
 	updateTrip: 'UPDATE_TRIP'
 }
 
@@ -81,5 +82,12 @@ export const setCurrentTrip = (id = null) => {
 	return {
 		type: actionTypes.setCurrentTrip,
 		payload: id
+	}
+}
+
+export const setCurrentDate = (date) => {
+	return {
+		type: actionTypes.setCurrentDate,
+		payload: date
 	}
 }

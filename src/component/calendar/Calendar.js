@@ -5,7 +5,7 @@ import BigCalendar from 'react-big-calendar';
 
 import guideTripsSelector from '../../selectors/guideTripsSelector'
 
-import { fetchTrips } from '../../actions/TripActions'
+import { fetchTrips, setCurrentDate } from '../../actions/TripActions'
 
 import CalendarGuideSelector from './CalendarGuideSelector'
 import CalendarMonthEvent from './CalendarMonthEvent'
@@ -24,7 +24,7 @@ class Calendar extends Component {
 
 		return this.props.trips.map(trip => {
 			return {
-				title: `${trip.guide.name.split(' ')[0]} - ${moment(trip.startTime).format('ha')}`,
+				title: `${trip.guide.name.split(' ')[ 0 ]} - ${moment(trip.startTime).format('ha')}`,
 				start: trip.startTime,
 				end: trip.endTime,
 				color: trip.guide.color,
@@ -38,14 +38,18 @@ class Calendar extends Component {
 		this.props.fetchTrips()
 	}
 
+	onNavigate = (date) => {
+		this.props.setCurrentDate(date)
+	}
+
 	render() {
 		return (
 			<div className="Calendar">
-				<div style={{textAlign: 'right'}}>
+				<div style={{ textAlign: 'right' }}>
 					<a href="#" onClick={this.onRefreshClick}>Refresh Trips</a>
 				</div>
 				{this.props.user.isAdmin &&
-					<CalendarGuideSelector/>
+				<CalendarGuideSelector/>
 				}
 				<BigCalendar
 					popup
@@ -53,7 +57,8 @@ class Calendar extends Component {
 					startAccessor='start'
 					endAccessor='end'
 					defaultDate={new Date()}
-					components={{eventWrapper: CalendarMonthEvent}}
+					components={{ eventWrapper: CalendarMonthEvent }}
+					onNavigate={this.onNavigate}
 				/>
 			</div>
 		)
@@ -65,6 +70,7 @@ export default connect(state => {
 		trips: guideTripsSelector(state),
 		user: state.user
 	}
-},{
-	fetchTrips
+}, {
+	fetchTrips,
+	setCurrentDate
 })(Calendar)

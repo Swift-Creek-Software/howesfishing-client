@@ -43,7 +43,19 @@ const currentTrip = (state = null, action) => {
 	}
 }
 
+const currentDashboardDate = (state = null, action) => {
+	switch(action.type) {
+		case actionTypes.setCurrentDate:
+			return action.payload
+		case userTypes.logout:
+			return null
+		default:
+			return state
+	}
+}
+
 const tripReducer = combineReducers({
+	currentDashboardDate,
 	currentTrip,
 	trips,
 })
