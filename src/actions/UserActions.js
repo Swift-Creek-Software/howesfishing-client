@@ -9,7 +9,8 @@ export const actionTypes = {
 	deleteUser: 'DELETE_USER',
 	loginSuccess: 'LOGIN_SUCCESS',
 	logout: 'LOG_OUT',
-	setUserLoggedIn: 'SET_USER_LOGGED_IN'
+	setUserLoggedIn: 'SET_USER_LOGGED_IN',
+	setUserFromState: 'SET_USER_FROM_STATE'
 }
 
 export const login = (email, password) => {
@@ -39,11 +40,11 @@ export const userLogin = (email, password) => {
 		return new Promise((resolve, reject) => {
 			dispatch(login(email, password)).then((response) => {
 				const user = response.payload.data.user
-				console.log('resonse', user)
-				if(!user.isAdmin) {
+
+				if (!user.isAdmin) {
 					dispatch(setCurrentGuide(user.guideId))
 				}
-				// localStorage.setItem('user', {...user, token: response.payload.data.token})
+				localStorage.setItem('user', JSON.stringify({ ...user, token: response.payload.data.token }))
 				setTimeout(() => {
 					Promise.all([
 						dispatch(fetchGuides()),
@@ -60,7 +61,36 @@ export const userLogin = (email, password) => {
 	}
 }
 
+export const fetchDataWithUser = (user) => {
+	return dispatch => {
+		dispatch(setUserFromState(user))
+
+		setTimeout(() => {
+			if (!user.isAdmin) {
+				dispatch(setCurrentGuide(user.guideId))
+			}
+			Promise.all([
+				dispatch(fetchGuides()),
+				dispatch(fetchTrips()),
+				dispatch(fetchLocations()),
+			]).then(() => {
+				dispatch(setUserLoggedIn())
+			})
+		}, 100)
+	}
+}
+
+export const setUserFromState = (user) => {
+	return {
+		type: actionTypes.setUserFromState,
+		payload: user
+	}
+}
+
+
 export const logout = () => {
+	localStorage.removeItem('user')
+
 	return {
 		type: actionTypes.logout
 	}

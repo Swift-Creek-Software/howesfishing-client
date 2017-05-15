@@ -5,6 +5,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 
+import {fetchDataWithUser} from './actions/UserActions'
 import multiClientMiddleware from './axiosClients'
 import reducers from './reducers'
 
@@ -30,6 +31,12 @@ const store = createStore(
 	reducers,
 	getComposeEnhancers()
 )
+
+const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null
+
+if(user) {
+	store.dispatch(fetchDataWithUser(user))
+}
 
 injectTapEventPlugin();
 ReactDOM.render(
