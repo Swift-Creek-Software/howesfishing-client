@@ -191,9 +191,12 @@ class AddTrip extends PureComponent {
 		if (value) {
 			return value
 		} else {
-			return `${startTime ? startTime.format('MMMM Do') : ''}, ${startTime ? startTime.format('ha') : ''} - ${endTime ? endTime.format('ha') : ''} for ${guests || ''} people. Cost: $${cost || ''}`
+			return `${startTime ? this.formatDate(startTime) : ''}, ${startTime ? this.formatHours(startTime) : ''} - ${endTime ? this.formatHours(endTime) : ''} for ${guests || ''} people. Cost: $${cost || ''}`
 		}
 	}
+
+	formatHours = (time) => moment(time).format('ha')
+	formatDate = (time) => moment(time).format('MMMM Do')
 
 	onStartChange = (event, newValue) => {
 		const startHours = newValue.hours()

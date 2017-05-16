@@ -1,5 +1,6 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { Field } from 'redux-form'
+import moment from 'moment'
 
 import TextField from '../Common/TextField'
 import Checkbox from '../Common/Checkbox'
@@ -28,9 +29,12 @@ class AddGuideRow extends PureComponent {
 		if (value) {
 			return value
 		} else {
-			return `${startTime ? startTime.format('MMMM Do') : ''}, ${startTime ? startTime.format('ha') : ''} - ${endTime ? endTime.format('ha') : ''} for ${guideGuests || ''} people. Cost $${cost || ''}`
+			return `${startTime ? this.formatDate(startTime) : ''}, ${startTime ? this.formatHours(startTime) : ''} - ${endTime ? this.formatHours(endTime) : ''} for ${guideGuests || ''} people. Cost $${cost || ''}`
 		}
 	}
+
+	formatHours = (time) => moment(time).format('ha')
+	formatDate = (time) => moment(time).format('MMMM Do')
 
 	render() {
 		return (
