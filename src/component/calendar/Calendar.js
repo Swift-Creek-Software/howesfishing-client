@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { connect } from 'react-redux'
 import BigCalendar from 'react-big-calendar';
 
@@ -24,7 +24,7 @@ class Calendar extends Component {
 
 		return this.props.trips.map(trip => {
 			return {
-				title: `${trip.guide.name.split(' ')[ 0 ]} - ${moment(trip.startTime).format('ha')}`,
+				title: `${trip.guide.name.split(' ')[ 0 ]} - ${moment(trip.startTime).tz('America/Denver').format('ha')}`,
 				start: trip.startTime,
 				end: trip.endTime,
 				color: trip.guide.color,

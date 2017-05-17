@@ -1,10 +1,10 @@
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 export const actionTypes = {
 	sendEmail: 'SEND_EMAIL',
 }
 
-const formatEmailDate = (date) => moment(date).format('MMMM DD, YYYY')
+const formatEmailDate = (date) => moment(date).tz('America/Denver').format('MMMM DD, YYYY')
 
 export const sendClientConfirmationEmail = (values) => {
 	return {

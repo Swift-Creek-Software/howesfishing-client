@@ -1,6 +1,6 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { Field } from 'redux-form'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 import TextField from '../Common/TextField'
 import Checkbox from '../Common/Checkbox'
@@ -33,8 +33,8 @@ class AddGuideRow extends PureComponent {
 		}
 	}
 
-	formatHours = (time) => moment(time).format('ha')
-	formatDate = (time) => moment(time).format('MMMM Do')
+	formatHours = (time) => moment(time).tz('America/Denver').format('ha')
+	formatDate = (time) => moment(time).tz('America/Denver').format('MMMM Do')
 
 	render() {
 		return (

@@ -4,7 +4,7 @@ import find from 'lodash/find'
 import { Field, reduxForm, FieldArray, formValueSelector, change } from 'redux-form'
 import validatejs from 'validate.js'
 import { connect } from 'react-redux'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import { Link, withRouter } from 'react-router-dom'
 
 import { sendSMS } from '../../actions/NexmoActions'
@@ -133,7 +133,7 @@ class AddTrip extends PureComponent {
 	}
 
 	getTripValues = (values) => {
-		return {...values, startTime: moment(values.startTime).toISOString(), endTime: moment(values.endTime).toISOString(), userName: this.props.user.name.split(' ')[0]}
+		return {...values, startTime: moment(values.startTime).tz('America/Denver').toISOString(), endTime: moment(values.endTime).tz('America/Denver').toISOString(), userName: this.props.user.name.split(' ')[0]}
 	}
 
 	sendGuidesInfo = (guides, notes, date) => {
@@ -195,12 +195,12 @@ class AddTrip extends PureComponent {
 		}
 	}
 
-	formatHours = (time) => moment(time).format('ha')
-	formatDate = (time) => moment(time).format('MMMM Do')
+	formatHours = (time) => moment(time).tz('America/Denver').format('ha')
+	formatDate = (time) => moment(time).tz('America/Denver').format('MMMM Do')
 
 	onStartChange = (event, newValue) => {
 		const startHours = newValue.hours()
-		this.props.change('endTime', moment(newValue).hour(startHours + 5))
+		this.props.change('endTime', moment(newValue).tz('America/Denver').hour(startHours + 5))
 	}
 
 	onDeleteButtonClick = (event) => {
@@ -241,7 +241,7 @@ class AddTrip extends PureComponent {
 		this.props.tripGuides.forEach(guide => {
 			const guideDetail = this.props.guides[ guide.id ]
 
-			const dateTime = `${moment(this.props.startTime).format('MMMM DD, YYYY')} from ${moment(this.props.startTime).format('ha')} - ${moment(this.props.endTime).format('ha')}`
+			const dateTime = `${moment(this.props.startTime).tz('America/Denver').format('MMMM DD, YYYY')} from ${moment(this.props.startTime).tz('America/Denver').format('ha')} - ${moment(this.props.endTime).tz('America/Denver').format('ha')}`
 			const guideMessage = `${guideDetail.name} your trip on ${dateTime} has been CANCELLED`
 
 			// send guide texts
@@ -312,7 +312,6 @@ class AddTrip extends PureComponent {
 								   component={DateTimeField}
 								   placeholder="04/11/2017 7:00 AM"
 								   label="Trip Start"
-								   defaultValue={moment().hours(7).minutes(0).toDate()}
 								   onChange={this.onStartChange}
 							/>
 							<Field name="endTime"
@@ -392,8 +391,8 @@ AddTrip = connect(state => {
 			user: state.user,
 			initialValues: {
 				sendClientEmail: true,
-				startTime: moment(state.trip.currentDashboardDate || new Date()).hours(7).minutes(0).toDate(),
-				endTime: moment(state.trip.currentDashboardDate || new Date()).hours(12).minutes(0).toDate(),
+				startTime: moment(state.trip.currentDashboardDate || new Date()).tz('America/Denver').hours(7).minutes(0).toDate(),
+				endTime: moment(state.trip.currentDashboardDate || new Date()).tz('America/Denver').hours(12).minutes(0).toDate(),
 				...currentTripSelector(state),
 			},
 		}

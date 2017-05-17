@@ -1,7 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Modal } from 'react-bootstrap'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import { Link } from 'react-router-dom'
 
 import currentTripSelector from '../../selectors/currentTripSelector'
@@ -22,7 +22,7 @@ class TripModal extends PureComponent {
 		this.props.setCurrentTrip()
 	}
 	getMomentTime = (dateTime) => {
-		return moment(dateTime).format('LT')
+		return moment(dateTime).tz('America/Denver').format('LT')
 	}
 
 	renderGuideString = (guides) => {
@@ -38,14 +38,14 @@ class TripModal extends PureComponent {
 			<Modal.Dialog>
 				<Modal.Header>
 					<h3 style={{display: 'inline-block'}}>
-						{`${moment(trip.startTime).format('MMM Do')} Trip`}
+						{`${moment(trip.startTime).tz('America/Denver').format('MMM Do')} Trip`}
 					</h3>
 					<button className="btn btn-warning" style={{ float: 'right' }} onClick={this.onCloseClick}>Close
 					</button>
 				</Modal.Header>
 				<Modal.Body>
 					<TripData label="Name" value={`${trip.firstName} ${trip.lastName}`}/>
-					<TripData label="Date" value={moment(trip.startTime).format('MMM Do YYYY')}/>
+					<TripData label="Date" value={moment(trip.startTime).tz('America/Denver').format('MMM Do, YYYY')}/>
 					<TripData label="Time"
 							  value={`${this.getMomentTime(trip.startTime)} - ${this.getMomentTime(trip.endTime)}`}/>
 					<TripData label="Guides" value={this.renderGuideString(trip.guides)}/>
