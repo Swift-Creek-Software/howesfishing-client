@@ -219,7 +219,12 @@ class AddTrip extends PureComponent {
 		this.props.deleteTrip(this.props.initialValues.id).then(() => {
 			this.sendGuidesCancelationEmail()
 
-			this.sendClientCancellationEmail()
+
+			if(this.props.sendClientEmail) {
+				this.sendClientCancellationEmail()
+			}
+
+			// move back to the dashboard with no trip selected
 			this.props.setCurrentTrip()
 			this.props.history.push('/admin/dashboard')
 		})
@@ -239,23 +244,25 @@ class AddTrip extends PureComponent {
 
 	sendGuidesCancelationEmail = () => {
 		this.props.tripGuides.forEach(guide => {
-			const guideDetail = this.props.guides[ guide.id ]
+			if(guide.sendConfirmation) {
+				const guideDetail = this.props.guides[ guide.id ]
 
-			const dateTime = `${moment(this.props.startTime).tz('America/Denver').format('MMMM DD, YYYY')} from ${moment(this.props.startTime).tz('America/Denver').format('ha')} - ${moment(this.props.endTime).tz('America/Denver').format('ha')}`
-			const guideMessage = `${guideDetail.name} your trip on ${dateTime} has been CANCELLED`
+				const dateTime = `${moment(this.props.startTime).tz('America/Denver').format('MMMM DD, YYYY')} from ${moment(this.props.startTime).tz('America/Denver').format('ha')} - ${moment(this.props.endTime).tz('America/Denver').format('ha')}`
+				const guideMessage = `${guideDetail.name} your trip on ${dateTime} has been CANCELLED`
 
-			// send guide texts
-			guideDetail.phones.forEach(phone => {
-				this.props.sendSMS(phone, guideMessage)
-			})
+				// send guide texts
+				guideDetail.phones.forEach(phone => {
+					this.props.sendSMS(phone, guideMessage)
+				})
 
-			const guideEmailValues = {
-				emails: guideDetail.emails,
-				dateTime,
-				name: guideDetail.name,
+				const guideEmailValues = {
+					emails: guideDetail.emails,
+					dateTime,
+					name: guideDetail.name,
 
+				}
+				this.props.sendGuideCancellationEmail(guideEmailValues)
 			}
-			this.props.sendGuideCancellationEmail(guideEmailValues)
 		})
 	}
 
@@ -387,6 +394,7 @@ AddTrip = connect(state => {
 			firstName: selector(state, 'firstName'),
 			tripGuides: selector(state, 'guides'),
 			startTime: selector(state, 'startTime'),
+			sendClientEmail: selector(state, 'sendClientEmail'),
 			locations: state.location.locations,
 			user: state.user,
 			initialValues: {
