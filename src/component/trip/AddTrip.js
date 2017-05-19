@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import forOwn from 'lodash/forOwn'
 import find from 'lodash/find'
 import { Field, reduxForm, FieldArray, formValueSelector, change } from 'redux-form'
@@ -81,11 +81,35 @@ const validate = (values) => {
 		})
 	}
 
+	if (!values.guides || !values.guides.length) {
+		errors.guides = 'You must choose at least one guide'
+	} else {
+		const guideArrayErrors = []
+		values.guides.forEach((guide, index) => {
+			const guideErrors = {}
+			if (!guide || !guide.id) {
+				guideArrayErrors.id = 'Required'
+				guideArrayErrors[ index ] = guideErrors
+			}
+			if (!guide || !guide.guests) {
+				guideErrors.guests = 'Required'
+				guideArrayErrors[ index ] = guideErrors
+			}
+			if (!guide || !guide.textTemplate) {
+				guideErrors.textTemplate = 'Required'
+				guideArrayErrors[ index ] = guideErrors
+			}
+		})
+		if (guideArrayErrors.length) {
+			errors.guides = guideArrayErrors
+		}
+	}
+
 	return errors
 }
 
 
-class AddTrip extends PureComponent {
+class AddTrip extends Component {
 	constructor(props) {
 		super(props)
 
@@ -162,7 +186,6 @@ class AddTrip extends PureComponent {
 
 
 	renderGuides = ({ fields, meta: { touched, error, submitFailed } }) => {
-
 		return (
 			<div className="guides-section">
 				<h3 className="group-header">
