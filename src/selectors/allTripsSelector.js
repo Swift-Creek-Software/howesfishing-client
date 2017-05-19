@@ -8,9 +8,13 @@ const guides = state => guidesById(state)
 
 const getAllTrips = (trips, guides) => {
 	return trips.reduce((acc, current) => {
-		current.guides.forEach(guide => {
-			acc.push({...current, guide: guides[guide.id]})
-		})
+		console.log('current', current)
+
+		if(current.guides && Array.isArray(current.guides)) {
+			current.guides.forEach(guide => {
+				acc.push({...current, guide: guides[guide.id]})
+			})
+		}
 		return acc
 	}, [])
 }
