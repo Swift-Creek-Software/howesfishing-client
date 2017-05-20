@@ -30,7 +30,7 @@ class TripGuideSelector extends Component {
 		})
 		guides.unshift({
 			name: 'Select a guide',
-			value: null,
+			value: 'foo',
 		})
 
 		return guides

@@ -87,16 +87,16 @@ const validate = (values) => {
 		const guideArrayErrors = []
 		values.guides.forEach((guide, index) => {
 			const guideErrors = {}
-			if (!guide || !guide.id) {
-				guideArrayErrors.id = 'Required'
+			if (!guide || !guide.id || guide.id === 'foo') {
+				guideErrors.id = 'required'
 				guideArrayErrors[ index ] = guideErrors
 			}
 			if (!guide || !guide.guests) {
-				guideErrors.guests = 'Required'
+				guideErrors.guests = 'required'
 				guideArrayErrors[ index ] = guideErrors
 			}
 			if (!guide || !guide.textTemplate) {
-				guideErrors.textTemplate = 'Required'
+				guideErrors.textTemplate = 'required'
 				guideArrayErrors[ index ] = guideErrors
 			}
 		})
