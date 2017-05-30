@@ -45,12 +45,14 @@ class Calendar extends Component {
 	render() {
 		return (
 			<div className="Calendar">
-				<div style={{ textAlign: 'right' }}>
-					<a href="#" onClick={this.onRefreshClick}>Refresh Trips</a>
+				<div className="refresh">
+					{this.props.user.isAdmin &&
+					<CalendarGuideSelector/>
+					}
+					<div className="link">
+						<a href="#" onClick={this.onRefreshClick}>Refresh Trips</a>
+					</div>
 				</div>
-				{this.props.user.isAdmin &&
-				<CalendarGuideSelector/>
-				}
 				<BigCalendar
 					popup
 					events={this.renderEventsList()}
