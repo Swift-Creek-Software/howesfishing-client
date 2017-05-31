@@ -15,10 +15,11 @@ import Guides from './guide/Guides'
 import Guide from './guide/Guide'
 import Navbar from './NavBar'
 import PasswordChange from './PasswordChange'
+import './App.css'
 
 class App extends Component {
 	render() {
-		const { user } = this.props
+		const { user, loading } = this.props
 		return (
 			<Router>
 				<div style={{ height: '100%' }}>
@@ -32,6 +33,15 @@ class App extends Component {
 					<PrivateRoute path="/admin/guides" component={Guides} user={user} isAdmin/>
 					<PrivateRoute path="/admin/dashboard" component={Dashboard} user={user}/>
 					<PrivateRoute path="/admin/password" component={PasswordChange} user={user}/>
+					{ loading &&
+						<div className="overlay">
+							<div className="overlay-modal">
+								<h2>Loading...</h2>
+								<div className="loader"/>
+							</div>
+						</div>
+					}
+
 				</div>
 			</Router>
 		)
@@ -41,7 +51,8 @@ class App extends Component {
 
 export default connect(state => {
 		return {
-			user: state.user
+			user: state.user,
+			loading: state.trip.loading
 		}
 	}
 )(App)

@@ -171,15 +171,19 @@ class AddTrip extends Component {
 				guideDetail.phones.forEach(phone => {
 					this.props.sendSMS(phone, guideMessage)
 				})
-				const guideEmailValues = {
-					emails: guideDetail.emails,
-					body: guideMessage,
-					name: guideDetail.name,
-					date,
 
+				if(guideDetail.emails && guideDetail.emails.length > 0) {
+					const guideEmailValues = {
+						emails: guideDetail.emails,
+						body: guideMessage,
+						name: guideDetail.name,
+						date,
+
+					}
+					// send guide emails
+					this.props.sendGuideConfirmationEmail(guideEmailValues)
 				}
-				// send guide emails
-				this.props.sendGuideConfirmationEmail(guideEmailValues)
+
 			}
 		})
 	}
@@ -190,7 +194,7 @@ class AddTrip extends Component {
 			<div className="guides-section">
 				<h3 className="group-header">
 					Guides
-					<button type="button" className="btn btn-primary add-guide" onClick={() => fields.push({sendConfirmation:true})}>
+					<button type="button" className="btn btn-primary add-guide" onClick={() => fields.unshift({sendConfirmation:true})}>
 						+ Add Guide
 					</button>
 				</h3>
@@ -218,7 +222,7 @@ class AddTrip extends Component {
 		}
 	}
 
-	formatHours = (time) => moment(time).tz('America/Denver').format('ha')
+	formatHours = (time) => moment(time).tz('America/Denver').format('LT')
 	formatDate = (time) => moment(time).tz('America/Denver').format('MMMM Do')
 
 	onStartChange = (event, newValue) => {
@@ -267,7 +271,7 @@ class AddTrip extends Component {
 
 	sendGuidesCancelationEmail = () => {
 		this.props.tripGuides.forEach(guide => {
-			if(guide.sendConfirmation) {
+			if(guide.sendConfirmation && guide.emails && guide.emails.length > 0) {
 				const guideDetail = this.props.guides[ guide.id ]
 
 				const dateTime = `${moment(this.props.startTime).tz('America/Denver').format('MMMM DD, YYYY')} from ${moment(this.props.startTime).tz('America/Denver').format('ha')} - ${moment(this.props.endTime).tz('America/Denver').format('ha')}`

@@ -31,9 +31,20 @@ class TripModal extends PureComponent {
 		}).join(', ')
 	}
 
+	renderDateString = (start, end) => {
+		const formatTripDay = (date) => moment(date).tz('America/Denver').format('MMM Do, YYYY')
+		const a = moment(start).tz('America/Denver')
+		const b = moment(end).tz('America/Denver')
+		console.log('moment', a, b, a.diff(b, "days"))
+		if(Math.abs(a.diff(b, "days")) > 1) {
+			return `${formatTripDay(start)} - ${formatTripDay(end)}`
+		}
+		return formatTripDay(start)
+
+	}
+
 	render() {
 		const { trip } = this.props
-
 		return (
 			<Modal.Dialog>
 				<Modal.Header>
@@ -45,7 +56,7 @@ class TripModal extends PureComponent {
 				</Modal.Header>
 				<Modal.Body>
 					<TripData label="Name" value={`${trip.firstName} ${trip.lastName}`}/>
-					<TripData label="Date" value={moment(trip.startTime).tz('America/Denver').format('MMM Do, YYYY')}/>
+					<TripData label="Date" value={this.renderDateString(trip.startTime, trip.endTime)}/>
 					<TripData label="Time"
 							  value={`${this.getMomentTime(trip.startTime)} - ${this.getMomentTime(trip.endTime)}`}/>
 					<TripData label="Guides" value={this.renderGuideString(trip.guides)}/>

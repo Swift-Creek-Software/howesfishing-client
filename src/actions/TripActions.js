@@ -6,7 +6,8 @@ export const actionTypes = {
 	fetchTripsSuccess: 'FETCH_TRIPS_SUCCESS',
 	setCurrentTrip: 'SET_CURRENT_TRIP',
 	setCurrentDate: 'SET_CURRENT_DATE',
-	updateTrip: 'UPDATE_TRIP'
+	updateTrip: 'UPDATE_TRIP',
+	setLoading: 'SET_LOADING'
 }
 
 export const login = (email, password) => {
@@ -89,5 +90,12 @@ export const setCurrentDate = (date) => {
 	return {
 		type: actionTypes.setCurrentDate,
 		payload: date
+	}
+}
+
+export const setLoading = (loading = false) => {
+	return {
+		type: actionTypes.setLoading,
+		payload: loading
 	}
 }

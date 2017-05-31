@@ -5,7 +5,7 @@ import BigCalendar from 'react-big-calendar';
 
 import guideTripsSelector from '../../selectors/guideTripsSelector'
 
-import { fetchTrips, setCurrentDate } from '../../actions/TripActions'
+import { fetchTrips, setCurrentDate, setLoading } from '../../actions/TripActions'
 
 import CalendarGuideSelector from './CalendarGuideSelector'
 import CalendarMonthEvent from './CalendarMonthEvent'
@@ -24,7 +24,7 @@ class Calendar extends Component {
 
 		return this.props.trips.map(trip => {
 			return {
-				title: `${trip.guide.name.split(' ')[ 0 ]} - ${moment(trip.startTime).tz('America/Denver').format('ha')}`,
+				title: `${trip.guide.name.split(' ')[ 0 ]} - ${trip.firstName} ${trip.lastName}`,
 				start: trip.startTime,
 				end: trip.endTime,
 				color: trip.guide.color,
@@ -35,7 +35,10 @@ class Calendar extends Component {
 
 	onRefreshClick = (e) => {
 		e.preventDefault()
-		this.props.fetchTrips()
+		this.props.setLoading(true)
+		this.props.fetchTrips().then(() => {
+			this.props.setLoading()
+		})
 	}
 
 	onNavigate = (date) => {
@@ -74,5 +77,6 @@ export default connect(state => {
 	}
 }, {
 	fetchTrips,
-	setCurrentDate
+	setCurrentDate,
+	setLoading
 })(Calendar)

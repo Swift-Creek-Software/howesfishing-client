@@ -33,7 +33,7 @@ class AddGuideRow extends PureComponent {
 		}
 	}
 
-	formatHours = (time) => moment(time).tz('America/Denver').format('ha')
+	formatHours = (time) => moment(time).tz('America/Denver').format('LT')
 	formatDate = (time) => moment(time).tz('America/Denver').format('MMMM Do')
 
 	render() {

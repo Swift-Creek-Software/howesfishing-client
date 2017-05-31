@@ -1,4 +1,4 @@
-import { fetchTrips } from './TripActions'
+import { fetchTrips, setLoading } from './TripActions'
 import { fetchGuides, setCurrentGuide } from './GuideActions'
 import { fetchLocations } from './LocationActions'
 
@@ -38,6 +38,7 @@ export const setUserLoggedIn = () => {
 export const userLogin = (email, password) => {
 	return dispatch => {
 		return new Promise((resolve, reject) => {
+			dispatch(setLoading(true))
 			dispatch(login(email, password)).then((response) => {
 				const user = response.payload.data.user
 
@@ -52,6 +53,7 @@ export const userLogin = (email, password) => {
 						dispatch(fetchLocations()),
 					]).then(() => {
 						dispatch(setUserLoggedIn())
+						dispatch(setLoading())
 						resolve()
 					})
 				}, 500)
@@ -63,6 +65,7 @@ export const userLogin = (email, password) => {
 
 export const fetchDataWithUser = (user) => {
 	return dispatch => {
+		dispatch(setLoading(true))
 		dispatch(setUserFromState(user))
 
 		setTimeout(() => {
@@ -75,6 +78,7 @@ export const fetchDataWithUser = (user) => {
 				dispatch(fetchLocations()),
 			]).then(() => {
 				dispatch(setUserLoggedIn())
+				dispatch(setLoading())
 			})
 		}, 100)
 	}
