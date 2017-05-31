@@ -271,7 +271,7 @@ class AddTrip extends Component {
 
 	sendGuidesCancelationEmail = () => {
 		this.props.tripGuides.forEach(guide => {
-			if(guide.sendConfirmation && guide.emails && guide.emails.length > 0) {
+			if(guide.sendConfirmation) {
 				const guideDetail = this.props.guides[ guide.id ]
 
 				const dateTime = `${moment(this.props.startTime).tz('America/Denver').format('MMMM DD, YYYY')} from ${moment(this.props.startTime).tz('America/Denver').format('ha')} - ${moment(this.props.endTime).tz('America/Denver').format('ha')}`
@@ -286,9 +286,11 @@ class AddTrip extends Component {
 					emails: guideDetail.emails,
 					dateTime,
 					name: guideDetail.name,
-
 				}
-				this.props.sendGuideCancellationEmail(guideEmailValues)
+
+				if (guide.emails && guide.emails.length > 0) {
+					this.props.sendGuideCancellationEmail(guideEmailValues)
+				}
 			}
 		})
 	}
@@ -307,7 +309,7 @@ class AddTrip extends Component {
 		const { handleSubmit } = this.props
 
 		const isEditing = this.props.location.search.indexOf('editing') > 0
-
+		const notAble = this.props.user.email !== 'admin@aablefishing.com'
 		return (
 			<div className="form-wrapper AddTrip">
 				<form className="panel panel-primary" onSubmit={handleSubmit(this.handleSubmit)}>
@@ -326,7 +328,7 @@ class AddTrip extends Component {
 								   placeholder="enter last name"
 								   type="text"
 							/>
-							{!(isEditing && this.props.user.email !== 'admin@aablefishing.com') &&
+							{!(isEditing && notAble) &&
 							<Field name="email"
 								   component={TextField}
 								   label="Email"
@@ -334,7 +336,7 @@ class AddTrip extends Component {
 								   type="email"
 							/>
 							}
-							{!(isEditing && this.props.user.email !== 'admin@aablefishing.com') &&
+							{!(isEditing && notAble) &&
 							<Field name="phone"
 								   component={TextField}
 								   label="Phone number"
@@ -389,7 +391,7 @@ class AddTrip extends Component {
 							   label="Notes"
 							   placeholder="add notes here..."
 						/>
-						{isEditing &&
+						{isEditing && !notAble &&
 						<buton onClick={this.onDeleteButtonClick} className="btn btn-danger">Delete Trip</buton>
 						}
 
