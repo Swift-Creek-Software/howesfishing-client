@@ -194,7 +194,7 @@ class AddTrip extends Component {
 			<div className="guides-section">
 				<h3 className="group-header">
 					Guides
-					<button type="button" className="btn btn-primary add-guide" onClick={() => fields.unshift({sendConfirmation:true})}>
+					<button type="button" className="btn btn-primary add-guide" onClick={() => fields.unshift({sendConfirmation:true, guests: this.props.guests})}>
 						+ Add Guide
 					</button>
 				</h3>
@@ -421,6 +421,7 @@ AddTrip = connect(state => {
 			endTime: selector(state, 'endTime'),
 			clientEmail: selector(state, 'email'),
 			firstName: selector(state, 'firstName'),
+			guests: selector(state, 'guests'),
 			tripGuides: selector(state, 'guides'),
 			startTime: selector(state, 'startTime'),
 			sendClientEmail: selector(state, 'sendClientEmail'),

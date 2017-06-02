@@ -58,7 +58,10 @@ export const userLogin = (email, password) => {
 					})
 				}, 500)
 
-			}).catch(() => reject())
+			}).catch(() =>{
+				dispatch(setLoading())
+				reject()
+			})
 		})
 	}
 }
