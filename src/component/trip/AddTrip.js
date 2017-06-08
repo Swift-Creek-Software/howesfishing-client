@@ -309,7 +309,8 @@ class AddTrip extends Component {
 		const { handleSubmit } = this.props
 
 		const isEditing = this.props.location.search.indexOf('editing') > 0
-		const notAble = this.props.user.email !== 'admin@aablefishing.com'
+		const isAble = this.props.user.email === 'admin@aablefishing.com' || this.props.user.email === 'Mike@howesfishing.com'
+
 		return (
 			<div className="form-wrapper AddTrip">
 				<form className="panel panel-primary" onSubmit={handleSubmit(this.handleSubmit)}>
@@ -328,7 +329,7 @@ class AddTrip extends Component {
 								   placeholder="enter last name"
 								   type="text"
 							/>
-							{!(isEditing && notAble) &&
+							{!(isEditing && !isAble) &&
 							<Field name="email"
 								   component={TextField}
 								   label="Email"
@@ -336,7 +337,7 @@ class AddTrip extends Component {
 								   type="email"
 							/>
 							}
-							{!(isEditing && notAble) &&
+							{!(isEditing && !isAble) &&
 							<Field name="phone"
 								   component={TextField}
 								   label="Phone number"
@@ -391,7 +392,7 @@ class AddTrip extends Component {
 							   label="Notes"
 							   placeholder="add notes here..."
 						/>
-						{isEditing && !notAble &&
+						{isEditing && isAble &&
 						<buton onClick={this.onDeleteButtonClick} className="btn btn-danger">Delete Trip</buton>
 						}
 

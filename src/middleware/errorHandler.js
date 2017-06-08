@@ -1,5 +1,5 @@
 import { logout } from '../actions/UserActions'
-import { endsWith } from 'lodash-es'
+import { endsWith } from 'lodash'
 
 export default function ({ dispatch }) {
 	return next => action => {
