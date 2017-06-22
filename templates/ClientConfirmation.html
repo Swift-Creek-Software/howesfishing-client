@@ -17,6 +17,10 @@
 			color: dodgerblue !important;
 		}
 
+		span.tele{
+			color: dodgerblue !important;
+		}
+
 		h1 {
 			font-size: 1.65em;
 		}
@@ -54,7 +58,15 @@
 </head>
 <body>
 <p>Hi {{firstName}},</p>
-<p>This is to {{confirm}} your reservation with us <b>{{timeCost}}</b></p>
+
+<p>This is to
+	{{ if confirm == "confirm"}}
+	{{confirm}}
+	{{ else }}
+	remind you of
+	{{ end }}
+	your reservation with us <b>{{timeCost}}</b>
+</p>
 
 {{ if directions }}
 <h2>Directions</h2>
@@ -63,11 +75,15 @@
 
 <h3>We provide everything except a fishing license.</h3>
 <p>Licenses can be obtained prior to your trip at numerous license outlets around the valley
-	<b>(see below)</b>, or online <a href="https://app.mt.gov/als/index/index.html" target="_blank">here</a>.
+	<b>(see below)</b>, or online https://app.mt.gov/als/index/index.html
 </p>
-<p>We supply snacks and drinks on the boat, you are welcome to bring your own as well.</p>
+<p><b>PLEASE-NO spray sunscreens/lotions on boats. It gets everywhere, including on fishing gear.  We are happy to provide sunscreen if you need some.</b></p>
 
+<p>We supply snacks and drinks on all boats; you are welcome to bring your own as well. Please refrain from bringing “Messy Snacks”-Seeds, Doritos, Cheetos, and finger staining type foods. <b>Alcohol is allowed, but please consume in moderation, overindulgence is frowned upon!</b>   NO BANANAS! Bananas are considered “BAD LUCK” by most Charter Boat Captains! (http://www.snopes.com/luck/superstition/bananas.asp  OR  http://miamifishing.com/bananas-and-fishing-boats)</p>
+
+{{ if directions }}
 <p>Your catch will be filleted and bagged, ready for the grill.</p>
+{{ end }}
 
 <p>Looking forward to having you aboard!</p>
 
@@ -75,8 +91,8 @@
 <div class="contact">
 	<span>Mike & Cindy Howe</span><br>
 	<span>Howe's Fishing - A Able / Mo Fisch Charters</span><br>
-	<a href="tel:(406)%20257-5214" value="+14062575214" target="_blank">406-257-5214</a><br>
-	<a href="http://www.howesfishing.com" target="_blank">howesfishing.com</a>
+	406-257-5214<br>
+	howesfishing.com
 </div>
 
 <h2 id="locations">License Locations</h2>
@@ -86,17 +102,17 @@
 		<li>
 			<h3>Ferndale Market</h3>
 			<span>1845 Mt Hwy 209</span><br>
-			<a href="tel:(406)%20837-5597" value="+14068375597" target="_blank">(406) 837-5597</a><br>
+			<span class="tele">(406) 837-5597</span><br>
 		</li>
 		<li>
 			<h3>Papa's Woods Bay Market</h3>
 			<span>14535 Mt Highway 35</span><br>
-			<a href="tel:(406)%20837-4884" value="+14068374844" target="_blank">(406) 837-4884</a><br>
+			<span class="tele">(406) 837-4884</span><br>
 		</li>
 		<li>
 			<h3>Cenex Station (Your Turn C-Stop)</h3>
 			<span>7505 Mt Hwy 35</span><br>
-			<a href="tel:(406)%20837-6170" value="+14068976170" target="_blank">(406) 837-6170</a><br>
+			<span class="tele">(406) 837-6170</span><br>
 		</li>
 	</ul>
 </div>
@@ -106,12 +122,12 @@
 		<li>
 			<h3>Columbia Falls Super 1 Foods</h3>
 			<span>2100 9th Street West</span><br>
-			<a href="tel:(406)%208929996" value="+14068929996" target="_blank">(406) 892-9996</a><br>
+			<span class="tele">(406) 892-9996</span><br>
 		</li>
 		<li>
 			<h3>Smiths Food And Drug #168</h3>
 			<span>419 Nucleus Ave</span><br>
-			<a href="tel:(406)%208929080" value="+14068929080" target="_blank">(406) 892-9080</a><br>
+			<span class="tele">(406) 892-9080</span><br>
 		</li>
 	</ul>
 </div>
@@ -121,37 +137,37 @@
 		<li>
 			<h3>Cabela's</h3>
 			<span>125 Treeline Rd</span><br>
-			<a href="tel:(406)%202035200" value="+14062035200" target="_blank">(406) 203-5200</a><br>
+			<span class="tele">(406) 203-5200</span><br>
 		</li>
 		<li>
 			<h3>Fish Wildlife And Parks - Region 1</h3>
 			<span>490 N Meridian Rd</span><br>
-			<a href="tel:(406)%207525501" value="+14067525501" target="_blank">(406) 752-5501</a><br>
+			<span class="tele">(406) 752-5501</span><br>
 		</li>
 		<li>
 			<h3>K-Mart</h3>
 			<span>2024 Hwy 2 East</span><br>
-			<a href="tel:(406)%207524261" value="+14067524261" target="_blank">(406) 752-4261</a><br>
+			<span class="tele">(406) 752-4261</span><br>
 		</li>
 		<li>
 			<h3>Kelly Rae's</h3>
 			<span>25 Batavia Lane</span><br>
-			<a href="tel:(406)%207525880" value="+14067525880" target="_blank">(406) 752-5880</a><br>
+			<span class="tele">(406) 752-5880</span><br>
 		</li>
 		<li>
 			<h3>Snappy Sport Senter Inc.</h3>
 			<span>1400 Us Hwy 2 East</span><br>
-			<a href="tel:(406)%202577525" value="+14062577525" target="_blank">(406) 257-7525</a><br>
+			<span class="tele">(406) 257-7525</span><br>
 		</li>
 		<li>
 			<h3>Sportsman And Ski Haus</h3>
 			<span>145 Hutton Ranch Rd</span><br>
-			<a href="tel:(406)%207556484" value="+14067556484" target="_blank">(406) 755-6484</a><br>
+			<span class="tele">(406) 755-6484</span><br>
 		</li>
 		<li>
 			<h3>Wal-Mart Supercenter</h3>
 			<span>170 Hutton Ranch Rd</span><br>
-			<a href="tel:(406)%202577535" value="+14062577535" target="_blank">(406) 257-7535</a><br>
+			<span class="tele">(406) 257-7535</span><br>
 		</li>
 	</ul>
 </div>
@@ -161,7 +177,7 @@
 		<li>
 			<h3>Sliters Hardware</h3>
 			<span>106 Stoner Loop Po Box 787</span><br>
-			<a href="tel:(406)%208442442" value="+14068442442" target="_blank">(406) 844-2442</a><br>
+			<span class="tele">(406) 844-2442</span><br>
 		</li>
 	</ul>
 </div>
@@ -171,7 +187,7 @@
 		<li>
 			<h3>Wal-Mart</h3>
 			<span>36318 Memory Lane</span><br>
-			<a href="tel:(406)%208839211" value="+14068839211" target="_blank">(406) 883-9211</a><br>
+			<span class="tele">(406) 883-9211</span><br>
 		</li>
 	</ul>
 </div>
@@ -181,12 +197,12 @@
 		<li>
 			<h3>Sportsman And Ski Haus</h3>
 			<span>6475 Us Hwy 93 S, Mountain Mall</span><br>
-			<a href="tel:(406)%208623111" value="+14068623111" target="_blank">(406) 862-3111</a><br>
+			<span class="tele">(406) 862-3111</span><br>
 		</li>
 		<li>
 			<h3>Stumptown Anglers</h3>
 			<span>5790 Us Hwy 93 S</span><br>
-			<a href="tel:(406)%208624554" value="+14068624554" target="_blank">(406) 862-4554</a><br>
+			<span class="tele">(406) 862-4554</span><br>
 		</li>
 	</ul>
 </div>
