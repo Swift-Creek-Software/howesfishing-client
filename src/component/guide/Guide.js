@@ -7,7 +7,7 @@ import { Link, withRouter } from 'react-router-dom'
 
 import editingGuideSelector from '../../selectors/editingGuideSelector'
 import { setEditingGuide, addGuide, updateGuide, deleteGuide } from '../../actions/GuideActions'
-import { addUser, deleteUser } from '../../actions/UserActions'
+import { addUser, deleteUser, changePassword  } from '../../actions/UserActions'
 import { sendGuidePasswordEmail } from '../../actions/EmailActions'
 
 import ColorWrapper from './ColorWrapper'
@@ -81,7 +81,13 @@ class Guide extends PureComponent {
 			this.props.addUser(userData).then(response => {
 				// add the guide to the db with the userId for when the guide gets removed
 				const userId = response.payload.data.user.id
-				this.props.addGuide({...values, userId})
+				this.props.addGuide({...values, userId}).then(response => {
+					// add the guideId to the user
+
+					const guideId = response.payload.data.id
+					const user = {id: userId, guideId}
+					this.props.changePassword(user)
+				})
 			})
 
 			// send email to user
@@ -246,6 +252,7 @@ Guide = connect(
 	{
 		setEditingGuide,
 		addGuide,
+		changePassword,
 		updateGuide,
 		addUser,
 		sendGuidePasswordEmail,
