@@ -169,7 +169,7 @@ class AddTrip extends Component {
 
 				// send guide texts
 				guideDetail.phones.forEach(phone => {
-					this.props.sendSMS(phone, guideMessage)
+					this.props.sendSMS(phone, `${guideDetail.name} - ${guideMessage}`)
 				})
 
 				if(guideDetail.emails && guideDetail.emails.length > 0) {
