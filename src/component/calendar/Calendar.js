@@ -5,10 +5,11 @@ import BigCalendar from 'react-big-calendar';
 
 import guideTripsSelector from '../../selectors/guideTripsSelector'
 
-import { fetchTrips, setCurrentDate, setLoading } from '../../actions/TripActions'
+import { fetchTrips, setCurrentDate, setLoading, setView } from '../../actions/TripActions'
 
 import CalendarGuideSelector from './CalendarGuideSelector'
 import CalendarMonthEvent from './CalendarMonthEvent'
+import AvailableGuides from '../AvailableGuides'
 
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import './Calendar.css'
@@ -45,9 +46,13 @@ class Calendar extends Component {
 		this.props.setCurrentDate(date)
 	}
 
+	onView = (view) => {
+		this.props.setView(view)
+	}
+
 	render() {
 		return (
-			<div className="Calendar">
+			<div className={`Calendar ${this.props.view === 'day' ? 'full' : ''}`}>
 				<div className="refresh">
 					{this.props.user.isAdmin &&
 					<CalendarGuideSelector/>
@@ -64,7 +69,9 @@ class Calendar extends Component {
 					defaultDate={new Date()}
 					components={{ eventWrapper: CalendarMonthEvent }}
 					onNavigate={this.onNavigate}
+					onView={this.onView}
 				/>
+				<AvailableGuides/>
 			</div>
 		)
 	}
@@ -73,10 +80,12 @@ class Calendar extends Component {
 export default connect(state => {
 	return {
 		trips: guideTripsSelector(state),
-		user: state.user
+		user: state.user,
+		view: state.trip.view
 	}
 }, {
 	fetchTrips,
 	setCurrentDate,
-	setLoading
+	setLoading,
+	setView
 })(Calendar)

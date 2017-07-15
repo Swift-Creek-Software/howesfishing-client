@@ -66,11 +66,24 @@ const loading = (state = false, action) => {
 	}
 }
 
+const view = (state = null, action) => {
+	switch(action.type) {
+
+		case actionTypes.setView:
+			return action.payload
+		case userTypes.logout:
+			return null
+		default:
+			return state
+	}
+}
+
 const tripReducer = combineReducers({
 	currentDashboardDate,
 	currentTrip,
 	loading,
 	trips,
+	view
 })
 
 export default tripReducer
