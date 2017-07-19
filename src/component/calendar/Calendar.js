@@ -53,6 +53,7 @@ class Calendar extends Component {
 	render() {
 		return (
 			<div className={`Calendar ${this.props.view === 'day' ? 'full' : ''}`}>
+				<AvailableGuides/>
 				<div className="refresh">
 					{this.props.user.isAdmin &&
 					<CalendarGuideSelector/>
@@ -71,7 +72,6 @@ class Calendar extends Component {
 					onNavigate={this.onNavigate}
 					onView={this.onView}
 				/>
-				<AvailableGuides/>
 			</div>
 		)
 	}

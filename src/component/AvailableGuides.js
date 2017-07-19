@@ -42,7 +42,7 @@ class AvailableGuides extends PureComponent {
 		let date = this.props.currentDashboardDate ?  moment(this.props.currentDashboardDate).tz('America/Denver') : moment().tz('America/Denver')
 		date = date.startOf('day')
 
-		if(this.props.view === 'day') {
+		if(this.props.view === 'day' && this.props.user.isAdmin) {
 			return (
 				<div>
 					<h2>Available Guides</h2>
@@ -73,5 +73,6 @@ export default connect(state => {
 		guides: state.guide.guides,
 		tripTimesByGuide: tripTimesByGuide(state),
 		view: state.trip.view,
+		user: state.user,
 	}
 })(AvailableGuides)
