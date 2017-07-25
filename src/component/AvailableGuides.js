@@ -20,7 +20,7 @@ class AvailableGuides extends PureComponent {
 
 	renderMorningGuides = (date) => {
 		const start = date.hours(7).minutes(0).seconds(0).toDate()
-		const end = date.hours(13).minutes(0).seconds(0).toDate()
+		const end = date.hours(12).minutes(0).seconds(0).toDate()
 		const guides = this.getAvailableGuides(start, end)
 		console.log('available guides', guides)
 		return guides.map(guide => {
