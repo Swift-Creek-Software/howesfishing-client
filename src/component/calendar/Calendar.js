@@ -23,15 +23,21 @@ class Calendar extends Component {
 
 	renderEventsList = () => {
 
-		return this.props.trips.map(trip => {
-			return {
-				title: `${trip.guide.name.split(' ')[ 0 ]} - ${trip.firstName} ${trip.lastName}`,
-				start: trip.startTime,
-				end: trip.endTime,
-				color: trip.guide.color,
-				id: trip.id
+		return this.props.trips.reduce((acc, trip) => {
+			if(trip.guide) {
+				// console.log('good trip', trip)
+				acc.push({
+					title: `${trip.guide.name.split(' ')[ 0 ]} - ${trip.firstName} ${trip.lastName}`,
+					start: trip.startTime,
+					end: trip.endTime,
+					color: trip.guide.color,
+					id: trip.id
+				})
+			} else {
+				console.log('bad trip', trip)
 			}
-		})
+			return acc
+		}, [])
 	}
 
 	onRefreshClick = (e) => {

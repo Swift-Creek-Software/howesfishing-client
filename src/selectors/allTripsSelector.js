@@ -10,7 +10,11 @@ const getAllTrips = (trips, guides) => {
 	return trips.reduce((acc, current) => {
 		if(current.guides && Array.isArray(current.guides)) {
 			current.guides.forEach(guide => {
-				acc.push({...current, guide: guides[guide.id]})
+				if(guides[guide.id]) {
+					acc.push({...current, guide: guides[guide.id]})
+				}else {
+					console.log('bad guide', guide, guides)
+				}
 			})
 		}
 		return acc

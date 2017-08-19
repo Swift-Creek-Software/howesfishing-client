@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const howesFishingClient = axios.create({
-	baseURL: 'http://45.55.2.165',
+	baseURL: 'http://107.170.242.12',
 	responseType: 'json',
 })
 

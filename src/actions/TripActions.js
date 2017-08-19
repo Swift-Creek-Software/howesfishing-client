@@ -27,12 +27,16 @@ export const login = (email, password) => {
 	}
 }
 
-export const fetchTrips = (limit = 1000) => {
+export const fetchTrips = (limit = 500) => {
 	return {
 		type: actionTypes.fetchTrips,
 		payload: {
 			request: {
-				url: `/trip?limit=${limit}`,
+				url: `/trip`,
+				params: {
+					limit,
+					sort: 'endTime DESC'
+				}
 			}
 		}
 	}
