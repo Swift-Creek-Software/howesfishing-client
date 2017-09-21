@@ -27,7 +27,7 @@ export const login = (email, password) => {
 	}
 }
 
-export const fetchTrips = (limit = 500) => {
+export const fetchTrips = (limit = 300) => {
 	return {
 		type: actionTypes.fetchTrips,
 		payload: {
